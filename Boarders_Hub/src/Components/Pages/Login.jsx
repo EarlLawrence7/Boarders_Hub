@@ -71,7 +71,7 @@ function Login() {
         <form onSubmit={handleSubmit}>
           <div className="logo-container">
             <div className="logo-text"> </div>
-            <img src="/Boarders hub.png" alt="Productivity Tracker Logo" className="logo" />
+            <img src="/Boardershub.png" alt="Productivity Tracker Logo" className="logo" />
 
           </div>
           <div className="form-group">

@@ -23,17 +23,19 @@
 }
 
 .wrapper {
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 426px;
-  height: 523px;
-  background: rgba(147, 147, 147, 0.7);
-  border-radius: 50px;
+  height: 750px;
+  background: rgb(77, 77, 77);
+  border-radius: 0 40px 40px 0;
+  /* Apply radius only on the right side (top-right and bottom-right) */
   color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
   overflow: hidden;
 }
-
 
 .wrapper-forgot .form-box {
   width: 100%;
@@ -54,7 +56,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 14.5px;
-  margin: -15px 0 15px;
+  margin: 15px 0 20px;
 }
 
 .remember-forgot label input {
@@ -82,13 +84,13 @@
   font-size: 1.9rem;
   font-weight: 700;
   color: rgb(66, 129, 211);
-  margin-bottom: 0rem;
+  margin-bottom: rem;
   /* Add space between text and image */
 }
 
 .logo {
-  width: 150px;
-  margin-bottom: rem;
+  width: 250px;
+  margin-bottom: 1rem;
   /* Adjust the size of the logo as needed */
   height: auto;
 }
@@ -148,7 +150,10 @@ form h1 {
   font-size: 16px;
   cursor: pointer;
   /* Added for clickable icon */
+  color: black;
+  /* Set the color of the icon to black */
 }
+
 
 form button {
   width: 100%;
