@@ -22,6 +22,29 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check for hardcoded test account
+    if (username === "test" && password === "123") {
+      localStorage.setItem("token", "test-token"); // Use a fake token for testing
+
+      if (rememberMe) {
+        localStorage.setItem("username", username);
+      } else {
+        localStorage.removeItem("username");
+      }
+
+      // Navigate based on role (for testing, you can assign a role directly)
+      const role = "User"; // or "Admin" for admin testing
+      if (role === "Admin") {
+        navigate("/admindashboard");
+      } else {
+        navigate("/Home");
+      }
+
+      return; // Skip the API call if using the test account
+    }
+
+    // Normal login via API
     axios
       .post("http://localhost:5000/auth/login", {
         username,
@@ -29,7 +52,6 @@ function Login() {
       })
       .then((response) => {
         if (response.data.status) {
-          // Store token in localStorage
           localStorage.setItem("token", response.data.token);
 
           if (rememberMe) {
@@ -42,7 +64,7 @@ function Login() {
           if (role === "Admin") {
             navigate("/admindashboard");
           } else {
-            navigate("/dashboard");
+            navigate("/Home");
           }
         } else {
           alert(
@@ -53,7 +75,7 @@ function Login() {
       })
       .catch((err) => {
         if (err.response && err.response.data && err.response.data.message) {
-          alert(err.response.data.message); // Show the error message from the server
+          alert(err.response.data.message);
         } else {
           console.error("Error during login:", err);
           alert("An error occurred during login. Please try again.");
@@ -72,7 +94,6 @@ function Login() {
           <div className="logo-container">
             <div className="logo-text"> </div>
             <img src="/Boardershub.png" alt="Productivity Tracker Logo" className="logo" />
-
           </div>
           <div className="form-group">
             <input
