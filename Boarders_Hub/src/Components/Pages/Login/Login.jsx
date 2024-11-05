@@ -1,16 +1,17 @@
 import "./Login.css";
 import React, { useState, useEffect } from "react";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { auth } from "./firebaseConfig"; // Adjust the path as needed
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
 
   useEffect(() => {
     const rememberedUsername = localStorage.getItem("username");
@@ -20,45 +21,53 @@ function Login() {
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:5000/auth/login", {
-        username,
-        password,
-      })
-      .then((response) => {
-        if (response.data.status) {
-          // Store token in localStorage
-          localStorage.setItem("token", response.data.token);
 
-          if (rememberMe) {
-            localStorage.setItem("username", username);
-          } else {
-            localStorage.removeItem("username");
-          }
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, username, password);
+      const user = userCredential.user;
 
-          const role = response.data.role;
-          if (role === "Admin") {
-            navigate("/admindashboard");
-          } else {
-            navigate("/dashboard");
-          }
-        } else {
-          alert(
-            response.data.message ||
-            "Incorrect Username or Password. Please try again."
-          );
-        }
-      })
-      .catch((err) => {
-        if (err.response && err.response.data && err.response.data.message) {
-          alert(err.response.data.message); // Show the error message from the server
-        } else {
-          console.error("Error during login:", err);
-          alert("An error occurred during login. Please try again.");
-        }
-      });
+      // Store token in localStorage
+      localStorage.setItem("token", user.accessToken);
+
+      if (rememberMe) {
+        localStorage.setItem("username", username);
+      } else {
+        localStorage.removeItem("username");
+      }
+
+      const role = user.displayName === "Admin" ? "Admin" : "User"; // Example role assignment
+      if (role === "Admin") {
+        navigate("/admindashboard");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      alert("Error during login: " + error.message);
+      console.error("Error during login:", error);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Store token in localStorage
+      localStorage.setItem("token", user.accessToken);
+      
+      // Handle user roles and navigation as needed
+      const role = user.displayName === "Admin" ? "Admin" : "User"; // Example role assignment
+      if (role === "Admin") {
+        navigate("/admindashboard");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      alert("Error during Google sign-in: " + error.message);
+      console.error("Error during Google sign-in:", error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -72,12 +81,11 @@ function Login() {
           <div className="logo-container">
             <div className="logo-text"> </div>
             <img src="/Boardershub.png" alt="Productivity Tracker Logo" className="logo" />
-
           </div>
           <div className="form-group">
             <input
-              type="text"
-              placeholder="Username"
+              type="email" // Changed to email type
+              placeholder="Email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -111,6 +119,12 @@ function Login() {
           </div>
           <button type="submit">Login</button>
         </form>
+        
+        
+        <button onClick={handleGoogleSignIn} className="google-sign-in">
+          Sign in with Google
+        </button>
+
       </div>
     </div>
   );
