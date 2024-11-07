@@ -65,7 +65,7 @@ body::before {
   left: 0;
   top: 0;
   width: 426px;
-  height: 750px;
+  height: 790px;
   background: rgb(77, 77, 77);
   border-radius: 0 40px 40px 0;
   /* Apply radius only on the right side (top-right and bottom-right) */

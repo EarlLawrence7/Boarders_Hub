@@ -1,112 +1,74 @@
-/* Home.css */
-
+/* Home Container */
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  /* Align items to the top */
   width: 100vw;
-  /* Full width */
   height: 100vh;
-  /* Full height */
   background-image: url("Crevasse Black Full Hd Backgraunds - 4K Dark Desktop Wallpaper UltraHD 3840x2160.jpg");
-  /* Replace with the path to your image */
   background-size: cover;
-  /* Scale image to cover the entire container */
   background-position: center;
-  /* Center the image */
   background-repeat: no-repeat;
-  /* Prevent the image from repeating */
   font-family: Arial, sans-serif;
+  overflow-y: auto;
 }
 
-/* New Search Container */
-.search-container {
+/* Top Container */
+.Top-container {
   width: 100%;
-  /* Full width for the search container */
-  height: 10%;
-  /* Adjust this height to fill the top portion (20% of viewport height) */
+  height: 10vh;
+  /* Set fixed height */
   display: flex;
-  justify-content: center;
-  /* Center the search box horizontally */
+  justify-content: flex-end;
+  /* Align items to the right */
   align-items: center;
-  /* Center the search box vertically */
-  margin-bottom: 2rem;
-  /* Add margin for spacing from the header */
-  background-color: rgba(101, 101, 101, 0.8);
-  /* Optional: background for readability */
+  margin-bottom: 1rem;
+  background-color: rgb(56, 56, 56);
+  position: sticky;
+  top: 0;
+  /* Sticky container will stay at the top */
+  z-index: 10;
 }
 
+/* Profile Image */
+.Profile-image {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  /* Makes it clickable */
+}
+
+/* Message Box */
+.message-box {
+  background-color: #685e5e;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 810px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Message Text */
+.message-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Welcome Image */
+.welcome-image {
+  width: 100%;
+  max-width: 545px;
+  height: auto;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+}
+
+/* Header */
 .home-header {
-  font-size: 2.5rem;
+  font-size: 4rem;
   color: #ffffff;
   margin-bottom: 1.5rem;
-}
-
-/* Search Box */
-.search-box {
-  display: flex;
-  margin-left: -500px;
-  /* Adjust this value to move the search box to the left */
-}
-
-.search-input {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  width: 300px;
-}
-
-.search-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-
-.search-button:hover {
-  background-color: #0056b3;
-}
-
-/* Tab Selector */
-.tab-selector {
-  display: flex;
-  margin-bottom: 1.5rem;
-}
-
-.tab {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: #007bff;
-  background-color: transparent;
-  border: 1px solid #007bff;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 0.5rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.tab.active,
-.tab:hover {
-  background-color: #007bff;
-  color: #fff;
-}
-
-/* Tab Content */
-.tab-content {
-  font-size: 1.2rem;
-  color: #333;
-  text-align: center;
-  max-width: 600px;
-  line-height: 1.6;
-  background-color: rgba(255, 255, 255, 0.8);
-  /* Optional for readability */
-  padding: 1rem;
-  border-radius: 8px;
 }
