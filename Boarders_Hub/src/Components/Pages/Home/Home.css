@@ -32,12 +32,13 @@
   line-height: 1.6;
   color: #ffffff;
   text-align: center;
+
 }
 
 /* Welcome Image */
 .welcome-image {
   width: 100%;
-  max-width: 545px;
+  max-width: 900px;
   height: auto;
   margin-bottom: 2rem;
   border-radius: 20px;
@@ -48,4 +49,5 @@
   font-size: 4rem;
   color: #ffffff;
   margin-bottom: 1.5rem;
+  margin-top: 2rem;
 }
