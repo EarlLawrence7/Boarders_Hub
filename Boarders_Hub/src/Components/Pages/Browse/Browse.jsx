@@ -2,8 +2,20 @@ import React, { useState } from "react";
 import "./Browse.css"; // Import the CSS file
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { AiOutlineUser } from 'react-icons/ai';
-
+import { useNavigate } from 'react-router-dom';
 function Browse() {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/.");
+  };
+
   return (
     <div className="Browse-container">
       <div className="Top-container">
@@ -33,8 +45,11 @@ function Browse() {
             Saved Rooms
           </button>
         </div>
-        <div className="Profile-icon-wrapper">
+        <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <AiOutlineUser className="Profile-icon" />
+          <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
+            <button onClick={handleLogout} className="dropdown-item">Logout</button>
+          </div>
         </div>
       </div>
     </div>
