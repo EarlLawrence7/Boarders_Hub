@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./Components/Pages/Login/Login"; //File location of Login page
 import Home from "./Components/Pages/Home/Home";
-
+import Browse from "./Components/Pages/Browse/Browse";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/browse" element={<Browse />} />
       </Routes>
     </BrowserRouter>
   );
