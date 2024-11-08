@@ -25,13 +25,6 @@ function Login() {
     }
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Check for hardcoded test account
-    if (username === "test" && password === "123") {
-      localStorage.setItem("token", "test-token"); // Use a fake token for testing
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,7 +43,7 @@ function Login() {
       }
 
 
-      
+
       const role = user.displayName === "Admin" ? "Admin" : "User"; // Example role assignment
       if (role === "Admin") {
         navigate("/admindashboard");
@@ -70,7 +63,7 @@ function Login() {
 
       // Store token in localStorage
       localStorage.setItem("token", user.accessToken);
-      
+
       // Handle user roles and navigation as needed
       const role = user.displayName === "Admin" ? "Admin" : "User"; // Example role assignment
       if (role === "Admin") {
@@ -135,7 +128,7 @@ function Login() {
           </div>
           <button type="submit">Login</button>
         </form>
- 
+
         <button onClick={handleGoogleSignIn} className="google-sign-in">
           Sign in with Google
         </button>
