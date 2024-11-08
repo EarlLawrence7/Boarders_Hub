@@ -63,23 +63,84 @@
 }
 
 /* Search Bar */
-.Search-bar {
-  flex-grow: 1;
-  max-width: 400px;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding: 0.5rem;
-  border: none;
+/* Search Bar Wrapper */
+.Search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
   border-radius: 50px;
-  text-align: center;
-  font-size: 16px;
+  padding: 0.5rem;
+  width: 300px;
+  /* Adjust width as needed */
+  margin-left: 1rem;
+}
+
+/* Search Icon */
+.Search-icon {
+  font-size: 25px;
+  /* Adjust the icon size */
+  color: rgb(0, 0, 0);
+  margin-left: 0.5rem;
+  /* Space between icon and input */
+}
+
+/* Search Bar */
+.Search-bar {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 0.5rem;
+  flex-grow: 1;
+  /* Makes the input take available space */
+  border-radius: 50px;
+  text-align: left;
 }
 
 /* Nav Bar */
 .Nav-bar {
   display: flex;
   gap: 1rem;
+}
+
+.Nav-button {
+  background-color: transparent;
   color: white;
+  border: 1px solid white;
+  padding: 0.2rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.Nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.Nav-button.active {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+.Profile-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  /* Adjust size as needed */
+  height: 45px;
+  /* Keep width and height equal for a circle */
+  background-color: gray;
+  /* Set background color */
+  border-radius: 50%;
+  /* Makes it a circle */
+}
+
+.Profile-icon {
+  font-size: 30px;
+  /* Adjust icon size */
+  color: white;
+  /* Adjust icon color */
 }
 
 /* Profile Image */
