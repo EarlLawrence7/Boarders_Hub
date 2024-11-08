@@ -3,7 +3,7 @@ import "./Browse.css"; // Import the CSS file
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { AiOutlineUser } from 'react-icons/ai';
 
-function Home() {
+function Browse() {
   return (
     <div className="Browse-container">
       <div className="Top-container">
@@ -41,4 +41,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Browse;
