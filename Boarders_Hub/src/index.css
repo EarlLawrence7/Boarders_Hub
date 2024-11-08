@@ -1,1 +1,93 @@
+/* Top Container */
+.Top-container {
+  width: 100%;
+  min-height: 70px;
+  /* Compressed height */
+  max-height: 230px;
+  /* Maximum height when hovered */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: rgb(56, 56, 56);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  /* Smooth transition for height change */
+}
 
+/* Logo Image */
+.Logo-image {
+  width: auto;
+  height: 50px;
+  /* Default height */
+  max-height: 50px;
+  /* Default max-height */
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+  /* Smooth transition for logo resizing */
+}
+
+/* On Hover: Increase size of Top-container */
+.Top-container:hover {
+  min-height: 230px;
+  /* Expand on hover */
+}
+
+/* On Hover: Increase logo size */
+.Top-container:hover .Logo-image {
+  height: 200px;
+  max-height: 200px;
+  /* Adjust to make logo bigger */
+}
+
+/* Adjustments for Responsiveness */
+@media (max-width: 768px) {
+  .Top-container {
+    flex-direction: column;
+    min-height: 70px;
+    /* Compress on small screens */
+    padding: 0.5rem;
+  }
+
+  /* On hover, make logo bigger */
+  .Top-container:hover .Logo-image {
+    height: 120px;
+    /* Adjust to make logo bigger on hover for smaller screens */
+    max-height: 120px;
+  }
+}
+
+/* Search Bar */
+.Search-bar {
+  flex-grow: 1;
+  max-width: 400px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Nav Bar */
+.Nav-bar {
+  display: flex;
+  gap: 1rem;
+  color: white;
+}
+
+/* Profile Image */
+.Profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  margin-right: 10px;
+}

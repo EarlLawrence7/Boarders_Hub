@@ -1,0 +1,15 @@
+/* Home Container */
+.Browse-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("Crevasse Black Full Hd Backgraunds - 4K Dark Desktop Wallpaper UltraHD 3840x2160.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+}

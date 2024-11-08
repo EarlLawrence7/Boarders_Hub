@@ -6,12 +6,28 @@ function Home() {
     <div className="home-container">
       <div className="Top-container">
         <img
+          src="Boardershub.png"
+          alt="Logo"
+          className="Logo-image"
+        />
+        <input
+          type="text"
+          placeholder="Search..."
+          className="Search-bar"
+        />
+        <div className="Nav-bar">
+          <span>Home</span>
+          <span>Browse</span>
+          <span>Saved Rooms</span>
+        </div>
+        <img
           src="froggyBrain.png"
           alt="Profile"
           className="Profile-image"
-          style={{ cursor: 'pointer' }} // Makes the image look clickable
+          style={{ cursor: 'pointer' }}
         />
       </div>
+
       <h1 className="home-header">Welcome to</h1>
       <img src="Boardershub.png" alt="Boarders Hub Logo" className="welcome-image" />
       <div className="message-box">
