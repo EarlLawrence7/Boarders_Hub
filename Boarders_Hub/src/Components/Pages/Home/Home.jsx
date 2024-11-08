@@ -1,22 +1,56 @@
 import React, { useState } from "react";
 import "./Home.css"; // Import the CSS file
+import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
+import { AiOutlineUser } from 'react-icons/ai';
 
 function Home() {
   return (
-    <div className="home-container">
-      <h1 className="home-header">Welcome to</h1>
+    <div className="Home-container">
+      <div className="Top-container">
+        <a href="/home">
+          <img
+            src="Boardershub.png"
+            alt="Logo"
+            className="Logo-image"
+          />
+        </a>
+        <div className="Nav-bar">
+          <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
+            Home
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`} onClick={() => window.location.href = '/browse'}>
+            Browse
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/About' ? 'active' : ''}`} onClick={() => window.location.href = '/About'}>
+            About us
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/Listing' ? 'active' : ''}`} onClick={() => window.location.href = '/Listing'}>
+            Be a homeowner
+          </button>
+        </div>
+        <div className="Profile-icon-wrapper">
+          <AiOutlineUser className="Profile-icon" />
+        </div>
+      </div>
       <img src="Boardershub.png" alt="Boarders Hub Logo" className="welcome-image" />
       <div className="message-box">
         <p className="message-text">
-          Finding a place to call home has never been easier. At Boarders Hub, we connect students and professionals with trusted homeowners in Cebu City to help you find the ideal space that fits your needs and lifestyle. Browse available rooms, connect with a welcoming community, and book your new home with ease.
+          Finding a place to call home has never been easier. At Boarder's Hub, we specialize in connecting students and professionals with trusted and verified homeowners in Cebu City to help you find the ideal space that perfectly suits your needs and lifestyle. With our intuitive search tools and comprehensive listings, browsing available rooms has never been simpler.
           <br /><br />
-          Whether you're looking for a cozy spot close to school or a convenient location near work, we’re here to make your stay comfortable and stress-free. Start exploring today and discover the right place to call home!
+          Our platform isn’t just about finding a room—it’s about finding a community. Engage with a welcoming network of homeowners and fellow boarders who can offer support, insights, and shared experiences. With detailed property listings, user reviews, and secure booking options, you can confidently choose your new living space knowing that every detail has been considered for your comfort and convenience.
+          <br /><br />
+          Whether you're looking for a cozy spot near your school, a vibrant area with easy access to nightlife, or a peaceful neighborhood close to work, we’re committed to making your stay in Cebu City both comfortable and stress-free. Start your journey with Boarder's Hub today and find the right place to truly call home!
         </p>
+
       </div>
       <div className="button-container">
         <button className="browse-button" onClick={() => window.location.href = '/browse'}>
-          Browse Available Rooms
+          Browse ROOMS NOW !
         </button>
+        <p className="register-link">
+          List your room and be part of the homeowner community today.{" "}
+          <a href="/register">Click here.</a>
+        </p>
       </div>
     </div>
   );

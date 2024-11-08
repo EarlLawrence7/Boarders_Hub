@@ -111,6 +111,10 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  display: block;
+  /* Make the button behave like a block element */
+  margin: 0 auto;
+  /* Center the button */
 }
 
 .Nav-button:hover {

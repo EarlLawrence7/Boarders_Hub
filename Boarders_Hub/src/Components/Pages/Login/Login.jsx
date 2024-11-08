@@ -43,7 +43,7 @@ function Login() {
       if (role === "Admin") {
         navigate("/admindashboard");
       } else {
-        navigate("/Home");
+        navigate("/home");
       }
     } catch (error) {
       alert("Error during login: " + error.message);
@@ -64,7 +64,7 @@ function Login() {
       if (role === "Admin") {
         navigate("/admindashboard");
       } else {
-        navigate("/Home");
+        navigate("/home");
       }
     } catch (error) {
       alert("Error during Google sign-in: " + error.message);

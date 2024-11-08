@@ -1,5 +1,5 @@
 /* Home Container */
-.home-container {
+.Home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +20,6 @@
   padding: 20px;
   border-radius: 8px;
   max-width: 810px;
-  margin: 20px auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -30,30 +29,28 @@
   line-height: 1.6;
   color: #ffffff;
   text-align: center;
-
 }
 
 /* Welcome Image */
 .welcome-image {
-  width: 100%;
-  max-width: 290px;
-  height: auto;
+  width: 500px;
+  height: 400px;
   margin-bottom: 2rem;
+  margin-top: 2rem;
   border-radius: 20px;
 }
 
-/* Header */
-.home-header {
-  font-size: 4rem;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
-  margin-top: 2rem;
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+  /* Adjust spacing if needed */
 }
 
 .browse-button {
-  background-color: #4CAF50;
-  /* Green background */
-  color: white;
+  background-color: white;
+  /* Initial background color */
+  color: black;
+  /* Initial text color */
   padding: 15px 32px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -62,19 +59,21 @@
   cursor: pointer;
   transition: all 0.3s ease;
   /* Smooth transition for hover and focus states */
-  margin-top: 20px;
+  margin-top: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   /* Subtle shadow for a 3D effect */
   text-transform: uppercase;
   /* Uppercase text */
   letter-spacing: 1px;
   /* Spacing between letters */
-  margin-bottom: 500px;
+  margin-bottom: 10px;
 }
 
 .browse-button:hover {
-  background-color: #45a049;
-  /* Slightly darker green */
+  background-color: rgb(52, 52, 52);
+  /* Background color on hover */
+  color: white;
+  /* Text color on hover */
   transform: translateY(-3px);
   /* Slight lift effect */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -83,8 +82,8 @@
 
 .browse-button:focus {
   outline: none;
-  box-shadow: 0 0 5px 2px rgba(76, 175, 80, 0.6);
-  /* Green glow when focused */
+  box-shadow: 0 0 5px 2px rgba(128, 128, 128, 0.6);
+  /* Gray glow when focused */
 }
 
 .browse-button:active {
@@ -92,4 +91,12 @@
   /* Button presses down slightly */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* Lighter shadow when active */
+}
+
+.register-link {
+  color: #ffffff;
+  /* Set text color to white */
+  margin-top: 10px;
+  font-size: 14px;
+  margin-bottom: 100px
 }
