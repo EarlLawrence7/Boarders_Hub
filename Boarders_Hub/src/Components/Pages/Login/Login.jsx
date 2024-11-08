@@ -38,8 +38,9 @@ function Login() {
         localStorage.removeItem("username");
       }
 
-      // Example role assignment
+
       const role = user.displayName === "Admin" ? "Admin" : "User";
+
       if (role === "Admin") {
         navigate("/admindashboard");
       } else {
@@ -59,8 +60,8 @@ function Login() {
       // Store token in localStorage
       localStorage.setItem("token", user.accessToken);
 
-      // Example role assignment
       const role = user.displayName === "Admin" ? "Admin" : "User";
+
       if (role === "Admin") {
         navigate("/admindashboard");
       } else {
