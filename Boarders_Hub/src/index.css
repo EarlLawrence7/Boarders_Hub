@@ -1,10 +1,14 @@
+/*kung magamit gani sa daghan nga page ang isa ka design ari ibutang nga css. himoag reference and code sa ubos.
+
+palihug ayaw balik balika ang variable names para di magka gubot og overlap ang mga design.
+*/
+
+
 /* Top Container */
 .Top-container {
   width: 100%;
   min-height: 70px;
-  /* Compressed height */
   max-height: 230px;
-  /* Maximum height when hovered */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,8 +19,8 @@
   z-index: 10;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
-  /* Smooth transition for height change */
 }
+
 
 /* Logo Image */
 .Logo-image {
@@ -127,33 +131,66 @@
   font-weight: bold;
 }
 
+/* Profile Icon Wrapper */
 .Profile-icon-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 45px;
-  /* Adjust size as needed */
   height: 45px;
-  /* Keep width and height equal for a circle */
   background-color: gray;
-  /* Set background color */
   border-radius: 50%;
-  /* Makes it a circle */
-}
-
-.Profile-icon {
-  font-size: 30px;
-  /* Adjust icon size */
-  color: white;
-  /* Adjust icon color */
-}
-
-/* Profile Image */
-.Profile-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
   cursor: pointer;
-  margin-right: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Profile Icon */
+.Profile-icon {
+  font-size: 22px;
+  /* Slightly smaller icon size */
+  color: white;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 45px;
+  /* Adjust the top position to align with the profile icon */
+  left: -130px;
+  /* Slightly adjust horizontal positioning */
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  /* Smaller border radius for a less rounded look */
+  z-index: 100;
+  display: none;
+  /* Hide dropdown by default */
+  min-width: 120px;
+  /* Set a smaller width */
+}
+
+/* Show dropdown when 'show' class is added */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Dropdown Item */
+.dropdown-item {
+  padding: 5px 10px;
+  /* Reduce padding to make items smaller */
+  font-size: 15px;
+  /* Smaller font size */
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: center;
+  /* Align text to the left */
+}
+
+/* Dropdown Item Hover Effect */
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+  /* Slight hover effect */
 }
