@@ -1,20 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { AiOutlineUser } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+
 function Browse() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+
+/////////////////////////////////////////////////////////////////////// this block is for login persistence
+  // Check if the user is logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // If no token, redirect to login page
+      navigate("/");
+    }
+  }, [navigate]);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
   const handleLogout = () => {
+    // Remove token from localStorage and redirect to login page
     localStorage.removeItem("token");
-    navigate("/.");
+    navigate("/");
   };
+/////////////////////////////////////////////////////////////////////// this block is for login persistence
 
   return (
     <div className="Browse-container">
@@ -35,13 +48,22 @@ function Browse() {
           />
         </div>
         <div className="Nav-bar">
-          <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
+          <button
+            className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/home'}
+          >
             Home
           </button>
-          <button className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`} onClick={() => window.location.href = '/browse'}>
+          <button
+            className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/browse'}
+          >
             Browse
           </button>
-          <button className={`Nav-button ${window.location.pathname === '/saved-rooms' ? 'active' : ''}`} onClick={() => window.location.href = '/saved-rooms'}>
+          <button
+            className={`Nav-button ${window.location.pathname === '/saved-rooms' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/saved-rooms'}
+          >
             Saved Rooms
           </button>
         </div>
@@ -52,6 +74,7 @@ function Browse() {
           </div>
         </div>
       </div>
+      {/* Content of the Browse page can go here */}
     </div>
   );
 }

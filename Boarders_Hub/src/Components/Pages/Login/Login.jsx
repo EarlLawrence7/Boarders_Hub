@@ -4,6 +4,7 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig"; // Adjust the path as needed
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { FaGoogle } from 'react-icons/fa';  // Import Google icon
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -14,13 +15,14 @@ function Login() {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
 
+  // Check if user is already logged in when the component mounts
   useEffect(() => {
-    const rememberedUsername = localStorage.getItem("username");
-    if (rememberedUsername) {
-      setUsername(rememberedUsername);
-      setRememberMe(true);
+    const token = localStorage.getItem("token");
+    if (token) {
+      // If the user is logged in, redirect them to the home page or dashboard
+      navigate("/home");
     }
-  }, []);
+  }, [navigate]); // Empty dependency array ensures this runs on mount only
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +39,6 @@ function Login() {
       } else {
         localStorage.removeItem("username");
       }
-
 
       const role = user.displayName === "Admin" ? "Admin" : "User";
 
@@ -121,11 +122,33 @@ function Login() {
             <a href="/forgotPassword" style={{ color: "white" }}>Forgot password?</a>
           </div>
           <button type="submit">Login</button>
-        </form>
 
-        <button onClick={handleGoogleSignIn} className="google-sign-in">
-          Sign in with Google
-        </button>
+          <div className="google-sign-in-container" style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+            <span style={{ color: "white", marginRight: "5px" }}>or login via </span>
+            <button 
+              onClick={handleGoogleSignIn} 
+              className="google-sign-in"
+              style={{
+                width: "25px", 
+                height: "25px", 
+                borderRadius: "50%", 
+                backgroundColor: "#4285F4", 
+                color: "white", 
+                border: "none", 
+                display: "flex", 
+                justifyContent: "center", 
+                alignItems: "center", 
+                fontSize: "15px", 
+                cursor: "pointer",
+              }}
+            >
+              <FaGoogle />
+            </button>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+            <a href="/signup" style={{ color: "white" }}>Create an Account</a>
+          </div>
+        </form>
       </div>
     </div>
   );
