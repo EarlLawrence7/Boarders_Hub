@@ -1,17 +1,21 @@
 import "./Login.css";
 import React, { useState, useEffect } from "react";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig"; // Adjust the path as needed
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
+
 
   useEffect(() => {
     const rememberedUsername = localStorage.getItem("username");
@@ -20,6 +24,13 @@ function Login() {
       setRememberMe(true);
     }
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check for hardcoded test account
+    if (username === "test" && password === "123") {
+      localStorage.setItem("token", "test-token"); // Use a fake token for testing
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,12 +42,15 @@ function Login() {
       // Store token in localStorage
       localStorage.setItem("token", user.accessToken);
 
+
       if (rememberMe) {
         localStorage.setItem("username", username);
       } else {
         localStorage.removeItem("username");
       }
 
+
+      
       const role = user.displayName === "Admin" ? "Admin" : "User"; // Example role assignment
       if (role === "Admin") {
         navigate("/admindashboard");
@@ -68,6 +82,7 @@ function Login() {
       alert("Error during Google sign-in: " + error.message);
       console.error("Error during Google sign-in:", error);
     }
+
   };
 
   const togglePasswordVisibility = () => {
@@ -84,6 +99,7 @@ function Login() {
           </div>
           <div className="form-group">
             <input
+
               type="email" // Changed to email type
               placeholder="Email"
               value={username}
@@ -119,12 +135,10 @@ function Login() {
           </div>
           <button type="submit">Login</button>
         </form>
-        
-        
+ 
         <button onClick={handleGoogleSignIn} className="google-sign-in">
           Sign in with Google
         </button>
-
       </div>
     </div>
   );
