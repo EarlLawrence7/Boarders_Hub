@@ -65,7 +65,7 @@ function Home() {
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <AiOutlineUser className="Profile-icon" />
+          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={handleViewProfile} className="dropdown-item">View profile</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
