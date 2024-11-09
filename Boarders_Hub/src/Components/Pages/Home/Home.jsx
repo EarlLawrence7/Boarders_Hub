@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
+import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import "./Home.css";
+
+// Firebase setup
+const auth = getAuth();
 
 function Home() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+
   const handleViewProfile = () => {
     // Handle view profile action (e.g., navigate to profile page)
     navigate("/profile");
@@ -25,10 +29,20 @@ function Home() {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleLogout = () => {
-    // Remove token from localStorage and redirect to login page
-    localStorage.removeItem("token");
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      // Sign out from Firebase
+      await signOut(auth);
+
+      // Remove token from localStorage
+      localStorage.removeItem("token");
+
+      // Redirect to login page
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+      // Handle any potential error during logout
+    }
   };
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
 

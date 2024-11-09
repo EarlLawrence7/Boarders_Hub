@@ -3,25 +3,35 @@ import React, { useState, useEffect } from "react";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig"; // Adjust the path as needed
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
 
-  // Check if user is already logged in when the component mounts
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // If the user is logged in, redirect them to the home page or dashboard
-      navigate("/home");
-    }
-  }, [navigate]); // Empty dependency array ensures this runs on mount only
+  /////////////////////////////////////////////////////////////////////////////////// Token Check
+    // Check if user is logged in using Firebase or localStorage token
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+          // If a token exists in localStorage, redirect to /home
+          navigate("/home");
+      } else {
+          // Firebase Auth check for logged in user
+          onAuthStateChanged(auth, (user) => {
+              if (user) {
+                  // If Firebase user is logged in, store token and redirect to /home
+                  localStorage.setItem("token", user.accessToken);
+                  navigate("/home");
+              }
+          });
+      }
+  }, [navigate]);
+  ////////////////////////////////////////////////////////////////////////////////// Token Check
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -120,7 +130,7 @@ function Login() {
             </label>
             <a href="/forgotPassword" style={{ color: "white" }}>Forgot password?</a>
           </div>
-          <button type="submit" class="login-button">Login</button>
+          <button type="submit" className="login-button">Login</button>
           <div className="google-sign-in-container">
             <span className="google-sign-in-text">or Continue with google</span>
             <button onClick={handleGoogleSignIn} className="google-sign-in">
