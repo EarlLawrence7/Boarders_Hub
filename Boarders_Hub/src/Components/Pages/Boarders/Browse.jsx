@@ -73,13 +73,16 @@ function Browse() {
             className={`Nav-button ${window.location.pathname === '/history ' ? 'active' : ''}`}
             onClick={() => window.location.href = '/history'}
           >
-            History
+            Boarding History
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <AiOutlineUser className="Profile-icon" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
-            <button onClick={handleViewProfile} className="dropdown-item">View profile</button>
+            <button onClick={handleViewProfile} className="dropdown-item">View Profile</button>
+            <button onClick={handleViewProfile} className="dropdown-item">Add Listings</button>
+            <button onClick={handleViewProfile} className="dropdown-item">View Tenants</button>
+            <button onClick={handleViewProfile} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
         </div>
