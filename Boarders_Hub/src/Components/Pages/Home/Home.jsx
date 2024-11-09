@@ -58,8 +58,8 @@ function Home() {
             About us
           </button>
           <button
-            className={`Nav-button ${window.location.pathname === '/Listing' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/Listing'}
+            className={`Nav-button ${window.location.pathname === '/owner-listing' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/owner-listing'}
           >
             Be a homeowner
           </button>
