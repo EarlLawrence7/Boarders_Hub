@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
-import { AiOutlineUser } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 function Browse() {
