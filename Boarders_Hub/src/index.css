@@ -112,7 +112,7 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   color: white;
   border: 1px solid white;
   padding: 0.2rem 1rem;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
   transition: background-color 0.3s;
   display: block;

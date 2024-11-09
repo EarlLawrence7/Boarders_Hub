@@ -4,12 +4,15 @@ import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { AiOutlineUser } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
+
 function Browse() {
+  const [expandedRoomId, setExpandedRoomId] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+
   const handleViewProfile = () => {
-    // Handle view profile action (e.g., navigate to profile page)
     navigate("/profile");
+
   };
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
   // Check if the user is logged in
@@ -31,6 +34,48 @@ function Browse() {
     navigate("/");
   };
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
+  const toggleRoomDetails = (roomId) => {
+    setExpandedRoomId(expandedRoomId === roomId ? null : roomId);
+  };
+  // Sample room data
+  const rooms = [
+    {
+      id: 1,
+      title: "Cozy Apartment Near University",
+      shortDescription: "A fully furnished 1-bedroom apartment perfect for students.",
+      location: "Cebu City, near XYZ University",
+      price: "₱10,000/month",
+      details: "Includes Wi-Fi, air conditioning, and a study area.",
+      owner: "John Doe"
+    },
+    {
+      id: 2,
+      title: "Modern Condo Unit in Downtown",
+      shortDescription: "A stylish condo unit close to major offices.",
+      location: "Downtown Cebu City",
+      price: "₱15,000/month",
+      details: "24/7 security, pool access, and gym facilities.",
+      owner: "Jane Smith"
+    },
+    {
+      id: 3,
+      title: "Shared Room for Budget-Friendly Stay",
+      shortDescription: "A shared room option ideal for budget-conscious boarders.",
+      location: "Cebu City, near ABC Mall",
+      price: "₱5,000/month",
+      details: "Utilities included, shared kitchen, and common living area.",
+      owner: "Alice Johnson"
+    },
+    {
+      id: 4,
+      title: "Spacious 2-Bedroom Apartment",
+      shortDescription: "Perfect for a small group or family.",
+      location: "Cebu City, near DEF Park",
+      price: "₱20,000/month",
+      details: "Pet-friendly, parking space, and a balcony with a view.",
+      owner: "Robert Lee"
+    }
+  ];
 
   return (
     <div className="Browse-container">
@@ -87,7 +132,25 @@ function Browse() {
           </div>
         </div>
       </div>
-      {/* Content of the Browse page can go here */}
+      <div className="Room-card-container">
+        {rooms.map(room => (
+          <div key={room.id} className="Room-card">
+            <h2 className="Room-title">{room.title}</h2>
+            <p className="Room-summary">{room.shortDescription}</p>
+            {expandedRoomId === room.id && (
+              <div className="Room-details">
+                <p><strong>Location:</strong> {room.location}</p>
+                <p><strong>Price:</strong> {room.price}</p>
+                <p><strong>Details:</strong> {room.details}</p>
+                <p><strong>Owner:</strong> {room.owner}</p>
+              </div>
+            )}
+            <button className="Details-button" onClick={() => toggleRoomDetails(room.id)}>
+              {expandedRoomId === room.id ? "Hide Details" : "See Details"}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

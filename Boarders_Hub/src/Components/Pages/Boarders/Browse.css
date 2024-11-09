@@ -13,3 +13,43 @@
   font-family: Arial, sans-serif;
   overflow-y: auto;
 }
+
+.Room-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: start;
+  /* Aligns items starting from the left */
+  padding: 20px;
+  width: 100%;
+  /* Ensure the container spans the full width */
+  box-sizing: border-box;
+}
+
+.Room-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.Room-card:hover {
+  transform: scale(1.02);
+}
+
+.Details-button {
+  margin-top: 10px;
+  background-color: #45a049;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.Details-button:hover {
+  background-color: #388e3c;
+}
