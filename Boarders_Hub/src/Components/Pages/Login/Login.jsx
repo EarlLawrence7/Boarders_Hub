@@ -14,22 +14,21 @@ function Login() {
   const provider = new GoogleAuthProvider();
 
   /////////////////////////////////////////////////////////////////////////////////// Token Check
-    // Check if user is logged in using Firebase or localStorage token
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      if (token) {
-          // If a token exists in localStorage, redirect to /home
-          navigate("/home");
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // If Firebase user is logged in, store token and redirect to /home
+        localStorage.setItem("token", user.accessToken);
+        navigate("/home");
       } else {
-          // Firebase Auth check for logged in user
-          onAuthStateChanged(auth, (user) => {
-              if (user) {
-                  // If Firebase user is logged in, store token and redirect to /home
-                  localStorage.setItem("token", user.accessToken);
-                  navigate("/home");
-              }
-          });
+        // Clear token and redirect to login if no user is logged in
+        localStorage.removeItem("token");
+        navigate("/login");
       }
+    });
+
+    // Clean up the observer when the component unmounts
+    return () => unsubscribe();
   }, [navigate]);
   ////////////////////////////////////////////////////////////////////////////////// Token Check
 
@@ -43,14 +42,15 @@ function Login() {
       // Store token in localStorage
       localStorage.setItem("token", user.accessToken);
 
+      // Optionally store username for "Remember me" functionality
       if (rememberMe) {
         localStorage.setItem("username", username);
       } else {
         localStorage.removeItem("username");
       }
 
+      // Redirect to the appropriate page based on user role
       const role = user.displayName === "Admin" ? "Admin" : "User";
-
       if (role === "Admin") {
         navigate("/admindashboard");
       } else {
@@ -70,8 +70,8 @@ function Login() {
       // Store token in localStorage
       localStorage.setItem("token", user.accessToken);
 
+      // Redirect to the appropriate page based on user role
       const role = user.displayName === "Admin" ? "Admin" : "User";
-
       if (role === "Admin") {
         navigate("/admindashboard");
       } else {

@@ -1,7 +1,7 @@
 import "./Signup.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // React Router v6
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"; // Firebase Auth imports
+import { getAuth, createUserWithEmailAndPassword, signOut } from "firebase/auth"; // Firebase Auth imports
 import { getFirestore, doc, setDoc } from "firebase/firestore"; // Firestore imports
 
 // Firebase setup
@@ -36,26 +36,6 @@ function Signup() {
     });
 
     const navigate = useNavigate(); // To navigate to other pages
-
-    ////////////////////////////////////////////////////////////////////////////////// Token Check
-    // Check if user is logged in using Firebase or localStorage token
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            // If a token exists in localStorage, redirect to /home
-            navigate("/home");
-        } else {
-            // Firebase Auth check for logged in user
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    // If Firebase user is logged in, store token and redirect to /home
-                    localStorage.setItem("token", user.accessToken);
-                    navigate("/home");
-                }
-            });
-        }
-    }, [navigate]);
-    ////////////////////////////////////////////////////////////////////////////////// Token Check
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -101,9 +81,9 @@ function Signup() {
         if (!formData.phone) {
             formIsValid = false;
             errors.phone = "Phone number is required.";
-        } else if (!/^\d{10}$/.test(formData.phone)) {
+        } else if (!/^\d{11}$/.test(formData.phone)) {
             formIsValid = false;
-            errors.phone = "Phone number must be 10 digits.";
+            errors.phone = "Phone number must be 11 digits.";
         }
         if (!formData.birthDate.month) {
             formIsValid = false;
@@ -144,11 +124,15 @@ function Signup() {
 
                 console.log("User created and data saved successfully");
 
+                // Log the user out after account creation
+                await signOut(auth);
+
                 // Show a message that the user can log in
                 alert("Account created successfully! Please log in.");
 
                 // Redirect the user to the login page
-                navigate("/login");
+                navigate("/login"); // Navigate to login page, without logging the user in
+
             } catch (error) {
                 console.error("Error during signup:", error.message);
                 // Handle error if any (like email already in use)
