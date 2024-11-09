@@ -121,32 +121,22 @@ function Login() {
             </label>
             <a href="/forgotPassword" style={{ color: "white" }}>Forgot password?</a>
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" class="login-button">Login</button>
 
-          <div className="google-sign-in-container" style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
-            <span style={{ color: "white", marginRight: "5px" }}>or login via </span>
-            <button 
-              onClick={handleGoogleSignIn} 
-              className="google-sign-in"
-              style={{
-                width: "25px", 
-                height: "25px", 
-                borderRadius: "50%", 
-                backgroundColor: "#4285F4", 
-                color: "white", 
-                border: "none", 
-                display: "flex", 
-                justifyContent: "center", 
-                alignItems: "center", 
-                fontSize: "15px", 
-                cursor: "pointer",
-              }}
-            >
-              <FaGoogle />
+          <div className="google-sign-in-container">
+
+            <span className="google-sign-in-text">or Continue with google</span>
+            <button onClick={handleGoogleSignIn} className="google-sign-in">
+              <img
+                src="Google.jpg"
+                alt="Google Sign-In"
+                className="google-sign-in-image"
+              />
             </button>
           </div>
           <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
-            <a href="/signup" style={{ color: "white" }}>Create an Account</a>
+            <span style={{ marginRight: "5px" }}>Don't have an account?</span>
+            <a href="/signup" style={{ color: "white" }}>Click here.</a>
           </div>
         </form>
       </div>

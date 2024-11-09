@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Home.css";
 import { AiOutlineUser } from "react-icons/ai";
+import "./Home.css";
 
 function Home() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+  const handleViewProfile = () => {
+    // Handle view profile action (e.g., navigate to profile page)
+    navigate("/profile");
+  };
 
-/////////////////////////////////////////////////////////////////////// this block is for login persistence
+  /////////////////////////////////////////////////////////////////////// this block is for login persistence
   // Check if the user is logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -26,7 +30,7 @@ function Home() {
     localStorage.removeItem("token");
     navigate("/");
   };
-/////////////////////////////////////////////////////////////////////// this block is for login persistence
+  /////////////////////////////////////////////////////////////////////// this block is for login persistence
 
   return (
     <div className="Home-container">
@@ -63,6 +67,7 @@ function Home() {
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <AiOutlineUser className="Profile-icon" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
+            <button onClick={handleViewProfile} className="dropdown-item">View profile</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
         </div>

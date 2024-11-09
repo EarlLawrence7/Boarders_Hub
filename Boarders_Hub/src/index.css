@@ -107,7 +107,7 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   gap: 0.5rem;
 }
 
-.Nav-button {
+.Nav-bar .Nav-button {
   background-color: transparent;
   color: white;
   border: 1px solid white;
@@ -116,17 +116,17 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   cursor: pointer;
   transition: background-color 0.3s;
   display: block;
-  /* Make the button behave like a block element */
   margin: 0 auto;
-  /* Center the button */
 }
 
-.Nav-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+/* Navigation Button Hover Effect */
+.Nav-bar .Nav-button:hover {
+  background-color: rgba(242, 239, 239, 0.2);
 }
 
-.Nav-button.active {
-  background-color: white;
+/* Navigation Button Active State */
+.Nav-bar .Nav-button.active {
+  background-color: rgb(255, 255, 255);
   color: black;
   font-weight: bold;
 }
@@ -159,7 +159,7 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   /* Adjust the top position to align with the profile icon */
   left: -130px;
   /* Slightly adjust horizontal positioning */
-  background-color: white;
+  background-color: rgb(51, 0, 0);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   /* Smaller border radius for a less rounded look */
@@ -170,27 +170,7 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   /* Set a smaller width */
 }
 
-/* Show dropdown when 'show' class is added */
-.dropdown-menu.show {
-  display: block;
-}
-
-/* Dropdown Item */
-.dropdown-item {
-  padding: 5px 10px;
-  /* Reduce padding to make items smaller */
-  font-size: 15px;
-  /* Smaller font size */
-  cursor: pointer;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: center;
-  /* Align text to the left */
-}
-
 /* Dropdown Item Hover Effect */
 .dropdown-item:hover {
-  background-color: #f0f0f0;
-  /* Slight hover effect */
+  text-align: center;
 }
