@@ -14,6 +14,92 @@
   overflow-y: auto;
 }
 
+/* Top Container */
+.Top-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Navigation Bar */
+.Nav-bar {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.Nav-button {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: 0.3s ease;
+}
+
+.Nav-button:hover {
+  color: #00bcd4; /* Change the color when hovered */
+}
+
+.Nav-button.active {
+  border-bottom: 2px solid #00bcd4; /* Highlight active link */
+}
+
+/* Profile Icon */
+.Profile-icon-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Profile-icon-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-width: 150px;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px;
+  background-color: #ffffff;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Welcome Image */
+.welcome-image {
+  width: 500px;
+  height: 400px;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  border-radius: 20px;
+}
+
 /* Message Box */
 .message-box {
   background-color: #685e5e;
@@ -31,26 +117,15 @@
   text-align: center;
 }
 
-/* Welcome Image */
-.welcome-image {
-  width: 500px;
-  height: 400px;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-  border-radius: 20px;
-}
-
+/* Button Containers */
 .button-container {
   text-align: center;
   margin-top: 20px;
-  /* Adjust spacing if needed */
 }
 
 .browse-button {
   background-color: white;
-  /* Initial background color */
   color: black;
-  /* Initial text color */
   padding: 15px 32px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -58,61 +133,45 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* Smooth transition for hover and focus states */
   margin-top: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for a 3D effect */
   text-transform: uppercase;
-  /* Uppercase text */
   letter-spacing: 1px;
-  /* Spacing between letters */
   margin-bottom: 10px;
 }
 
 .browse-button:hover {
   background-color: rgb(0, 0, 0);
-  /* Background color on hover */
   color: white;
-  /* Text color on hover */
   transform: translateY(-3px);
-  /* Slight lift effect */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  /* Stronger shadow on hover */
 }
 
 .browse-button:focus {
   outline: none;
   box-shadow: 0 0 5px 2px rgba(128, 128, 128, 0.6);
-  /* Gray glow when focused */
 }
 
 .browse-button:active {
   transform: translateY(1px);
-  /* Button presses down slightly */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Lighter shadow when active */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Register Link */
 .register-link {
-  color: #ffffff;
-  /* Set text color to white */
+  font-size: 1.1rem;
+  color: #fff;
   margin-top: 10px;
-  font-size: 14px;
-  margin-bottom: px
 }
 
+/* Button Container Two */
 .button-container-Two {
-  text-align: center;
-  margin-top: 20px;
-  /* Adjust spacing if needed */
-  margin-bottom: 300px;
+  margin-top: 1rem;
 }
 
 .Homeowner-button {
-  background-color: rgb(0, 0, 0);
-  /* Initial background color */
-  color: rgb(255, 255, 255);
-  /* Initial text color */
+  background-color: #3f51b5;
+  color: white;
   padding: 15px 32px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -120,37 +179,18 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* Smooth transition for hover and focus states */
-  margin-top: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for a 3D effect */
   text-transform: uppercase;
-  /* Uppercase text */
-  letter-spacing: 1px;
-  /* Spacing between letters */
-  margin-bottom: 10px;
 }
 
 .Homeowner-button:hover {
-  background-color: rgb(255, 255, 255);
-  /* Background color on hover */
-  color: rgb(47, 47, 47);
-  /* Text color on hover */
+  background-color: #2c3e50;
   transform: translateY(-3px);
-  /* Slight lift effect */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  /* Stronger shadow on hover */
 }
 
 .Homeowner-button:focus {
   outline: none;
-  box-shadow: 0 0 5px 2px rgba(128, 128, 128, 0.6);
-  /* Gray glow when focused */
 }
 
 .Homeowner-button:active {
   transform: translateY(1px);
-  /* Button presses down slightly */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Lighter shadow when active */
 }

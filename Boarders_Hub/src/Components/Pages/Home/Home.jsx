@@ -63,6 +63,18 @@ function Home() {
           >
             Be a homeowner
           </button>
+          <button
+            className={`Nav-button ${window.location.pathname === '/contact' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/contact'}
+          >
+            Contact Us
+          </button>
+          <button
+            className={`Nav-button ${window.location.pathname === '/privacy-policy' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/privacy-policy'}
+          >
+            Privacy Policy
+          </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
