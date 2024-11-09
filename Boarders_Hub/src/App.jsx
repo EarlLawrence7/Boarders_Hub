@@ -9,6 +9,8 @@ import Browse from "./Components/Pages/Boarders/Browse";
 import SavedRooms from "./Components/Pages/Boarders/SavedRooms";
 import History from "./Components/Pages/Boarders/History";
 import OwnerListing from "./Components/Pages/HomeOwners/OwnerListing";
+import Profile from "./Components/Pages/Profile/Profile";
+
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/saved-rooms" element={<SavedRooms />} />
         <Route path="/history" element={<History />} />
         <Route path="/owner-listing" element={<OwnerListing />} />
+        <Route path="/profile" element={<Profile />} />
+        
       </Routes>
     </BrowserRouter>
   );
