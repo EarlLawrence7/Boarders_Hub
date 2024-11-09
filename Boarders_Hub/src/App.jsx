@@ -27,6 +27,10 @@ function App() {
         <Route path="/owner-listing" element={<OwnerListing />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
+
+        {/* Optional/Manual Routing */} 
+        <Route path="/signin" element={<Login />} /> 
+        <Route path="/register" element={<Signup />} />
         
       </Routes>
     </BrowserRouter>

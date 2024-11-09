@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./OwnerListing.css"; // Import the CSS file
-import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
-import { AiOutlineUser } from 'react-icons/ai';
+import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
+import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import { useNavigate } from 'react-router-dom';
 
 function OwnerListing() {
@@ -11,6 +11,7 @@ function OwnerListing() {
     // Handle view profile action (e.g., navigate to profile page)
     navigate("/profile");
   };
+  
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
   // Check if the user is logged in
   useEffect(() => {
@@ -25,10 +26,20 @@ function OwnerListing() {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleLogout = () => {
-    // Remove token from localStorage and redirect to login page
-    localStorage.removeItem("token");
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      // Sign out from Firebase
+      await signOut(auth);
+
+      // Remove token from localStorage
+      localStorage.removeItem("token");
+
+      // Redirect to login page
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+      // Handle any potential error during logout
+    }
   };
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
 
