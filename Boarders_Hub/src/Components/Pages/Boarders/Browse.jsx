@@ -69,6 +69,12 @@ function Browse() {
           >
             Saved Rooms
           </button>
+          <button
+            className={`Nav-button ${window.location.pathname === '/history ' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/history'}
+          >
+            History
+          </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <AiOutlineUser className="Profile-icon" />
