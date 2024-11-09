@@ -1,7 +1,6 @@
 import "./Signup.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // React Router v6
-import { getAuth, onAuthStateChanged } from "firebase/auth"; // Firebase
 
 function Signup() {
     const [formData, setFormData] = useState({

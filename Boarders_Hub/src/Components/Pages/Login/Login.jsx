@@ -4,7 +4,6 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig"; // Adjust the path as needed
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { FaGoogle } from 'react-icons/fa';  // Import Google icon
 
 function Login() {
   const [username, setUsername] = useState("");
