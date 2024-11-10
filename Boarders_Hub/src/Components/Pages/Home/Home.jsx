@@ -58,6 +58,18 @@ function Home() {
             About us
           </button>
           <button
+            className={`Nav-button ${window.location.pathname === '/About' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/About'}
+          >
+            Contact Us
+          </button>
+          <button
+            className={`Nav-button ${window.location.pathname === '/About' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/About'}
+          >
+            Privacy Policy
+          </button>
+          <button
             className={`Nav-button ${window.location.pathname === '/owner-listing' ? 'active' : ''}`}
             onClick={() => window.location.href = '/owner-listing'}
           >
