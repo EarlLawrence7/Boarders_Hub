@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
-import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai"; // Import icons
+
+import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
+import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
+import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import { useNavigate } from 'react-router-dom';
 
 function Modal({ room, onClose }) {
@@ -148,7 +151,6 @@ function Browse() {
       setCurrentPage(prevPage => prevPage - 1);
     }
   };
-
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -162,9 +164,22 @@ function Browse() {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+
+  const handleLogout = async () => {
+    try {
+      // Sign out from Firebase
+      await signOut(auth);
+
+      // Remove token from localStorage
+      localStorage.removeItem("token");
+
+      // Redirect to login page
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+      // Handle any potential error during logout
+    }
+
   };
 
   const handleOpenModal = (room) => {
@@ -221,7 +236,7 @@ function Browse() {
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <AiOutlineUser className="Profile-icon" />
+          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
