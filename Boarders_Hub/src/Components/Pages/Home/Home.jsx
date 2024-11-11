@@ -89,23 +89,14 @@ function Home() {
           >
             Be a homeowner
           </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/contact' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/contact'}
-          >
-            Contact Us
-          </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/privacy-policy' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/privacy-policy'}
-          >
-            Privacy Policy
-          </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
-            <button onClick={handleViewProfile} className="dropdown-item">View profile</button>
+            <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
+            <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
+            <button onClick={() => navigate("/view-tenants")} className="dropdown-item">View Tenants</button>
+            <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
         </div>

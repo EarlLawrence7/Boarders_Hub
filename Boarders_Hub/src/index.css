@@ -3,7 +3,6 @@
 palihug ayaw balik balika ang variable names para di magka gubot og overlap ang mga design.
 */
 
-
 /* Top Container */
 .Top-container {
   width: 100%;
@@ -139,7 +138,7 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   align-items: center;
   width: 45px;
   height: 45px;
-  background-color: gray;
+  background-color: rgb(255, 255, 255);
   border-radius: 50%;
   cursor: pointer;
   position: relative;
