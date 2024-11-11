@@ -14,41 +14,6 @@
   overflow-y: auto;
 }
 
-/* Top Container */
-.Top-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-}
-
-/* Navigation Bar */
-.Nav-bar {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.Nav-button {
-  background-color: transparent;
-  color: #ffffff;
-  border: none;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 20px;
-  transition: 0.3s ease;
-}
-
-.Nav-button:hover {
-  color: #00bcd4; /* Change the color when hovered */
-}
-
-.Nav-button.active {
-  border-bottom: 2px solid #00bcd4; /* Highlight active link */
-}
-
 /* Profile Icon */
 .Profile-icon-wrapper {
   display: flex;
