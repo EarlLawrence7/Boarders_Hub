@@ -61,7 +61,7 @@ function Browse() {
       price: "₱10,000/month",
       details: "Includes Wi-Fi, air conditioning, and a study area.",
       owner: "John Doe",
-      profilePicture: "froggyBrain.png"
+      profilePicture: "download (1).jpg"
     },
     {
       id: 2,
@@ -71,6 +71,7 @@ function Browse() {
       price: "₱15,000/month",
       details: "24/7 security, pool access, and gym facilities.",
       owner: "Jane Smith",
+      profilePicture: "catttooo.jpg"
     },
     {
       id: 3,
@@ -89,8 +90,10 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: "download.jpg"
     },
+
     {
       id: 5,
       title: "Spacious 2-Bedroom Apartment",
@@ -98,7 +101,8 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: "2x2 ideas (1).jpg"
     },
     {
       id: 6,
@@ -107,7 +111,8 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: " download (3).jpg"
     },
     {
       id: 7,
