@@ -26,22 +26,33 @@
   box-sizing: border-box;
 }
 
+.Card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Aligns footer elements */
+  margin-top: auto;
+  /* Pushes the footer to the bottom */
+  gap: 10px;
+}
+
 /* Room card */
 .Room-card {
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  padding: 15px;
   background-color: #5e5e5e;
   transition: transform 0.2s;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* Ensure the content and button are spaced properly */
-  height: 100%;
-  /* Ensure the card has a consistent height */
+  height: 280px;
+  /* Set a consistent height */
   color: white;
+  overflow: hidden;
+  /* Prevent content overflow */
 }
+
 
 .Room-card:hover {
   transform: scale(1.02);
@@ -159,6 +170,21 @@
   margin-bottom: 10px;
 }
 
+/* Room summary (description) */
+.Room-summary {
+  flex: 1;
+  max-height: 3em;
+  /* Limits the height */
+  overflow: hidden;
+  /* Hides overflow */
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  /* Limits to 2 lines */
+  -webkit-box-orient: vertical;
+  margin-bottom: 10px;
+}
+
+
 /* Profile picture */
 .Profile-picture {
   width: 70px;
@@ -183,10 +209,15 @@
 }
 
 /* Card footer alignment */
+/* Adjust button placement */
 .Card-footer {
   display: flex;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
+  /* Space between the profile picture and button */
+  margin-top: auto;
+  /* Pushes the footer to the bottom */
+  gap: 10px;
 }
 
 /* Dropdown menu */
@@ -220,14 +251,14 @@
 }
 
 .Pagination-container {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  /* Change from fixed to relative */
+  margin-top: 20px;
+  /* Add space between the cards and the pagination */
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  /* Added to allow wrapping when zoomed */
+  /* Allows wrapping if needed */
   gap: 10px;
   z-index: 1000;
 }
@@ -242,6 +273,7 @@
   cursor: pointer;
   font-size: 16px;
 }
+
 
 .Pagination-button:disabled {
   background-color: #929292;

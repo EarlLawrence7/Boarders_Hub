@@ -93,7 +93,6 @@ function History() {
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={handleViewProfile} className="dropdown-item">View Profile</button>
             <button onClick={handleViewProfile} className="dropdown-item">Add Listings</button>
-            <button onClick={handleViewProfile} className="dropdown-item">View Tenants</button>
             <button onClick={handleViewProfile} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>

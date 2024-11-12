@@ -60,7 +60,7 @@ function Browse() {
       location: "Cebu City, near XYZ University",
       price: "₱10,000/month",
       details: "Includes Wi-Fi, air conditioning, and a study area.",
-      owner: "John Doe",
+      owner: "Ayorrnnn",
       profilePicture: "download (1).jpg"
     },
     {
@@ -76,7 +76,7 @@ function Browse() {
     {
       id: 3,
       title: "Shared Room for Budget-Friendly Stay",
-      shortDescription: "A shared room option ideal for budget-conscious boarders.",
+      shortDescription: "Utilities included, shared kitchen Perfect for a small group or family.",
       location: "Cebu City, near ABC Mall",
       price: "₱5,000/month",
       details: "Utilities included, shared kitchen, and common living area.",
@@ -121,7 +121,8 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: "download (2).jpg"
     },
     {
       id: 8,
@@ -278,7 +279,6 @@ function Browse() {
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
-            <button onClick={() => navigate("/view-tenants")} className="dropdown-item">View Tenants</button>
             <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
