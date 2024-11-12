@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
-
+import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
 import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
@@ -16,17 +16,23 @@ function Modal({ room, onClose }) {
     alert(`Contacting owner: ${room.owner}`);
     // You can replace this with actual contact logic like opening an email client, chat, etc.
   };
+  const handleSeeMore = () => {
+    alert(`See More: ${room.owner}`);
+    // You can replace this with actual contact logic like opening an email client, chat, etc.
+  };
 
   return (
     <div className="Modal-overlay">
       <div className="Modal-content">
-
         <button className="Close-button" onClick={onClose}>X</button>
         <h2>{room.title}</h2>
         <p><strong>Location:</strong> {room.location}</p>
         <p><strong>Price:</strong> {room.price}</p>
         <p><strong>Details:</strong> {room.details}</p>
         <p><strong>Owner:</strong> {room.owner}</p>
+        <button className="More-button" onClick={handleSeeMore}>
+          See More... <FaArrowRight className="More-button-icon" />
+        </button>
         <div className="Modal-buttons-container">
           <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
           <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
@@ -119,10 +125,37 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Earl Baguio"
     },
     {
       id: 9,
+      title: "Spacious 2-Bedroom Apartment",
+      shortDescription: "Perfect for a small group or family.",
+      location: "Cebu City, near DEF Park",
+      price: "₱20,000/month",
+      details: "Pet-friendly, parking space, and a balcony with a view.",
+      owner: "Robert Lee"
+    },
+    {
+      id: 10,
+      title: "Spacious 2-Bedroom Apartment",
+      shortDescription: "Perfect for a small group or family.",
+      location: "Cebu City, near DEF Park",
+      price: "₱20,000/month",
+      details: "Pet-friendly, parking space, and a balcony with a view.",
+      owner: "Robert Lee"
+    },
+    {
+      id: 11,
+      title: "Spacious 2-Bedroom Apartment",
+      shortDescription: "Perfect for a small group or family.",
+      location: "Cebu City, near DEF Park",
+      price: "₱20,000/month",
+      details: "Pet-friendly, parking space, and a balcony with a view.",
+      owner: "Robert Lee"
+    },
+    {
+      id: 12,
       title: "Spacious 2-Bedroom Apartment",
       shortDescription: "Perfect for a small group or family.",
       location: "Cebu City, near DEF Park",

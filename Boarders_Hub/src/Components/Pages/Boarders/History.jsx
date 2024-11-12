@@ -4,6 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
 import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import { useNavigate } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 
 function History() {
   const [dropdownVisible, setDropdownVisible] = useState(false);

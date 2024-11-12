@@ -51,7 +51,7 @@
 .Details-button {
   margin-top: auto;
   /* Push the button to the bottom of the card */
-  background-color: #9f9541;
+  background-color: #6163af;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -67,7 +67,7 @@
 }
 
 .Details-button:hover {
-  background-color: #fbe945;
+  background-color: #7f84ff;
   color: black;
 }
 
@@ -92,7 +92,7 @@
 
 /* Modal content */
 .Modal-content {
-  background-color: #fff;
+  background-color: #f3f3f3;
   padding: 20px;
   border-radius: 8px;
   width: 80%;
@@ -249,4 +249,42 @@
   background-color: #929292;
   /* Disabled button color */
   cursor: not-allowed;
+}
+
+.More-button {
+  background-color: transparent;
+  /* Green background */
+  color: Black;
+  /* White text */
+  border: 2px solid black;
+  /* Black border */
+  /* Remove border */
+  border-radius: 100px;
+  /* Rounded corners */
+  padding: 5px 20px;
+  /* Padding */
+  font-size: 12px;
+  /* Font size */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s;
+  /* Smooth transition */
+}
+
+.More-button:hover {
+  background-color: #ffffff;
+  /* Darker green on hover */
+  transform: scale(1.09);
+  /* Slightly enlarge on hover */
+}
+
+.More-button:active {
+  transform: scale(1);
+  /* Reset size on click */
+}
+
+.More-button-icon {
+  font-size: 15px;
+  margin-left: 10px;
+  /* Icon size */
 }
