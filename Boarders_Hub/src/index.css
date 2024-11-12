@@ -1,14 +1,10 @@
-/*kung magamit gani sa daghan nga page ang isa ka design ari ibutang nga css. himoag reference and code sa ubos.
-
-palihug ayaw balik balika ang variable names para di magka gubot og overlap ang mga design.
-*/
-
 /* Top Container */
 .Top-container {
   width: 100%;
   min-height: 70px;
-  max-height: 230px;
   display: flex;
+  flex-wrap: wrap;
+  /* Ensure components can wrap */
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
@@ -19,7 +15,6 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
-
 
 /* Logo Image */
 .Logo-image {
@@ -49,12 +44,11 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
   margin-left: 80px;
 }
 
-/* Adjustments for Responsiveness */
 @media (max-width: 768px) {
   .Top-container {
     flex-direction: column;
-    min-height: 70px;
-    /* Compress on small screens */
+    align-items: stretch;
+    /* Adjusts components to fit vertically */
     padding: 0.5rem;
   }
 
@@ -103,33 +97,37 @@ palihug ayaw balik balika ang variable names para di magka gubot og overlap ang 
 /* Nav Bar */
 .Nav-bar {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
 }
 
+/* Basic Navigation Button */
 .Nav-bar .Nav-button {
   background-color: transparent;
   color: white;
-  border: 2px solid white;
   padding: 0.2rem 1rem;
-  border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  display: block;
-  margin: auto;
+  font-size: 19px;
+  text-decoration: none;
+  border: none;
+  transition: color 0.3s;
 }
 
 /* Navigation Button Hover Effect */
 .Nav-bar .Nav-button:hover {
-  background-color: rgba(242, 239, 239, 0.2);
-  border-radius: 20px;
+  background-color: rgb(75, 75, 75);
+  border-radius: 10px;
 }
 
 /* Navigation Button Active State */
 .Nav-bar .Nav-button.active {
-  background-color: rgb(255, 255, 255);
-  color: black;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border-radius: 0px;
   font-weight: bold;
 }
+
 
 /* Profile Icon Wrapper */
 .Profile-icon-wrapper {

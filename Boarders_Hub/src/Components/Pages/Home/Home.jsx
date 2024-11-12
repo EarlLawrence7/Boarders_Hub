@@ -123,6 +123,7 @@ function Home() {
             BE A HOMEOWNER!
           </button>
         </div>
+
       </div>
     </div>
   );

@@ -51,23 +51,23 @@
 .Details-button {
   margin-top: auto;
   /* Push the button to the bottom of the card */
-  background-color: #6163af;
+  background-color: #424769;
   color: white;
-  border: none;
-  padding: 8px 12px;
   border-radius: 20px;
+  border: 2px solid black;
   cursor: pointer;
   transition: background-color 0.2s;
-  width: 70%;
+  width: 65%;
   /* Ensure the button spans the full width of the card */
   height: 40px;
   /* Fixed height to maintain uniformity */
   text-align: center;
+  font-size: 16px;
   /* Ensure text is centered */
 }
 
 .Details-button:hover {
-  background-color: #7f84ff;
+  background-color: #4b537e;
   color: black;
 }
 
@@ -92,11 +92,12 @@
 
 /* Modal content */
 .Modal-content {
-  background-color: #f3f3f3;
+  background-color: #48507e;
   padding: 20px;
   border-radius: 8px;
   width: 80%;
   max-width: 500px;
+  color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
 }
@@ -115,8 +116,8 @@
 /* Rent button */
 .Rent-button {
   padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
+  background-color: #ff9340;
+  color: Black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -128,11 +129,10 @@
 }
 
 /* Contact Owner button */
-/* Contact Owner button */
 .Contact-button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  background-color: #62ccde;
+  color: Black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -145,11 +145,11 @@
 
 
 .Contact-button:hover {
-  background-color: #0056b3;
+  background-color: #71ecff;
 }
 
 .Rent-button:hover {
-  background-color: #218838;
+  background-color: #ffb57d;
 }
 
 /* Room header */
@@ -219,23 +219,21 @@
   background-color: #f0f0f0;
 }
 
-.Pagination-controls {
+.Pagination-container {
   position: fixed;
   bottom: 20px;
-  /* Adjusts the distance from the bottom */
   left: 50%;
   transform: translateX(-50%);
-  /* Centers the buttons horizontally */
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  /* Added to allow wrapping when zoomed */
   gap: 10px;
-  /* Spacing between buttons */
   z-index: 1000;
-  /* Ensures it stays on top of other content */
 }
 
 .Pagination-button {
-  padding: 10px 20px;
+  padding: 10px 25px;
   background-color: #565656;
   /* Button color */
   color: rgb(255, 255, 255);
@@ -254,7 +252,7 @@
 .More-button {
   background-color: transparent;
   /* Green background */
-  color: Black;
+  color: white;
   /* White text */
   border: 2px solid black;
   /* Black border */
@@ -272,10 +270,11 @@
 }
 
 .More-button:hover {
-  background-color: #ffffff;
+  background-color: #4e557d;
   /* Darker green on hover */
   transform: scale(1.09);
   /* Slightly enlarge on hover */
+  color: white;
 }
 
 .More-button:active {

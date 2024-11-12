@@ -308,7 +308,7 @@ function Browse() {
           </div>
         ))}
       </div>
-      <div className="Pagination-controls">
+      <div className="Pagination-container">
         <button className="Pagination-button" onClick={prevPage} disabled={currentPage === 1}>
           Previous
         </button>
