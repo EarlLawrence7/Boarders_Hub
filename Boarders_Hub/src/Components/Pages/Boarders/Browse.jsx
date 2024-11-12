@@ -18,7 +18,7 @@ function Modal({ room, onClose }) {
   };
   const handleSeeMore = () => {
     alert(`See More: ${room.owner}`);
-    // You can replace this with actual contact logic like opening an email client, chat, etc.
+    // You can replace this with actual contact logic like opening an another window or tab for more detailed informations.
   };
 
   return (
