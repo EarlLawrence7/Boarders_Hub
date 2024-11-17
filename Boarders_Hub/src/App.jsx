@@ -10,7 +10,7 @@ import SavedRooms from "./Components/Pages/Boarders/SavedRooms";
 import History from "./Components/Pages/Boarders/History";
 import OwnerListing from "./Components/Pages/HomeOwners/OwnerListing";
 import Profile from "./Components/Pages/Profile/Profile";
-import Signup from "./Components/Pages/Signup";
+import Signup from "./Components/Pages/Signup/Signup";
 
 
 
