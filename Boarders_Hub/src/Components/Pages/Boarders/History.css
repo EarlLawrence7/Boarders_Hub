@@ -1,4 +1,4 @@
-/* Home Container */
+/* History Container */
 .History-container {
   display: flex;
   flex-direction: column;
@@ -13,3 +13,56 @@
   font-family: Arial, sans-serif;
   overflow-y: auto;
 }
+
+/* Title */
+.History-title {
+  color: rgb(243, 239, 239);
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.History-box {
+  width: 100%;
+  max-width: 800px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.History-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.History-item {
+  background-color: #5e5e5e;
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.History-item-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.History-empty {
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+.Delete-button {
+  padding: 8px 12px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+

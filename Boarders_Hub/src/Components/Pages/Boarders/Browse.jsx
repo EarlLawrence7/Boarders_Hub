@@ -6,38 +6,42 @@ import { auth } from '../Login/firebaseConfig';  // Ensure this import is correc
 import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import { useNavigate } from 'react-router-dom';
 
-function Modal({ room, onClose }) {
-  const handleRentNow = () => {
-    alert(`You have chosen to rent: ${room.title}`);
-    // Add any additional logic for the "Rent now" action, such as redirecting or making an API call.
-  };
-
-  const handleContactOwner = () => {
-    alert(`Contacting owner: ${room.owner}`);
-    // You can replace this with actual contact logic like opening an email client, chat, etc.
-  };
-
-  return (
-    <div className="Modal-overlay">
-      <div className="Modal-content">
-
-        <button className="Close-button" onClick={onClose}>X</button>
-        <h2>{room.title}</h2>
-        <p><strong>Location:</strong> {room.location}</p>
-        <p><strong>Price:</strong> {room.price}</p>
-        <p><strong>Details:</strong> {room.details}</p>
-        <p><strong>Owner:</strong> {room.owner}</p>
-        <div className="Modal-buttons-container">
-          <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
-          <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
+  function Modal({ room, onClose }) {
+    const handleRentNow = () => {
+      const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
+      history.push({
+        title: room.title,
+        location: room.location,
+        checkInDate: new Date().toLocaleDateString(),
+        status: "Pending",
+      });
+      localStorage.setItem("rentalHistory", JSON.stringify(history));
+      alert(`You have chosen to rent: ${room.title}`);
+      onClose();
+    };
+  
+    const handleContactOwner = () => {
+      alert(`Contacting owner: ${room.owner}`);
+    };
+  
+    return (
+      <div className="Modal-overlay">
+        <div className="Modal-content">
+          <button className="Close-button" onClick={onClose}>X</button>
+          <h2>{room.title}</h2>
+          <p><strong>Location:</strong> {room.location}</p>
+          <p><strong>Price:</strong> {room.price}</p>
+          <p><strong>Details:</strong> {room.details}</p>
+          <p><strong>Owner:</strong> {room.owner}</p>
+          <div className="Modal-buttons-container">
+            <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
+            <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-
-
+    );
+  }
+  
 function Browse() {
   const [expandedRoom, setExpandedRoom] = useState(null); // Fix: Initialize the state here
   const [dropdownVisible, setDropdownVisible] = useState(false);
