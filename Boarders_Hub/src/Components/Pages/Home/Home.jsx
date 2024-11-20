@@ -101,11 +101,6 @@ function Home() {
         </div>
       </div>
       <img src="Boarders_hub-removebg.png" alt="Boarders Hub Logo" className="welcome-image" />
-      <div className="small-images">
-        <img src="Easy to use.png" alt="Small Image 1" className="small-image" />
-        <img src="engaging.png" alt="Small Image 2" className="small-image" />
-        <img src="Approved.png" alt="Small Image 3" className="small-image" />
-      </div>
       <div className="message-box">
         <p className="message-text">
           Finding a place to call home has never been easier. At Boarder's Hub, we specialize in connecting students and professionals with trusted and verified homeowners in Cebu City to help you find the ideal space that perfectly suits your needs and lifestyle. With our intuitive search tools and comprehensive listings, browsing available rooms has never been simpler.
@@ -115,8 +110,6 @@ function Home() {
           Whether you're looking for a cozy spot near your school, a vibrant area with easy access to nightlife, or a peaceful neighborhood close to work, we’re committed to making your stay in Cebu City both comfortable and stress-free. Start your journey with Boarder's Hub today and find the right place to truly call home!
         </p>
       </div>
-
-
       <div className="button-container">
         <button className="browse-button" onClick={() => window.location.href = '/browse'}>
           Browse ROOMS NOW!
@@ -129,7 +122,11 @@ function Home() {
             BE A HOMEOWNER!
           </button>
         </div>
-
+        <div className="small-images">
+          <img src="Easy to use.png" alt="Small Image 1" className="small-image" />
+          <img src="engaging.png" alt="Small Image 2" className="small-image" />
+          <img src="Approved.png" alt="Small Image 3" className="small-image" />
+        </div>
       </div>
     </div>
   );

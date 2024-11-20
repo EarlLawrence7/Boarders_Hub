@@ -59,7 +59,7 @@
   border-radius: 8px;
   max-width: 999px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  margin-top: -83px;
 }
 
 /* Message Text */
@@ -82,7 +82,7 @@
   /* Center the images in the container */
   gap: 5rem;
   /* Adds smaller space between the images */
-  margin-top: -17rem;
+  margin-top: -15rem;
   flex-wrap: wrap;
   /* Allows wrapping to the next line if needed */
 }
@@ -92,8 +92,9 @@
   /* Set a smaller width for the images */
   height: auto;
   /* Maintain the aspect ratio */
-  border-radius: 10px;
+  border-radius: 20px;
   /* Rounded corners if needed */
+  border: 2px solid white;
 }
 
 .browse-button {
