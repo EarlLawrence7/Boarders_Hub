@@ -1,42 +1,41 @@
 import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
-
+import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
 import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import { useNavigate } from 'react-router-dom';
 
-  function Modal({ room, onClose }) {
-    const handleRentNow = () => {
-      const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
-      history.push({
-        title: room.title,
-        location: room.location,
-        checkInDate: new Date().toLocaleDateString(),
-        status: "Pending",
-      });
-      localStorage.setItem("rentalHistory", JSON.stringify(history));
-      alert(`You have chosen to rent: ${room.title}`);
-      onClose();
-    };
-  
-    const handleContactOwner = () => {
-      alert(`Contacting owner: ${room.owner}`);
-    };
-  
-    return (
-      <div className="Modal-overlay">
-        <div className="Modal-content">
-          <button className="Close-button" onClick={onClose}>X</button>
-          <h2>{room.title}</h2>
-          <p><strong>Location:</strong> {room.location}</p>
-          <p><strong>Price:</strong> {room.price}</p>
-          <p><strong>Details:</strong> {room.details}</p>
-          <p><strong>Owner:</strong> {room.owner}</p>
-          <div className="Modal-buttons-container">
-            <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
-            <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
-          </div>
+function Modal({ room, onClose }) {
+  const handleRentNow = () => {
+    alert(`You have chosen to rent: ${room.title}`);
+    // Add any additional logic for the "Rent now" action, such as redirecting or making an API call.
+  };
+
+  const handleContactOwner = () => {
+    alert(`Contacting owner: ${room.owner}`);
+    // You can replace this with actual contact logic like opening an email client, chat, etc.
+  };
+  const handleSeeMore = () => {
+    alert(`See More: ${room.owner}`);
+    // You can replace this with actual contact logic like opening an another window or tab for more detailed informations.
+  };
+
+  return (
+    <div className="Modal-overlay">
+      <div className="Modal-content">
+        <button className="Close-button" onClick={onClose}>X</button>
+        <h2>{room.title}</h2>
+        <p><strong>Location:</strong> {room.location}</p>
+        <p><strong>Price:</strong> {room.price}</p>
+        <p><strong>Details:</strong> {room.details}</p>
+        <p><strong>Owner:</strong> {room.owner}</p>
+        <button className="More-button" onClick={handleSeeMore}>
+          See More... <FaArrowRight className="More-button-icon" />
+        </button>
+        <div className="Modal-buttons-container">
+          <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
+          <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
         </div>
       </div>
     );
@@ -58,8 +57,8 @@ function Browse() {
       location: "Cebu City, near XYZ University",
       price: "₱10,000/month",
       details: "Includes Wi-Fi, air conditioning, and a study area.",
-      owner: "John Doe",
-      profilePicture: "froggyBrain.png"
+      owner: "Ayorrnnn",
+      profilePicture: "download (1).jpg"
     },
     {
       id: 2,
@@ -69,11 +68,12 @@ function Browse() {
       price: "₱15,000/month",
       details: "24/7 security, pool access, and gym facilities.",
       owner: "Jane Smith",
+      profilePicture: "catttooo.jpg"
     },
     {
       id: 3,
       title: "Shared Room for Budget-Friendly Stay",
-      shortDescription: "A shared room option ideal for budget-conscious boarders.",
+      shortDescription: "Utilities included, shared kitchen Perfect for a small group or family.",
       location: "Cebu City, near ABC Mall",
       price: "₱5,000/month",
       details: "Utilities included, shared kitchen, and common living area.",
@@ -87,8 +87,10 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: "download.jpg"
     },
+
     {
       id: 5,
       title: "Spacious 2-Bedroom Apartment",
@@ -96,7 +98,8 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: "2x2 ideas (1).jpg"
     },
     {
       id: 6,
@@ -105,7 +108,8 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: " download (3).jpg"
     },
     {
       id: 7,
@@ -114,7 +118,8 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Robert Lee",
+      profilePicture: "download (2).jpg"
     },
     {
       id: 8,
@@ -123,10 +128,37 @@ function Browse() {
       location: "Cebu City, near DEF Park",
       price: "₱20,000/month",
       details: "Pet-friendly, parking space, and a balcony with a view.",
-      owner: "Robert Lee"
+      owner: "Earl Baguio"
     },
     {
       id: 9,
+      title: "Spacious 2-Bedroom Apartment",
+      shortDescription: "Perfect for a small group or family.",
+      location: "Cebu City, near DEF Park",
+      price: "₱20,000/month",
+      details: "Pet-friendly, parking space, and a balcony with a view.",
+      owner: "Robert Lee"
+    },
+    {
+      id: 10,
+      title: "Spacious 2-Bedroom Apartment",
+      shortDescription: "Perfect for a small group or family.",
+      location: "Cebu City, near DEF Park",
+      price: "₱20,000/month",
+      details: "Pet-friendly, parking space, and a balcony with a view.",
+      owner: "Robert Lee"
+    },
+    {
+      id: 11,
+      title: "Spacious 2-Bedroom Apartment",
+      shortDescription: "Perfect for a small group or family.",
+      location: "Cebu City, near DEF Park",
+      price: "₱20,000/month",
+      details: "Pet-friendly, parking space, and a balcony with a view.",
+      owner: "Robert Lee"
+    },
+    {
+      id: 12,
       title: "Spacious 2-Bedroom Apartment",
       shortDescription: "Perfect for a small group or family.",
       location: "Cebu City, near DEF Park",
@@ -244,7 +276,6 @@ function Browse() {
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
-            <button onClick={() => navigate("/view-tenants")} className="dropdown-item">View Tenants</button>
             <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
@@ -274,7 +305,7 @@ function Browse() {
           </div>
         ))}
       </div>
-      <div className="Pagination-controls">
+      <div className="Pagination-container">
         <button className="Pagination-button" onClick={prevPage} disabled={currentPage === 1}>
           Previous
         </button>

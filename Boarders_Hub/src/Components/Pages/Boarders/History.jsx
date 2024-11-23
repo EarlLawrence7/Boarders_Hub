@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import "./History.css";
-
 function History() {
   const [rentalHistory, setRentalHistory] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // New state for search query
