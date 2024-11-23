@@ -38,12 +38,9 @@ function Modal({ room, onClose }) {
           <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
         </div>
       </div>
-    </div>
-  );
-}
-
-
-
+    );
+  }
+  
 function Browse() {
   const [expandedRoom, setExpandedRoom] = useState(null); // Fix: Initialize the state here
   const [dropdownVisible, setDropdownVisible] = useState(false);

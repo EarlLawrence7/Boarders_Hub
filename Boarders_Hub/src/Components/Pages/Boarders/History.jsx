@@ -1,58 +1,48 @@
 import React, { useState, useEffect } from "react";
-import "./History.css"; // Import the CSS file
-import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
-import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
-import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
+import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
-
+import "./History.css";
 function History() {
+  const [rentalHistory, setRentalHistory] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
-  const handleViewProfile = () => {
-    // Handle view profile action (e.g., navigate to profile page)
-    navigate("/profile");
-  };
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
-  // Check if the user is logged in
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // If no token, redirect to login page
-      navigate("/");
-    }
-  }, [navigate]);
+    const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
+    setRentalHistory(history.reverse()); // Show latest first
+  }, []);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleLogout = async () => {
-    try {
-      // Sign out from Firebase
-      await signOut(auth);
-
-      // Remove token from localStorage
-      localStorage.removeItem("token");
-
-      // Redirect to login page
-      navigate("/");
-    } catch (error) {
-      console.error("Error during logout:", error);
-      // Handle any potential error during logout
-    }
+  const handleLogout = () => {
+    // Implement logout functionality
   };
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
+
+  const handleDelete = (index) => {
+    const updatedHistory = rentalHistory.filter((_, i) => i !== index);
+    setRentalHistory(updatedHistory);
+    localStorage.setItem("rentalHistory", JSON.stringify(updatedHistory.reverse()));
+  };
+
+  // Function to handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filtered history based on search query
+  const filteredHistory = rentalHistory.filter((entry) =>
+    entry.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="History-container">
+      {/* Top container with logo, search bar, and navigation */}
       <div className="Top-container">
         <a href="/home">
-          <img
-            src="Boardershub.png"
-            alt="Logo"
-            className="Logo-image"
-          />
+          <img src="Boardershub.png" alt="Logo" className="Logo-image" />
         </a>
         <div className="Search-wrapper">
           <AiOutlineSearch className="Search-icon" />
@@ -60,45 +50,49 @@ function History() {
             type="text"
             placeholder="Search..."
             className="Search-bar"
+            value={searchQuery} // Bind input value to searchQuery
+            onChange={handleSearchChange} // Handle input change
           />
         </div>
         <div className="Nav-bar">
-          <button
-            className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/home'}
-          >
-            Home
-          </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/browse'}
-          >
-            Browse
-          </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/saved-rooms' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/saved-rooms'}
-          >
-            Saved Rooms
-          </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/history' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/history'}
-          >
-            Boarding History
-          </button>
+          <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>Home</button>
+          <button className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`} onClick={() => window.location.href = '/browse'}>Browse</button>
+          <button className={`Nav-button ${window.location.pathname === '/saved-rooms' ? 'active' : ''}`} onClick={() => window.location.href = '/saved-rooms'}>Saved Rooms</button>
+          <button className={`Nav-button ${window.location.pathname === '/history' ? 'active' : ''}`} onClick={() => window.location.href = '/history'}>Boarding History</button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
-            <button onClick={handleViewProfile} className="dropdown-item">View Profile</button>
-            <button onClick={handleViewProfile} className="dropdown-item">Add Listings</button>
-            <button onClick={handleViewProfile} className="dropdown-item">View Properties</button>
+            <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
+            <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
+            <button onClick={() => navigate("/view-tenants")} className="dropdown-item">View Tenants</button>
+            <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
         </div>
       </div>
-      {/* Content of the Browse page can go here */}
+
+      {/* Boarding History Section */}
+      <h1 className="History-title">Boarding History</h1>
+      {filteredHistory.length === 0 ? (
+        <p className="History-empty">No matching rental history found.</p>
+      ) : (
+        <div className="History-box">
+          <div className="History-list">
+            {filteredHistory.map((entry, index) => (
+              <div key={index} className="History-item">
+                <h2 className="History-item-title">{entry.title}</h2>
+                <p><strong>Location:</strong> {entry.location}</p>
+                <p><strong>Check-In Date:</strong> {entry.checkInDate}</p>
+                <p><strong>Status:</strong> {entry.status}</p>
+                <button className="Delete-button" onClick={() => handleDelete(index)}>
+                  Delete
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
