@@ -130,7 +130,7 @@ function Login() {
             </label>
             <a href="/forgotPassword" style={{ color: "white" }}>Forgot password?</a>
           </div>
-          <button type="submit" className="login-button">Login</button>
+          <button type="submit" className="login-button">Log In</button>
           <div className="google-sign-in-container">
             <span className="google-sign-in-text">or Continue with google</span>
             <button onClick={handleGoogleSignIn} className="google-sign-in">
