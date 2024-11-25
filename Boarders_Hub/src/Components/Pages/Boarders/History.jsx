@@ -3,6 +3,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import "./History.css";
+
 function History() {
   const [rentalHistory, setRentalHistory] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // New state for search query
@@ -13,7 +14,6 @@ function History() {
     const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
     setRentalHistory(history.reverse()); // Show latest first
   }, []);
-
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
   // Check if the user is logged in
   useEffect(() => {
