@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
+
+
+.logo {
+  border-radius: 250px;
+  image-rendering: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: -100px;
+  /* Adjust this value as needed */
+}
+
 body {
   position: relative;
   width: 100%;
@@ -8,14 +18,6 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-}
-
-.logo {
-  border-radius: 250px;
-  image-rendering: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-top: -100px;
-  /* Adjust this value as needed */
 }
 
 body::before {

@@ -1,15 +1,38 @@
 /* Container */
+body {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("download (7).jpg");
+  background-size: auto;
+  /* Use auto to keep the original image size */
+  background-position: top left;
+  /* Start tiling from the top left */
+  background-repeat: repeat;
+  /* Enable tiling of the image */
+  filter: blur(px);
+  /* Adjust blur level here, e.g., 5px */
+  z-index: -1;
+  /* Ensure the pseudo-element is behind other content */
+}
+
 .AddListings-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  background-image: url("sansadas.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-family: Arial, sans-serif;
 }
 
 /* Form Box */
