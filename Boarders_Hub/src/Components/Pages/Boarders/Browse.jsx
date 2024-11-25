@@ -216,7 +216,6 @@ function Browse() {
       console.error("Error during logout:", error);
       // Handle any potential error during logout
     }
-
   };
 
   const handleOpenModal = (room) => {
