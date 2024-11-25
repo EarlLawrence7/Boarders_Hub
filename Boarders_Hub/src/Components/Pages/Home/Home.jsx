@@ -84,8 +84,8 @@ function Home() {
             Privacy Policy
           </button>
           <button
-            className={`Nav-button ${window.location.pathname === '/owner-listing' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/owner-listing'}
+            className={`Nav-button ${window.location.pathname === '/AddListings' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/AddListings'}
           >
             Be a homeowner
           </button>
@@ -94,7 +94,7 @@ function Home() {
           <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
-            <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
+            <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>
             <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
@@ -118,7 +118,7 @@ function Home() {
           List your room and be part of the homeowner community today.
         </p>
         <div className="button-container-Two">
-          <button className="Homeowner-button" onClick={() => window.location.href = '/Listing'}>
+          <button className="Homeowner-button" onClick={() => window.location.href = '/AddListings'}>
             BE A HOMEOWNER!
           </button>
         </div>

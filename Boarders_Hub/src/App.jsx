@@ -8,7 +8,8 @@ import Home from "./Components/Pages/Home/Home";
 import Browse from "./Components/Pages/Boarders/Browse";
 import SavedRooms from "./Components/Pages/Boarders/SavedRooms";
 import History from "./Components/Pages/Boarders/History";
-import OwnerListing from "./Components/Pages/HomeOwners/OwnerListing";
+import Properties from "./Components/Pages/HomeOwners/Properties";
+import AddListings from "./Components/Pages/HomeOwners/AddListings";
 import Profile from "./Components/Pages/Profile/Profile";
 import Signup from "./Components/Pages/Signup/Signup";
 
@@ -24,14 +25,14 @@ function App() {
         <Route path="/browse" element={<Browse />} />
         <Route path="/saved-rooms" element={<SavedRooms />} />
         <Route path="/history" element={<History />} />
-        <Route path="/owner-listing" element={<OwnerListing />} />
+        <Route path="/properties" element={<Properties />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
-
-        {/* Optional/Manual Routing */} 
-        <Route path="/signin" element={<Login />} /> 
+        <Route path="/addListings" element={<AddListings />} />
+        {/* Optional/Manual Routing */}
+        <Route path="/signin" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-        
+
       </Routes>
     </BrowserRouter>
   );

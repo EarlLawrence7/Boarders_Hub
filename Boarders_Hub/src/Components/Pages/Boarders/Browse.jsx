@@ -275,7 +275,7 @@ function Browse() {
           <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
-            <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
+            <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>
             <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>

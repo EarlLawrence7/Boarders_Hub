@@ -1,0 +1,74 @@
+/* Container */
+.AddListings-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("sansadas.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+}
+
+/* Form Box */
+.Form-box {
+  background-color: rgba(50, 50, 50, 0.9);
+  /* Dark gray box with slight opacity */
+  padding: 2rem;
+  border-radius: 10px;
+  width: 600px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  /* White text */
+}
+
+/* Form Elements */
+.Form-box input,
+.Form-box textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.Form-box textarea {
+  resize: none;
+  height: 80px;
+}
+
+
+
+.button2-container {
+  display: flex;
+  justify-content: center;
+  /* Center the buttons horizontally */
+  gap: 20px;
+  /* Space between the buttons */
+  margin-top: 20px;
+  /* Space above the buttons */
+}
+
+.go-back-button,
+.create-button {
+  background-color: #555555;
+  /* Dark gray background */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  /* Set consistent button width */
+  text-align: center;
+}
+
+.create-button {
+  background-color: #007bff;
+  /* Optional: Different color for create button */
+}
