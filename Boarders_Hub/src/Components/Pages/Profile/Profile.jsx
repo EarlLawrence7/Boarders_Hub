@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../Login/firebaseConfig"; // Firebase Auth import
-import { getDoc, doc } from "firebase/firestore"; // Firestore import
-import { db } from "../Login/firebaseConfig"; // Firestore configuration
+import { db, auth } from "../Login/firebaseConfig"; // Firebase Auth import
+import { updateDoc, getDoc, doc } from "firebase/firestore"; // Firestore import
 import { onAuthStateChanged, signOut } from "firebase/auth"; // Auth state listener
 import "./Profile.css";
 
@@ -23,7 +22,6 @@ function Profile() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const { email, phoneNumber } = user;
 
         try {
           const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -32,8 +30,8 @@ function Profile() {
             setUserData({
               fullName: userDetails.username || "No Full Name",
               nickname: userDetails.username || "No Nickname",
-              email: userDetails.email || email || "No Email",
-              phone: userDetails.phone || phoneNumber || "No Phone Number",
+              email: userDetails.email || "No Email",
+              phone: userDetails.phone || "No Phone Number",
               birthday: `${userDetails.birthDate?.day || "--"}/${
                 userDetails.birthDate?.month || "--"
               }/${userDetails.birthDate?.year || "--"}`,
