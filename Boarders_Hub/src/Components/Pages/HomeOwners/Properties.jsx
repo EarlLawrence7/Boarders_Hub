@@ -56,10 +56,9 @@ function Properties() {
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
-            <button onClick={handleViewProfile} className="dropdown-item">View Profile</button>
-            <button onClick={handleViewProfile} className="dropdown-item">Add Listings</button>
-            <button onClick={handleViewProfile} className="dropdown-item">View Tenants</button>
-            <button onClick={handleViewProfile} className="dropdown-item">View Properties</button>
+            <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
+            <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>
+            <button onClick={() => navigate("/Properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
         </div>

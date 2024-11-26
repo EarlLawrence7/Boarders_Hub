@@ -285,7 +285,7 @@ function Browse() {
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>
-            <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
+            <button onClick={() => navigate("/Properties")} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>
         </div>
