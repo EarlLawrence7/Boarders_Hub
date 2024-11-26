@@ -91,6 +91,11 @@ function Home() {
             BE A HOMEOWNER!
           </button>
         </div>
+        <div className="small-images">
+          <img src="Easy to use.png" alt="Small Image 1" className="small-image" />
+          <img src="engaging.png" alt="Small Image 2" className="small-image" />
+          <img src="Approved.png" alt="Small Image 3" className="small-image" />
+        </div>
       </div>
     </div>
   );
