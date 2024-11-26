@@ -2,22 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import "./AddListings.css";
-import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
+import { AiOutlineClose } from 'react-icons/ai'; // Import the X icon
+
 // Firebase setup
 const auth = getAuth();
 
-function AddListings() {
+function AddListings({ onAddListing }) {
   const [formData, setFormData] = useState({
-    title: "",
+    RoomType: "", // Ensure this matches the field name
     shortDescription: "",
     location: "",
     price: "",
     details: "",
-    owner: "",
-    profilePicture: "",
+    images: [] // Include images in form data
   });
+
+  const [roomImages, setRoomImages] = useState([]);
+  const [dropdownVisible, setDropdownVisible] = useState(false); // Define dropdown visibility state
+
   const navigate = useNavigate();
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
+
   // Check if the user is logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -26,10 +30,6 @@ function AddListings() {
       navigate("/");
     }
   }, [navigate]);
-
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
 
   const handleLogout = async () => {
     try {
@@ -43,10 +43,19 @@ function AddListings() {
       navigate("/");
     } catch (error) {
       console.error("Error during logout:", error);
-      // Handle any potential error during logout
     }
   };
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setRoomImages((prev) => [...prev, ...files].slice(0, 5)); // Limit to 5 images
+  };
+
+  const removeImage = (index) => {
+    const newImages = roomImages.filter((_, i) => i !== index);
+    setRoomImages(newImages);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -54,23 +63,37 @@ function AddListings() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., send data to the backend)
-    console.log("Form Data Submitted:", formData);
-    alert("Listing created successfully!");
+    // Validate fields correctly with RoomType (not title)
+    if (formData.RoomType && formData.shortDescription && formData.price) {
+      onAddListing(formData); // Pass the listing data back to the parent
+      setFormData({
+        RoomType: "", // Reset the field names to match
+        shortDescription: "",
+        location: "",
+        price: "",
+        details: "",
+        images: []
+      }); // Clear form after submit
+    } else {
+      alert("Please fill in all required fields.");
+    }
   };
+
   const handleGoBack = () => {
     navigate(-1); // Navigate to the previous page
   };
+
   return (
     <div className="AddListings-container">
       <div className="Form-box">
         <h2>Create a Listing</h2>
         <form onSubmit={handleSubmit}>
+          {/* Form fields */}
           <input
             type="text"
-            name="title"
-            placeholder="Title"
-            value={formData.title}
+            name="RoomType"
+            placeholder="Room type"
+            value={formData.RoomType} // Corrected to match RoomType in state
             onChange={handleChange}
             required
           />
@@ -105,21 +128,35 @@ function AddListings() {
             onChange={handleChange}
             required
           />
-          <input
-            type="text"
-            name="owner"
-            placeholder="Owner"
-            value={formData.owner}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="profilePicture"
-            placeholder="Profile Picture URL"
-            value={formData.profilePicture}
-            onChange={handleChange}
-          />
+          {/* Image upload section */}
+          <div className="image-upload-container">
+            {roomImages.map((image, index) => (
+              <div className="image-preview" key={index}>
+                <img src={URL.createObjectURL(image)} alt={`Room ${index + 1}`} />
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="remove-button"
+                >
+                  <AiOutlineClose />
+                </button>
+              </div>
+            ))}
+            {roomImages.length < 5 && (
+              <label className="image-upload-box">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  multiple
+                  style={{ display: "none" }}
+                />
+                <span className="plus-sign">+</span>
+                <p>Add Photos</p>
+              </label>
+            )}
+          </div>
+          {/* Buttons */}
           <div className="button2-container">
             <button className="go-back-button" type="button" onClick={handleGoBack}>
               Go Back
@@ -129,9 +166,9 @@ function AddListings() {
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );
 }
+
 export default AddListings;

@@ -40,7 +40,7 @@ body::before {
   background-color: rgba(50, 50, 50, 0.9);
   /* Dark gray box with slight opacity */
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 50px;
   width: 600px;
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -55,7 +55,7 @@ body::before {
   padding: 10px;
   margin: 10px 0;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   font-size: 1rem;
 }
 
@@ -63,8 +63,6 @@ body::before {
   resize: none;
   height: 80px;
 }
-
-
 
 .button2-container {
   display: flex;
@@ -78,13 +76,13 @@ body::before {
 
 .go-back-button,
 .create-button {
-  background-color: #555555;
+  background-color: #767575;
   /* Dark gray background */
   color: white;
   border: none;
   padding: 10px 20px;
   font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
   width: 150px;
   /* Set consistent button width */
@@ -92,6 +90,64 @@ body::before {
 }
 
 .create-button {
-  background-color: #007bff;
+  background-color: #e64141;
   /* Optional: Different color for create button */
+}
+
+.image-upload-container {
+  display: flex;
+  /* Arrange images horizontally */
+  flex-wrap: wrap;
+  /* Allow images to wrap to the next row if needed */
+  gap: 10px;
+  /* Space between images */
+}
+
+.image-upload-box {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+  position: relative;
+}
+
+.image-upload-box .plus-sign {
+  font-size: 48px;
+  color: #ccc;
+}
+
+.image-preview {
+  position: relative;
+  width: 96px;
+  height: 100px;
+  border-radius: 10px;
+
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ensure images maintain aspect ratio */
+}
+
+.image-preview .remove-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 15px;
+  height: 15 px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
 }
