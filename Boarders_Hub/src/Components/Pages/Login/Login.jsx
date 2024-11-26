@@ -2,7 +2,7 @@ import "./Login.css";
 import React, { useState, useEffect } from "react";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { auth } from "./firebaseConfig"; // Adjust the path as needed
+import { auth, redirectToHomeIfLoggedIn } from "./firebaseConfig"; // Adjust the path as needed
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 function Login() {
@@ -13,24 +13,8 @@ function Login() {
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
 
-  /////////////////////////////////////////////////////////////////////////////////// Token Check
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // If Firebase user is logged in, store token and redirect to /home
-        localStorage.setItem("token", user.accessToken);
-        navigate("/home");
-      } else {
-        // Clear token and redirect to login if no user is logged in
-        localStorage.removeItem("token");
-        navigate("/login");
-      }
-    });
-
-    // Clean up the observer when the component unmounts
-    return () => unsubscribe();
-  }, [navigate]);
-  ////////////////////////////////////////////////////////////////////////////////// Token Check
+  // To check if currently logged in: true->redirect to home, false->login
+  redirectToHomeIfLoggedIn(navigate);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

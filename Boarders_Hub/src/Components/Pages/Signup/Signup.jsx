@@ -1,14 +1,16 @@
 import "./Signup.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // React Router v6
-import { getAuth, createUserWithEmailAndPassword, signOut } from "firebase/auth"; // Firebase Auth imports
-import { getFirestore, doc, setDoc } from "firebase/firestore"; // Firestore imports
-
-// Firebase setup
-const auth = getAuth();
-const db = getFirestore();
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth"; // Firebase Auth imports
+import { doc, setDoc } from "firebase/firestore"; // Firestore imports
+import { auth, db, redirectToHomeIfLoggedIn } from "../Login/firebaseConfig"; // Adjust the path as needed
 
 function Signup() {
+    const navigate = useNavigate();
+
+    // To check if currently logged in: true->redirect to home, false->login
+    redirectToHomeIfLoggedIn(navigate);
+
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -34,8 +36,6 @@ function Signup() {
             year: ""
         }
     });
-
-    const navigate = useNavigate(); // To navigate to other pages
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;

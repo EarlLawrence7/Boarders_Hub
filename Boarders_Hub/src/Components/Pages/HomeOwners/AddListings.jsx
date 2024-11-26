@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
-import "./AddListings.css";
 import { AiOutlineClose } from 'react-icons/ai'; // Import the X icon
-
-// Firebase setup
-const auth = getAuth();
+import { redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
+import "./AddListings.css";
 
 function AddListings({ onAddListing }) {
+  const navigate = useNavigate();
+
+  // To check if currently logged out: true->redirect to login
+  redirectToLoginIfLoggedOut(navigate);
+
   const [formData, setFormData] = useState({
     RoomType: "", // Ensure this matches the field name
     shortDescription: "",
@@ -20,7 +22,7 @@ function AddListings({ onAddListing }) {
   const [roomImages, setRoomImages] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false); // Define dropdown visibility state
 
-  const navigate = useNavigate();
+
 
   // Check if the user is logged in
   useEffect(() => {
@@ -30,21 +32,6 @@ function AddListings({ onAddListing }) {
       navigate("/");
     }
   }, [navigate]);
-
-  const handleLogout = async () => {
-    try {
-      // Sign out from Firebase
-      await signOut(auth);
-
-      // Remove token from localStorage
-      localStorage.removeItem("token");
-
-      // Redirect to login page
-      navigate("/");
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
-  };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
