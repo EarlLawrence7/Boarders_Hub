@@ -69,7 +69,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <img src="Boardershub.png" alt="Boarders Hub Logo" className="welcome-image" />
+      <img src="Boarders_hub-removebg.png" alt="Boarders Hub Logo" className="welcome-image" />
       <div className="message-box">
         <p className="message-text">
           Finding a place to call home has never been easier. At Boarder's Hub, we specialize in connecting students and professionals with trusted and verified homeowners in Cebu City to help you find the ideal space that perfectly suits your needs and lifestyle. With our intuitive search tools and comprehensive listings, browsing available rooms has never been simpler.
