@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
+import { handleLogout, redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
 import "./History.css";
 
 function History() {
@@ -9,41 +9,18 @@ function History() {
   const [searchQuery, setSearchQuery] = useState(""); // New state for search query
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
-  const auth = getAuth();
+
+  // To check if currently logged out: true->redirect to login
+  redirectToLoginIfLoggedOut(navigate);
+
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
     setRentalHistory(history.reverse()); // Show latest first
   }, []);
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
-  // Check if the user is logged in
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // If no token, redirect to login page
-      navigate("/");
-    }
-  }, [navigate]);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
-
-  const handleLogout = async () => {
-    try {
-      // Sign out from Firebase
-      await signOut(auth);
-
-      // Remove token from localStorage
-      localStorage.removeItem("token");
-
-      // Redirect to login page
-      navigate("/");
-    } catch (error) {
-      console.error("Error during logout:", error);
-      // Handle any potential error during logout
-    }
-  };
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
 
   const handleDelete = (index) => {
     const updatedHistory = rentalHistory.filter((_, i) => i !== index);
@@ -90,7 +67,7 @@ function History() {
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
             <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
-            <button onClick={handleLogout} className="dropdown-item">Logout</button>
+            <button onClick={() => handleLogout(navigate)} className="dropdown-item">Logout</button>
           </div>
         </div>
       </div>

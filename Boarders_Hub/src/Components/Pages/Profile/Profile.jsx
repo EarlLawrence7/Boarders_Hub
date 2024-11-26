@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../Login/firebaseConfig"; // Firebase Auth import
 import { updateDoc, getDoc, doc } from "firebase/firestore"; // Firestore import
-import { onAuthStateChanged, signOut } from "firebase/auth"; // Auth state listener
+import { onAuthStateChanged } from "firebase/auth"; // Auth state listener
+import { handleLogout } from "../Login/firebaseConfig";
 import "./Profile.css";
 
 function Profile() {
@@ -51,16 +52,6 @@ function Profile() {
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      localStorage.removeItem("token");
-      navigate("/"); // Navigate to login page
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
   };
 
   const handleEditToggle = () => {
@@ -130,7 +121,7 @@ function Profile() {
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
           <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
-            <button onClick={handleLogout} className="dropdown-item">
+            <button onClick={() => handleLogout(navigate)} className="dropdown-item">
               Logout
             </button>
           </div>

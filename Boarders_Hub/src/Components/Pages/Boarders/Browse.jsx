@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
-import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
-import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
+import { handleLogout, redirectToLoginIfLoggedOut } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -197,35 +196,13 @@ function Browse() {
       setCurrentPage(prevPage => prevPage - 1);
     }
   };
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/");
-    }
-  }, [navigate]);
-  /////////////////////////////////////////////////////////////////////// this block is for login persistence
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-
-  const handleLogout = async () => {
-    try {
-      // Sign out from Firebase
-      await signOut(auth);
-
-      // Remove token from localStorage
-      localStorage.removeItem("token");
-
-      // Redirect to login page
-      navigate("/");
-    } catch (error) {
-      console.error("Error during logout:", error);
-      // Handle any potential error during logout
-    }
-  };
+  // To check if currently logged out: true->redirect to login
+  redirectToLoginIfLoggedOut(navigate);
 
   const handleOpenModal = (room) => {
     setExpandedRoom(room); // Fix: Ensure this sets the room object to `expandedRoom`
@@ -286,7 +263,8 @@ function Browse() {
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>
             <button onClick={() => navigate("/Properties")} className="dropdown-item">View Properties</button>
-            <button onClick={handleLogout} className="dropdown-item">Logout</button>
+            <button onClick={() => handleLogout(navigate)} className="dropdown-item">Logout</button>
+
           </div>
         </div>
       </div>
