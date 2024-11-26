@@ -18,7 +18,7 @@
 .History-title {
   color: rgb(243, 239, 239);
   font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .History-box {
@@ -52,8 +52,9 @@
 .History-empty {
   color: white;
   font-size: 1.2rem;
-  margin-top: 20px;
+  margin-top: 50px;
 }
+
 .Delete-button {
   padding: 8px 12px;
   background-color: #d9534f;
@@ -64,5 +65,3 @@
   margin-top: 10px;
   transition: background-color 0.2s;
 }
-
-

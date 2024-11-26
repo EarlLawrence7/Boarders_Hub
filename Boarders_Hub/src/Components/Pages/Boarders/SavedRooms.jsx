@@ -12,7 +12,7 @@ function SavedRooms() {
     // Handle view profile action (e.g., navigate to profile page)
     navigate("/profile");
   };
-  
+
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
   // Check if the user is logged in
   useEffect(() => {
@@ -93,7 +93,6 @@ function SavedRooms() {
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={handleViewProfile} className="dropdown-item">View Profile</button>
             <button onClick={handleViewProfile} className="dropdown-item">Add Listings</button>
-            <button onClick={handleViewProfile} className="dropdown-item">View Tenants</button>
             <button onClick={handleViewProfile} className="dropdown-item">View Properties</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
           </div>

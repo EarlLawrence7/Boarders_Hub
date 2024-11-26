@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "./OwnerListing.css"; // Import the CSS file
+import "./Properties.css"; // Import the CSS file
 import { auth } from '../Login/firebaseConfig';  // Ensure this import is correct
 import { getAuth, signOut } from "firebase/auth"; // Firebase Auth import
 import { useNavigate } from 'react-router-dom';
 
-function OwnerListing() {
+function Properties() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
   const handleViewProfile = () => {
     // Handle view profile action (e.g., navigate to profile page)
     navigate("/profile");
   };
-  
+
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
   // Check if the user is logged in
   useEffect(() => {
@@ -44,7 +44,7 @@ function OwnerListing() {
   /////////////////////////////////////////////////////////////////////// this block is for login persistence
 
   return (
-    <div className="Owner-container">
+    <div className="Properties-container">
       <div className="Top-container">
         <a href="/home">
           <img
@@ -69,4 +69,4 @@ function OwnerListing() {
   );
 }
 
-export default OwnerListing;
+export default Properties;
