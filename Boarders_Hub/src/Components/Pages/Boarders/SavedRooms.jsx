@@ -1,80 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./SavedRooms.css"; // Import the CSS file
-import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
+import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
 import { handleLogout, redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function SavedRooms() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
 
-  // To check if currently logged out: true->redirect to login
+  // Redirect if not logged in
   redirectToLoginIfLoggedOut(navigate);
 
-  const handleViewProfile = () => {
-    // Handle view profile action (e.g., navigate to profile page)
-    navigate("/profile");
+  const toggleDropdown = () => {
+    setDropdownVisible((prev) => !prev);
   };
 
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
+  const navigateTo = (path) => {
+    navigate(path);
   };
 
   return (
-    <div className="Saved-container">
-      <div className="Top-container">
+    <div className="saved-rooms-container">
+      <header className="top-container">
         <a href="/home">
-          <img
-            src="Boardershub.png"
-            alt="Logo"
-            className="Logo-image"
-          />
+          <img src="Boardershub.png" alt="Logo" className="logo-image" />
         </a>
-        <div className="Search-wrapper">
-          <AiOutlineSearch className="Search-icon" />
+        <div className="search-wrapper">
+          <AiOutlineSearch className="search-icon" />
           <input
             type="text"
             placeholder="Search..."
-            className="Search-bar"
+            className="search-bar"
           />
         </div>
-        <div className="Nav-bar">
-          <button
-            className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/home'}
-          >
-            Home
-          </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/browse'}
-          >
-            Browse
-          </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/saved-rooms' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/saved-rooms'}
-          >
-            Saved Rooms
-          </button>
-          <button
-            className={`Nav-button ${window.location.pathname === '/history ' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/history'}
-          >
-            Boarding History
-          </button>
+        <nav className="nav-bar">
+          {["home", "browse", "saved-rooms", "history"].map((path) => (
+            <button
+              key={path}
+              className={`nav-button ${window.location.pathname === `/${path}` ? "active" : ""}`}
+              onClick={() => navigateTo(`/${path}`)}
+            >
+              {path.replace("-", " ").toUpperCase()}
+            </button>
+          ))}
+        </nav>
+        <div className="profile-icon-wrapper" onClick={toggleDropdown}>
+          <img src="default-profpic.png" alt="Profile Icon" className="profile-icon" />
+          {dropdownVisible && (
+            <div className="dropdown-menu">
+              {["/profile", "/AddListings", "/Properties"].map((path, index) => (
+                <button
+                  key={index}
+                  onClick={() => navigateTo(path)}
+                  className="dropdown-item"
+                >
+                  {path === "/profile"
+                    ? "View Profile"
+                    : path === "/AddListings"
+                    ? "Add Listings"
+                    : "View Properties"}
+                </button>
+              ))}
+              <button
+                onClick={() => handleLogout(navigate)}
+                className="dropdown-item"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
-        <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
-          <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
-            <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
-            <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>
-            <button onClick={() => navigate("/Properties")} className="dropdown-item">View Properties</button>
-            <button onClick={() => handleLogout(navigate)} className="dropdown-item">Logout</button>
-          </div>
-        </div>
-      </div>
-      {/* Content of the Browse page can go here */}
+      </header>
+      <main>
+        {/* Add Saved Rooms content here */}
+        <h1>Your Saved Rooms</h1>
+        <p>Start saving your favorite listings to view them here later.</p>
+      </main>
     </div>
   );
 }

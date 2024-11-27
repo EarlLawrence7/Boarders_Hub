@@ -1,5 +1,7 @@
-/* Home Container */
-.Saved-container {
+/* Saved Rooms Page */
+
+/* General container */
+.saved-rooms-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,5 +13,164 @@
   background-position: center;
   background-repeat: no-repeat;
   font-family: Arial, sans-serif;
+  color: white;
   overflow-y: auto;
+}
+
+/* Header / Top container */
+.top-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo styling */
+.logo-image {
+  width: 120px;
+  cursor: pointer;
+}
+
+/* Search bar styling */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.search-icon {
+  font-size: 20px;
+  color: white;
+  margin-right: 8px;
+}
+
+.search-bar {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  width: 200px;
+}
+
+/* Navigation bar styling */
+.nav-bar {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-button {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.nav-button.active {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+/* Profile icon and dropdown */
+.profile-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  z-index: 10;
+}
+
+.dropdown-item {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Main content */
+main {
+  margin: 20px;
+  text-align: center;
+}
+
+main h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+main p {
+  font-size: 18px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .top-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-wrapper {
+    width: 100%;
+  }
+
+  .nav-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  main h1 {
+    font-size: 28px;
+  }
+
+  main p {
+    font-size: 16px;
+  }
 }
