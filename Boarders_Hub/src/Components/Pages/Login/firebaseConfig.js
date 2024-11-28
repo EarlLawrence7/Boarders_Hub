@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Your web app's Firebase configuration
@@ -68,10 +68,42 @@ const getUserProfile = async (uid) => {
   return querySnapshot.docs.length ? querySnapshot.docs[0].data() : null;
 };
 
+// Function to upload profile picture and get its URL from Cloudinary
 const uploadProfilePicture = async (file, uid) => {
-  const fileRef = ref(storage, `profilePictures/${uid}`);
-  await uploadBytes(fileRef, file);
-  return getDownloadURL(fileRef);
+  try {
+    // Upload the file to Cloudinary
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "boarders_upload_preset"); // Replace with your Cloudinary preset
+
+    // Make the API request to Cloudinary
+    const response = await fetch("https://api.cloudinary.com/v1_1/dxbkzby8x/image/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    // Check if the upload was successful and get the URL
+    if (data.secure_url) {
+      const imageUrl = data.secure_url;
+
+      // Update Firestore with the new profile picture URL
+      const userDocRef = doc(db, "users", uid);
+      await setDoc(
+        userDocRef, 
+        { profilePicture: imageUrl },
+        { merge: true } // Merge to avoid overwriting other fields
+      );
+
+      return imageUrl; // Return the URL to be used for updating user data
+    } else {
+      throw new Error("Cloudinary upload failed.");
+    }
+  } catch (error) {
+    console.error("Error uploading profile picture to Cloudinary:", error);
+    throw new Error("Failed to upload profile picture");
+  }
 };
 
 // Export in other files

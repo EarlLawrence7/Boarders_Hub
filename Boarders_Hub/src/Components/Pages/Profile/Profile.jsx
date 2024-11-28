@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { db, auth } from "../Login/firebaseConfig"; // Firebase Auth import
-import { updateDoc, getDoc, doc } from "firebase/firestore"; // Firestore import
+import { db, auth, uploadProfilePicture } from "../Login/firebaseConfig"; // Firebase imports
+import { getDoc, setDoc, doc } from "firebase/firestore"; // Firestore import
 import { onAuthStateChanged } from "firebase/auth"; // Auth state listener
 import { handleLogout } from "../Login/firebaseConfig";
 import "./Profile.css";
@@ -10,11 +10,7 @@ function Profile() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [userData, setUserData] = useState({
     nickname: "",
-    fullName: "",
-    email: "",
-    phone: "",
-    birthday: "",
-    profilePicture: "", // Added for storing profile picture URL
+    profilePicture: "", // Storing profile picture URL
   });
   const [isEditing, setIsEditing] = useState(false); // Track if in edit mode
   const navigate = useNavigate();
@@ -23,19 +19,12 @@ function Profile() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-
         try {
           const userDoc = await getDoc(doc(db, "users", user.uid));
           if (userDoc.exists()) {
             const userDetails = userDoc.data();
             setUserData({
-              fullName: userDetails.username || "No Full Name",
               nickname: userDetails.username || "No Nickname",
-              email: userDetails.email || "No Email",
-              phone: userDetails.phone || "No Phone Number",
-              birthday: `${userDetails.birthDate?.day || "--"}/${
-                userDetails.birthDate?.month || "--"
-              }/${userDetails.birthDate?.year || "--"}`,
               profilePicture: userDetails.profilePicture || "", // Get profile picture from Firestore
             });
           }
@@ -72,19 +61,31 @@ function Profile() {
     setIsEditing(false); // Exit edit mode
   };
 
-  const handleProfilePictureUpload = (e) => {
+  const handleProfilePictureUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
+      try {
+        // Upload the picture and get the download URL
+        const imageUrl = await uploadProfilePicture(file, auth.currentUser.uid);
+        
+        // Update Firestore with the new profile picture URL
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        await setDoc(userRef, { profilePicture: imageUrl }, { merge: true });
+  
+        // Update the local state to reflect the new profile picture
         setUserData((prevData) => ({
           ...prevData,
-          profilePicture: reader.result, // Store the base64 string of the uploaded image
+          profilePicture: imageUrl,
         }));
-      };
-      reader.readAsDataURL(file); // Convert the image to a base64 string
+  
+        console.log("Profile picture uploaded and Firestore updated:", imageUrl);
+      } catch (error) {
+        console.error("Error uploading profile picture:", error);
+        // Add user-friendly error handling (e.g., setting an error message in the state)
+        alert("There was an error uploading the profile picture. Please try again.");
+      }
     }
-  };
+  };  
 
   return (
     <div className="Profile-container">
@@ -119,7 +120,7 @@ function Profile() {
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
+          <img src={userData.profilePicture || "default-profpic.png"} alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
             <button onClick={() => handleLogout(navigate)} className="dropdown-item">
               Logout
@@ -131,11 +132,11 @@ function Profile() {
       <div className="Profile-info">
         <div className="Profile-details">
           <div className="profile-picture-container">
-            <img
-              src={userData.profilePicture || "default-profpic.png"}
-              alt="Profile"
-              className="profile-picture"
-            />
+          <img
+            src={userData.profilePicture ? `${userData.profilePicture}?t=${new Date().getTime()}` : "default-profpic.png"}
+            alt="Profile"
+            className="profile-picture"
+          />
           </div>
           <div className="text-container">
             {isEditing ? (
@@ -144,13 +145,6 @@ function Profile() {
                   type="text"
                   name="nickname"
                   value={userData.nickname}
-                  onChange={handleInputChange}
-                  className="edit-input"
-                />
-                <input
-                  type="text"
-                  name="fullName"
-                  value={userData.fullName}
                   onChange={handleInputChange}
                   className="edit-input"
                 />
@@ -171,14 +165,11 @@ function Profile() {
                   >
                     Save
                   </button>
-                  
                 </div>
-
               </>
             ) : (
               <>
                 <h1 className="nickname">{userData.nickname}</h1>
-                <h2 className="name">{userData.fullName}</h2>
                 <button
                   className="edit-profile-btn"
                   onClick={handleEditToggle}
@@ -188,70 +179,6 @@ function Profile() {
               </>
             )}
           </div>
-        </div>
-
-        <div className="contact-info">
-          <h1>Contact Information</h1>
-          <div className="contact-details">
-            {isEditing ? (
-              <>
-                <p>
-                  <strong>Phone:</strong>{" "}
-                  <input
-                    type="text"
-                    name="phone"
-                    value={userData.phone}
-                    onChange={handleInputChange}
-                    className="edit-input"
-                  />
-                </p>
-                <p>
-                  <strong>Email:</strong>{" "}
-                  <input
-                    type="text"
-                    name="email"
-                    value={userData.email}
-                    onChange={handleInputChange}
-                    className="edit-input"
-                  />
-                </p>
-                <p>
-                  <strong>Birthday:</strong>{" "}
-                  <input
-                    type="text"
-                    name="birthday"
-                    value={userData.birthday}
-                    onChange={handleInputChange}
-                    className="edit-input"
-                  />
-                </p>
-              </>
-            ) : (
-              <>
-                <p>
-                  <strong>Phone:</strong> {userData.phone}
-                </p>
-                <p>
-                  <strong>Email:</strong> {userData.email}
-                </p>
-                <p>
-                  <strong>Birthday:</strong> {userData.birthday}
-                </p>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Favorites Section */}
-        <div className="favorites">
-          <h1>Favorites</h1>
-          <p>List of user favorites will go here.</p>
-        </div>
-
-        {/* Properties Owned Section */}
-        <div className="properties-owned">
-          <h1>Properties Owned</h1>
-          <p>List of properties the user owns will go here.</p>
         </div>
       </div>
     </div>
