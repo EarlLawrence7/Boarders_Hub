@@ -4,21 +4,22 @@ import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
 import { handleLogout, redirectToLoginIfLoggedOut } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import { AiFillHeart } from "react-icons/ai";
 
 
 function Modal({ room, onClose }) {
-    const handleRentNow = () => {
-      const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
-      history.push({
-        title: room.title,
-        location: room.location,
-        checkInDate: new Date().toLocaleDateString(),
-        status: "Pending",
-      });
-      localStorage.setItem("rentalHistory", JSON.stringify(history));
-      alert(`You have chosen to rent: ${room.title}`);
-      onClose();
-    };
+  const handleRentNow = () => {
+    const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
+    history.push({
+      title: room.title,
+      location: room.location,
+      checkInDate: new Date().toLocaleDateString(),
+      status: "Pending",
+    });
+    localStorage.setItem("rentalHistory", JSON.stringify(history));
+    alert(`You have chosen to rent: ${room.title}`);
+    onClose();
+  };
 
 
   const handleContactOwner = () => {
@@ -288,8 +289,13 @@ function Browse() {
               <button className="Details-button" onClick={() => handleOpenModal(room)}>
                 See Details
               </button>
+              <div className="Save-icon" onClick={() => handleSave(room)}>
+                <AiFillHeart />
+                <span className="Tooltip-text">Save</span> {/* Tooltip element */}
+              </div>
             </div>
           </div>
+
         ))}
       </div>
       <div className="Pagination-container">

@@ -73,7 +73,7 @@ function History() {
       </div>
 
       {/* Boarding History Section */}
-      <h1 className="History-title">Boarding History</h1>
+      <h1 className="History-title"></h1>
       {filteredHistory.length === 0 ? (
         <p className="History-empty">No matching rental history found.</p>
       ) : (
