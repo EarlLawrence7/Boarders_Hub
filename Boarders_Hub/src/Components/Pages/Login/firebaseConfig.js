@@ -2,8 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,7 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app); // Initialize Firestore
-const storage = getStorage(app);
 
 // For Logout or Signing out locally (token) and from Firebase
 const handleLogout = async (navigate) => {
@@ -62,16 +60,74 @@ const redirectToLoginIfLoggedOut = (navigate) => {
   }, [navigate]);
 };
 
-const getUserProfile = async (uid) => {
-  const q = query(collection(db, 'users'), where('uid', '==', uid));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.length ? querySnapshot.docs[0].data() : null;
+// Fetch user data and handle authentication state
+const useUserProfile = (setUserData, navigate) => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const userDetails = userDoc.data();
+            setUserData({
+              nickname: userDetails.username || "No Nickname",
+              fullName: userDetails.fullName || "No Nickname",
+              phone: userDetails.phone || "No Phone",
+              email: userDetails.email || "No Email",
+              birthday: userDetails.birthDate
+                ? `${userDetails.birthDate.month}/${userDetails.birthDate.day}/${userDetails.birthDate.year}`
+                : "No Birthday",
+              profilePicture: userDetails.profilePicture || "", // Get profile picture from Firestore
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        }
+      } else {
+        navigate("/"); // Navigate to login if not authenticated
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate, setUserData]);
 };
 
+// Function to upload profile picture and get its URL from Cloudinary
 const uploadProfilePicture = async (file, uid) => {
-  const fileRef = ref(storage, `profilePictures/${uid}`);
-  await uploadBytes(fileRef, file);
-  return getDownloadURL(fileRef);
+  try {
+    // Upload the file to Cloudinary
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "boarders_upload_preset"); // Replace with your Cloudinary preset
+
+    // Make the API request to Cloudinary
+    const response = await fetch("https://api.cloudinary.com/v1_1/dxbkzby8x/image/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    // Check if the upload was successful and get the URL
+    if (data.secure_url) {
+      const imageUrl = data.secure_url;
+
+      // Update Firestore with the new profile picture URL
+      const userDocRef = doc(db, "users", uid);
+      await setDoc(
+        userDocRef, 
+        { profilePicture: imageUrl },
+        { merge: true } // Merge to avoid overwriting other fields
+      );
+
+      return imageUrl; // Return the URL to be used for updating user data
+    } else {
+      throw new Error("Cloudinary upload failed.");
+    }
+  } catch (error) {
+    console.error("Error uploading profile picture to Cloudinary:", error);
+    throw new Error("Failed to upload profile picture");
+  }
 };
 
 // Export in other files
@@ -80,5 +136,5 @@ export { auth, db,
   redirectToHomeIfLoggedIn, 
   redirectToLoginIfLoggedOut,
   uploadProfilePicture, 
-  getUserProfile 
+  useUserProfile 
 };

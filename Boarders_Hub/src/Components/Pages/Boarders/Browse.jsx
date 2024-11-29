@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the icon
-import { handleLogout, redirectToLoginIfLoggedOut } from '../Login/firebaseConfig';
+import { handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { AiFillHeart } from "react-icons/ai";
 
@@ -57,7 +57,11 @@ function Browse() {
   const [currentPage, setCurrentPage] = useState(1);  // State for current page
   const roomsPerPage = 8;  // Updated to 8 rooms per page
   const navigate = useNavigate();
-
+  const [userData, setUserData] = useState({
+    profilePicture: "", // Storing profile picture URL
+  });
+  // Use the custom hook to fetch user profile picture
+  useUserProfile(setUserData, navigate);
   /////////////////////////////////////////////////////// Sample room data
   const rooms = [
     {
@@ -259,7 +263,7 @@ function Browse() {
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
+        <img src={userData.profilePicture || "default-profpic.png"} alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>

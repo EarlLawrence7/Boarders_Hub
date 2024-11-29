@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { handleLogout, redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
+import { handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
 import "./History.css";
 
 function History() {
@@ -12,6 +12,12 @@ function History() {
 
   // To check if currently logged out: true->redirect to login
   redirectToLoginIfLoggedOut(navigate);
+
+  const [userData, setUserData] = useState({
+    profilePicture: "", // Storing profile picture URL
+  });
+  // Use the custom hook to fetch user profile picture
+  useUserProfile(setUserData, navigate);
 
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
@@ -62,7 +68,7 @@ function History() {
           <button className={`Nav-button ${window.location.pathname === '/history' ? 'active' : ''}`} onClick={() => window.location.href = '/history'}>Boarding History</button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
+          <img src={userData.profilePicture || "default-profpic.png"} alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
