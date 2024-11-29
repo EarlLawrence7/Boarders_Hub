@@ -71,6 +71,7 @@ const useUserProfile = (setUserData, navigate) => {
             const userDetails = userDoc.data();
             setUserData({
               nickname: userDetails.username || "No Nickname",
+              fullName: userDetails.fullName || "No Nickname",
               phone: userDetails.phone || "No Phone",
               email: userDetails.email || "No Email",
               birthday: userDetails.birthDate
