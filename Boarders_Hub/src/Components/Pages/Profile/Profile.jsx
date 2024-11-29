@@ -1,43 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db, auth, uploadProfilePicture } from "../Login/firebaseConfig"; // Firebase imports
-import { getDoc, setDoc, doc } from "firebase/firestore"; // Firestore import
-import { onAuthStateChanged } from "firebase/auth"; // Auth state listener
-import { handleLogout } from "../Login/firebaseConfig";
+import { uploadProfilePicture, handleLogout, useUserProfile } from "../Login/firebaseConfig"; // Import necessary hooks and functions
+import { setDoc, doc } from "firebase/firestore";
+import { db, auth } from "../Login/firebaseConfig";
 import "./Profile.css";
 
 function Profile() {
+  const navigate = useNavigate();
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); // Track if in edit mode
+
   const [userData, setUserData] = useState({
+    fullName: "",
     nickname: "",
+    phone: "",
+    email: "",
+    birthday: "",
     profilePicture: "", // Storing profile picture URL
   });
-  const [isEditing, setIsEditing] = useState(false); // Track if in edit mode
-  const navigate = useNavigate();
 
-  // Fetch user data and handle authentication state
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        try {
-          const userDoc = await getDoc(doc(db, "users", user.uid));
-          if (userDoc.exists()) {
-            const userDetails = userDoc.data();
-            setUserData({
-              nickname: userDetails.username || "No Nickname",
-              profilePicture: userDetails.profilePicture || "", // Get profile picture from Firestore
-            });
-          }
-        } catch (error) {
-          console.error("Error fetching user details:", error);
-        }
-      } else {
-        navigate("/"); // Navigate to login if not authenticated
-      }
-    });
-
-    return () => unsubscribe();
-  }, [navigate]);
+  // Use the custom hook to fetch user data
+  useUserProfile(setUserData, navigate); // This will automatically set user data when authenticated
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -55,11 +38,25 @@ function Profile() {
     }));
   };
 
-  const handleSave = () => {
-    // Add logic to update Firestore with the new userData here
-    console.log("Saving changes:", userData);
-    setIsEditing(false); // Exit edit mode
-  };
+  const handleSave = async () => {
+    try {
+      const userRef = doc(db, "users", auth.currentUser.uid);
+  
+      // Update Firestore with new userData
+      await setDoc(userRef, {
+        nickname: userData.nickname,
+        phone: userData.phone,
+        email: userData.email,
+        birthday: userData.birthday,
+        fullName: userData.fullName,
+      }, { merge: true }); // Merge to prevent overwriting other fields
+  
+      console.log("User data saved:", userData);
+      setIsEditing(false); // Exit edit mode after saving
+    } catch (error) {
+      console.error("Error saving changes:", error);
+    }
+  };  
 
   const handleProfilePictureUpload = async (e) => {
     const file = e.target.files[0];
@@ -132,11 +129,11 @@ function Profile() {
       <div className="Profile-info">
         <div className="Profile-details">
           <div className="profile-picture-container">
-          <img
-            src={userData.profilePicture ? `${userData.profilePicture}?t=${new Date().getTime()}` : "default-profpic.png"}
-            alt="Profile"
-            className="profile-picture"
-          />
+            <img
+              src={userData.profilePicture ? `${userData.profilePicture}?t=${new Date().getTime()}` : "default-profpic.png"}
+              alt="Profile"
+              className="profile-picture"
+            />
           </div>
           <div className="text-container">
             {isEditing ? (
@@ -145,6 +142,13 @@ function Profile() {
                   type="text"
                   name="nickname"
                   value={userData.nickname}
+                  onChange={handleInputChange}
+                  className="edit-input"
+                />
+                <input
+                  type="text"
+                  name="fullName"
+                  value={userData.fullName}
                   onChange={handleInputChange}
                   className="edit-input"
                 />
@@ -170,6 +174,7 @@ function Profile() {
             ) : (
               <>
                 <h1 className="nickname">{userData.nickname}</h1>
+                <h1 className="name">{userData.fullName}</h1>
                 <button
                   className="edit-profile-btn"
                   onClick={handleEditToggle}
@@ -180,6 +185,71 @@ function Profile() {
             )}
           </div>
         </div>
+
+        <div className="contact-info">
+          <h1>Contact Information</h1>
+          <div className="contact-details">
+              {isEditing ? (
+                  <>
+                      <p>
+                          <strong>Phone:</strong>{" "}
+                          <input
+                              type="text"
+                              name="phone"
+                              value={userData.phone}
+                              onChange={handleInputChange}
+                              className="edit-input"
+                          />
+                      </p>
+                      <p>
+                          <strong>Email:</strong>{" "}
+                          <input
+                              type="text"
+                              name="email"
+                              value={userData.email}
+                              onChange={handleInputChange}
+                              className="edit-input"
+                          />
+                      </p>
+                      <p>
+                          <strong>Birthday:</strong>{" "}
+                          <input
+                              type="text"
+                              name="birthday"
+                              value={userData.birthday}
+                              onChange={handleInputChange}
+                              className="edit-input"
+                          />
+                      </p>
+                  </>
+              ) : (
+                  <>
+                      <p>
+                          <strong>Phone:</strong> {userData.phone}
+                      </p>
+                      <p>
+                          <strong>Email:</strong> {userData.email}
+                      </p>
+                      <p>
+                          <strong>Birthday:</strong> {userData.birthday}
+                      </p>
+                  </>
+              )}
+          </div>
+      </div>
+
+      {/* Favorites Section */}
+      <div className="favorites">
+          <h1>Favorites</h1>
+          <p>List of user favorites will go here.</p>
+      </div>
+
+      {/* Properties Owned Section */}
+      <div className="properties-owned">
+          <h1>Properties Owned</h1>
+          <p>List of properties the user owns will go here.</p>
+      </div>
+
       </div>
     </div>
   );

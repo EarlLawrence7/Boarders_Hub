@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleLogout, redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
+import { handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
 import "./Home.css";
 
 function Home() {
@@ -13,6 +13,12 @@ function Home() {
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
+
+  const [userData, setUserData] = useState({
+    profilePicture: "", // Storing profile picture URL
+  });
+  // Use the custom hook to fetch user profile picture
+  useUserProfile(setUserData, navigate);
 
   return (
     <div className="Home-container">
@@ -59,7 +65,7 @@ function Home() {
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
+          <img src={userData.profilePicture || "default-profpic.png"} alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>

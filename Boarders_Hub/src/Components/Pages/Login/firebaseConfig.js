@@ -2,8 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,7 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app); // Initialize Firestore
-const storage = getStorage(app);
 
 // For Logout or Signing out locally (token) and from Firebase
 const handleLogout = async (navigate) => {
@@ -62,10 +60,35 @@ const redirectToLoginIfLoggedOut = (navigate) => {
   }, [navigate]);
 };
 
-const getUserProfile = async (uid) => {
-  const q = query(collection(db, 'users'), where('uid', '==', uid));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.length ? querySnapshot.docs[0].data() : null;
+// Fetch user data and handle authentication state
+const useUserProfile = (setUserData, navigate) => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const userDetails = userDoc.data();
+            setUserData({
+              nickname: userDetails.username || "No Nickname",
+              phone: userDetails.phone || "No Phone",
+              email: userDetails.email || "No Email",
+              birthday: userDetails.birthDate
+                ? `${userDetails.birthDate.month}/${userDetails.birthDate.day}/${userDetails.birthDate.year}`
+                : "No Birthday",
+              profilePicture: userDetails.profilePicture || "", // Get profile picture from Firestore
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        }
+      } else {
+        navigate("/"); // Navigate to login if not authenticated
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate, setUserData]);
 };
 
 // Function to upload profile picture and get its URL from Cloudinary
@@ -112,5 +135,5 @@ export { auth, db,
   redirectToHomeIfLoggedIn, 
   redirectToLoginIfLoggedOut,
   uploadProfilePicture, 
-  getUserProfile 
+  useUserProfile 
 };
