@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./SavedRooms.css"; // Import the CSS file
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { handleLogout, redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
+import { handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
 function SavedRooms() {
@@ -10,6 +10,12 @@ function SavedRooms() {
 
   // Redirect if not logged in
   redirectToLoginIfLoggedOut(navigate);
+
+  const [userData, setUserData] = useState({
+    profilePicture: "", // Storing profile picture URL
+  });
+  // Use the custom hook to fetch user profile picture
+  useUserProfile(setUserData, navigate);
 
   const toggleDropdown = () => {
     setDropdownVisible((prev) => !prev);
@@ -45,7 +51,7 @@ function SavedRooms() {
           ))}
         </nav>
         <div className="profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="profile-icon" />
+          <img src={userData.profilePicture || "default-profpic.png"} alt="Profile Icon" className="Profile-icon-image" />
           {dropdownVisible && (
             <div className="dropdown-menu">
               {["/profile", "/AddListings", "/Properties"].map((path, index) => (
