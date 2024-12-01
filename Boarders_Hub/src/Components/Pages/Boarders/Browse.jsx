@@ -217,6 +217,17 @@ function Browse() {
     setExpandedRoom(null);
   };
 
+  
+  const handleSave = (room) => {
+    const savedRooms = JSON.parse(localStorage.getItem("savedRooms")) || [];
+    if (!savedRooms.some((savedRoom) => savedRoom.id === room.id)) {
+      savedRooms.push(room);
+      localStorage.setItem("savedRooms", JSON.stringify(savedRooms));
+      alert(`${room.title} has been saved.`);
+    } else {
+      alert(`${room.title} is already in your saved rooms.`);
+    }
+  };
 
   return (
     <div className="Browse-container">

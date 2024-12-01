@@ -1,7 +1,5 @@
-/* Saved Rooms Page */
-
-/* General container */
-.saved-rooms-container {
+/* Saved Rooms Container */
+.SavedRoom-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,164 +11,68 @@
   background-position: center;
   background-repeat: no-repeat;
   font-family: Arial, sans-serif;
-  color: white;
   overflow-y: auto;
 }
 
-/* Header / Top container */
-.top-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* Title */
+.SavedRoom-title {
+  color: rgb(243, 239, 239);
+  font-size: 2rem;
+  margin-bottom: 50px;
+}
+
+/* Saved Room Box */
+.SavedRoom-box {
   width: 100%;
-  padding: 10px 20px;
-  background-color: rgba(0, 0, 0, 0.8);
+  max-width: 800px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Logo styling */
-.logo-image {
-  width: 120px;
-  cursor: pointer;
-}
-
-/* Search bar styling */
-.search-wrapper {
+/* Saved Rooms List */
+.SavedRoom-list {
   display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 5px 10px;
-  border-radius: 20px;
-}
-
-.search-icon {
-  font-size: 20px;
-  color: white;
-  margin-right: 8px;
-}
-
-.search-bar {
-  border: none;
-  outline: none;
-  background: transparent;
-  color: white;
-  font-size: 16px;
-  width: 200px;
-}
-
-/* Navigation bar styling */
-.nav-bar {
-  display: flex;
+  flex-direction: column;
   gap: 15px;
 }
 
-.nav-button {
-  background-color: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.nav-button:hover {
-  background-color: white;
-  color: black;
-}
-
-.nav-button.active {
-  background-color: white;
-  color: black;
-  font-weight: bold;
-}
-
-/* Profile icon and dropdown */
-.profile-icon-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.profile-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-/* Dropdown menu */
-.dropdown-menu {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  border: 1px solid white;
+/* Saved Room Item */
+.SavedRoom-item {
+  background-color: #5e5e5e;
+  padding: 15px;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  width: 150px;
-  z-index: 10;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.dropdown-item {
-  background-color: transparent;
+/* Saved Room Item Title */
+.SavedRoom-item-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* Saved Room Empty State */
+.SavedRoom-empty {
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 50px;
+}
+
+/* Delete Button */
+.Delete-button {
+  padding: 8px 12px;
+  background-color: #d9534f;
   color: white;
   border: none;
-  padding: 10px 15px;
-  text-align: left;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
+  margin-top: 10px;
+  transition: background-color 0.2s;
 }
 
-.dropdown-item:hover {
-  background-color: white;
-  color: black;
-}
-
-/* Main content */
-main {
-  margin: 20px;
-  text-align: center;
-}
-
-main h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-main p {
-  font-size: 18px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .top-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .search-wrapper {
-    width: 100%;
-  }
-
-  .nav-bar {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  main h1 {
-    font-size: 28px;
-  }
-
-  main p {
-    font-size: 16px;
-  }
+/* Delete Button Hover Effect */
+.Delete-button:hover {
+  background-color: #c9302c;
 }
