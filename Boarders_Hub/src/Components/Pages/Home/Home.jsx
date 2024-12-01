@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
+import ContactUs from "../ContactUs/ContactUs";  // Make sure the path is correct
 import "./Home.css";
 
 function Home() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);  // Modal state
   const navigate = useNavigate();
 
-  // To check if currently logged out: true->redirect to login
+  // To check if currently logged out: true -> redirect to login
   redirectToLoginIfLoggedOut(navigate);
 
   const toggleDropdown = () => {
@@ -17,8 +19,13 @@ function Home() {
   const [userData, setUserData] = useState({
     profilePicture: "", // Storing profile picture URL
   });
+  
   // Use the custom hook to fetch user profile picture
   useUserProfile(setUserData, navigate);
+
+  const toggleContactModal = () => {
+    setShowContactModal(true);  // Trigger modal visibility
+  };
 
   return (
     <div className="Home-container">
@@ -46,14 +53,14 @@ function Home() {
             About us
           </button>
           <button
-            className={`Nav-button ${window.location.pathname === '/About' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/About'}
+            className={`Nav-button ${window.location.pathname === '/Contact' ? 'active' : ''}`}
+            onClick={toggleContactModal}  // Trigger Contact Us modal
           >
             Contact Us
           </button>
           <button
-            className={`Nav-button ${window.location.pathname === '/About' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/About'}
+            className={`Nav-button ${window.location.pathname === '/Privacy' ? 'active' : ''}`}
+            onClick={() => window.location.href = '/Privacy'}
           >
             Privacy Policy
           </button>
@@ -75,6 +82,7 @@ function Home() {
           </div>
         </div>
       </div>
+      
       <img src="Boarders_hub-removebg.png" alt="Boarders Hub Logo" className="welcome-image" />
       <div className="message-box">
         <p className="message-text">
@@ -85,6 +93,7 @@ function Home() {
           Whether you're looking for a cozy spot near your school, a vibrant area with easy access to nightlife, or a peaceful neighborhood close to work, we’re committed to making your stay in Cebu City both comfortable and stress-free. Start your journey with Boarder's Hub today and find the right place to truly call home!
         </p>
       </div>
+      
       <div className="button-container">
         <button className="browse-button" onClick={() => window.location.href = '/browse'}>
           Browse ROOMS NOW!
@@ -103,6 +112,9 @@ function Home() {
           <img src="Approved.png" alt="Small Image 3" className="small-image" />
         </div>
       </div>
+
+      {/* Include the Contact Us modal here */}
+      <ContactUs showModal={showContactModal} setShowModal={setShowContactModal} />
     </div>
   );
 }
