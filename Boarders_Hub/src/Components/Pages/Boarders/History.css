@@ -16,53 +16,123 @@
 
 /* Title */
 .History-title {
-  color: rgb(243, 239, 239);
+  color: white;
   font-size: 2rem;
+  font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
+/* History Box (Center Content) */
 .History-box {
+  display: flex;
+  flex-wrap: wrap; /* Enables a grid-like structure */
+  justify-content: center;
+  gap: 20px;
+  max-width: 1200px;
   width: 100%;
-  max-width: 800px;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.History-list {
+/* History Card Items */
+.History-item {
+  background-color: #2e2e2e; /* Dark card background */
+  color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 250px; /* Matches the card size in the image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.History-item {
-  background-color: #5e5e5e;
-  padding: 15px;
-  border-radius: 8px;
-  color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+.History-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
 
+/* History Item Title */
 .History-item-title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
-.History-empty {
-  color: white;
-  font-size: 1.2rem;
-  margin-top: 20px;
+/* History Item Description */
+.History-item-description {
+  font-size: 0.9rem;
+  color: #cccccc;
 }
+
+/* Delete Button */
 .Delete-button {
-  padding: 8px 12px;
-  background-color: #d9534f;
+  padding: 10px 15px;
+  background-color: #d9534f; /* Matches the red button in Bootstrap */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease-in-out;
 }
 
+.Delete-button:hover {
+  background-color: #c9302c;
+}
 
+/* Empty State */
+.History-empty {
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Pagination Buttons */
+.History-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.History-pagination button {
+  padding: 8px 12px;
+  background-color: #5e5e5e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.History-pagination button:hover {
+  background-color: #757575;
+}
+
+.History-pagination button:disabled {
+  background-color: #3a3a3a;
+  cursor: not-allowed;
+}
+.Cancel-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.Cancel-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.Cancel-button:hover:not(:disabled) {
+  background-color: #e60000;
+}
