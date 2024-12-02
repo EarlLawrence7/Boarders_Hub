@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineClose } from 'react-icons/ai'; // Import the X icon
-import { redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
+import { auth, redirectToLoginIfLoggedOut, uploadListingImages, addListingToFirestore } from "../Login/firebaseConfig";
 import "./AddListings.css";
 
 function AddListings({ onAddListing }) {
   const navigate = useNavigate();
 
-  // To check if currently logged out: true->redirect to login
+  // To check if currently logged out: true -> redirect to login
   redirectToLoginIfLoggedOut(navigate);
 
   const [formData, setFormData] = useState({
-    RoomType: "", // Ensure this matches the field name
+    RoomType: "",
     shortDescription: "",
     location: "",
     price: "",
@@ -20,19 +20,8 @@ function AddListings({ onAddListing }) {
   });
 
   const [roomImages, setRoomImages] = useState([]);
-  const [dropdownVisible, setDropdownVisible] = useState(false); // Define dropdown visibility state
 
-
-
-  // Check if the user is logged in
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // If no token, redirect to login page
-      navigate("/");
-    }
-  }, [navigate]);
-
+  // Limit file uploads to 5 images
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setRoomImages((prev) => [...prev, ...files].slice(0, 5)); // Limit to 5 images
@@ -48,23 +37,52 @@ function AddListings({ onAddListing }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  // Handles Submission of the listing
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate fields correctly with RoomType (not title)
-    if (formData.RoomType && formData.shortDescription && formData.price) {
-      onAddListing(formData); // Pass the listing data back to the parent
-      setFormData({
-        RoomType: "", // Reset the field names to match
-        shortDescription: "",
-        location: "",
-        price: "",
-        details: "",
-        images: []
-      }); // Clear form after submit
+    // Ensure all fields are filled and there are up to 5 images
+    if (formData.RoomType && formData.shortDescription && formData.price && roomImages.length > 0) {
+      try {
+        // Upload images to Cloudinary and get the URLs
+        const imageUrls = await uploadListingImages(roomImages); // Upload images and get URLs
+        formData.images = imageUrls; // Add image URLs to form data
+  
+        // Get the current user's ID (assuming you're using Firebase Auth)
+        const user = auth.currentUser;
+        if (user) {
+          formData.tenantId = user.uid; // Add tenantId with the current user's ID
+        } else {
+          // If no user is logged in, handle accordingly (e.g., show error or redirect)
+          alert("User not logged in.");
+          return;
+        }
+  
+        // Add status and requests fields
+        formData.status = "Available";
+        formData.requests = []; // Empty array for now
+  
+        // Save listing to Firestore
+        await addListingToFirestore(formData);
+  
+        alert("Listing created successfully!");
+        setFormData({
+          RoomType: "",
+          shortDescription: "",
+          location: "",
+          price: "",
+          details: "",
+          images: []
+        });
+        setRoomImages([]);
+        navigate("/home");
+      } catch (error) {
+        console.error("Error adding listing: ", error);
+        alert("Failed to create listing. Please try again.");
+      }
     } else {
-      alert("Please fill in all required fields.");
+      alert("Please fill in all required fields and upload at least one image (up to 5 images).");
     }
-  };
+  };  
 
   const handleGoBack = () => {
     navigate(-1); // Navigate to the previous page
@@ -80,7 +98,7 @@ function AddListings({ onAddListing }) {
             type="text"
             name="RoomType"
             placeholder="Room type"
-            value={formData.RoomType} // Corrected to match RoomType in state
+            value={formData.RoomType}
             onChange={handleChange}
             required
           />
@@ -139,7 +157,7 @@ function AddListings({ onAddListing }) {
                   style={{ display: "none" }}
                 />
                 <span className="plus-sign">+</span>
-                <p>Add Photos</p>
+                <p>Add Photos (up to 5)</p>
               </label>
             )}
           </div>

@@ -62,6 +62,10 @@ function Browse() {
   });
   // Use the custom hook to fetch user profile picture
   useUserProfile(setUserData, navigate);
+
+  // To check if currently logged out: true->redirect to login
+  redirectToLoginIfLoggedOut(navigate);
+  
   /////////////////////////////////////////////////////// Sample room data
   const rooms = [
     {
@@ -206,8 +210,7 @@ function Browse() {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // To check if currently logged out: true->redirect to login
-  redirectToLoginIfLoggedOut(navigate);
+
 
   const handleOpenModal = (room) => {
     setExpandedRoom(room); // Fix: Ensure this sets the room object to `expandedRoom`

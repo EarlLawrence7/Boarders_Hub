@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -130,11 +130,56 @@ const uploadProfilePicture = async (file, uid) => {
   }
 };
 
+// Function to upload multiple listing images to Cloudinary
+const uploadListingImages = async (images) => {
+  try {
+    const cloudinaryUrls = [];
+    for (const image of images) {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "boarders_upload_preset");
+
+      const response = await fetch("https://api.cloudinary.com/v1_1/dxbkzby8x/image/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.secure_url) {
+        cloudinaryUrls.push(data.secure_url);
+      } else {
+        console.error("Error uploading image:", data);
+      }
+    }
+    return cloudinaryUrls;
+  } catch (error) {
+    console.error("Error uploading images:", error);
+    throw new Error("Image upload failed");
+  }
+};
+
+// Function to save listing data to Firestore
+const addListingToFirestore = async (listingData) => {
+  try {
+    // Save listing to Firestore
+    const docRef = await addDoc(collection(db, "listings"), {
+      ...listingData,
+      createdAt: new Date(),
+    });
+    console.log("Listing added with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error adding listing to Firestore: ", error);
+    throw new Error("Failed to add listing");
+  }
+};
+
 // Export in other files
 export { auth, db, 
   handleLogout, 
   redirectToHomeIfLoggedIn, 
   redirectToLoginIfLoggedOut,
   uploadProfilePicture, 
-  useUserProfile 
+  useUserProfile,
+  uploadListingImages,
+  addListingToFirestore
 };
