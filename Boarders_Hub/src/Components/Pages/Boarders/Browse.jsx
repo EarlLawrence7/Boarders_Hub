@@ -203,11 +203,13 @@ function Browse() {
             <p className="Room-summary">{room.shortDescription}</p>
             <div className="Card-footer">
             {room.owner.profilePicture ? (
-              <img
-                src={room.owner.profilePicture}
-                alt={`${room.owner.fullName}'s profile`}
-                className="Profile-picture"
-              />
+              <div className="Profile-picture-container">
+                <img
+                  src={room.owner.profilePicture}
+                  alt={`${room.owner.fullName}'s profile`}
+                  className="Profile-picture"
+                />
+              </div>                   
             ) : (
               <div className="Profile-placeholder">
                 {room.owner.fullName ? room.owner.fullName.split(' ').map(name => name.charAt(0).toUpperCase()).join('') : 'NA'}

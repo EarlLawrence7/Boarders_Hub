@@ -20,7 +20,7 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   justify-items: center; /* Align items to the center of each grid cell */
-  padding: 20px;
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -35,7 +35,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 300px; /* Fixed width for each card */
+  width: 350px; /* Fixed width for each card */
   height: 280px; /* Fixed height for each card */
   color: white;
   overflow: hidden; /* Prevent content overflow */
@@ -59,6 +59,7 @@
 /* Details button */
 .Details-button {
   margin-top: auto;
+  margin-bottom: 10px;
   /* Push the button to the bottom of the card */
   background-color: #424769;
   color: white;
@@ -66,7 +67,7 @@
   border: 2px solid black;
   cursor: pointer;
   transition: background-color 0.2s;
-  width: 65%;
+  width: 50%;
   /* Ensure the button spans the full width of the card */
   height: 40px;
   /* Fixed height to maintain uniformity */
@@ -185,27 +186,39 @@
   margin-bottom: 10px;
 }
 
+/* Profile picture container */
+.Profile-picture-container {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%; /* Makes it a circle */
+  overflow: hidden; /* Hides any excess parts of the image */
+  margin-right: 5px;
+  margin-top: 15px;
+  display: flex; /* Flex for centering */
+  justify-content: center; /* Center the image inside */
+  align-items: center; /* Center the image inside */
+  border: 3px solid #000000; /* Add a white border around the image (adjust color and thickness as needed) */
+}
 
 /* Profile picture */
 .Profile-picture {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin-right: 30px;
+  width: 100%; /* Image will stretch to fill the container */
+  height: 100%; /* Image will stretch to fill the container */
+  object-fit: cover; /* Crop and center the image to fit within the circle */
 }
 
 /* Profile placeholder */
 .Profile-placeholder {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 100%;
   background-color: #2b2323;
   color: #fff;
   font-weight: bold;
-  margin-right: 30px;
+  margin-right: 0px;
   font-size: 20px;
 }
 
@@ -337,6 +350,7 @@
   transition: color 0.2s;
   /* Smooth transition for hover effect */
   margin-top: 30px;
+  padding-bottom: 15px;
 }
 
 .Save-icon:hover {
