@@ -111,7 +111,10 @@
   color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
+  max-height: 80vh; /* Limit the height of the modal */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
 }
+
 
 /* Close button */
 .Close-button {
@@ -379,3 +382,15 @@
   opacity: 1;
   /* Fade-in effect */
 }
+
+.Room-images {
+  width: 440px; /* Set the desired width for the image container */
+  overflow: hidden; /* Optional: hide any overflow if the image overflows */
+}
+
+.Room-images img {
+  width: 100%;  /* Make the image width 100% of the container's width */
+  height: auto; /* Automatically adjust the height to maintain the aspect ratio */
+}
+
+
