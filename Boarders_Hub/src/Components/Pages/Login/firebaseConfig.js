@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, addDoc, collection } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, addDoc, collection, getDocs } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -173,6 +173,31 @@ const addListingToFirestore = async (listingData) => {
   }
 };
 
+// Fetch all listings from Firestore
+const fetchListings = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "listings"));
+    const listings = await Promise.all(querySnapshot.docs.map(async (docSnap) => {
+      const roomData = docSnap.data();
+      const ownerRef = doc(db, "users", roomData.ownerId);  // Correct usage of doc()
+      const ownerDoc = await getDoc(ownerRef);  // Fetch owner data
+
+      const ownerData = ownerDoc.exists() ? ownerDoc.data() : {};  // Handle if owner data exists
+
+      return {
+        id: docSnap.id,
+        ...roomData,
+        owner: ownerData,  // Include owner data in room
+      };
+    }));
+    return listings;
+  } catch (error) {
+    console.error("Error fetching listings:", error);
+    throw new Error("Failed to fetch listings");
+  }
+};
+
+
 // Export in other files
 export { auth, db, 
   handleLogout, 
@@ -181,5 +206,6 @@ export { auth, db,
   uploadProfilePicture, 
   useUserProfile,
   uploadListingImages,
-  addListingToFirestore
+  addListingToFirestore,
+  fetchListings
 };
