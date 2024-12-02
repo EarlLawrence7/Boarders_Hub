@@ -50,7 +50,7 @@ function AddListings({ onAddListing }) {
         // Get the current user's ID (assuming you're using Firebase Auth)
         const user = auth.currentUser;
         if (user) {
-          formData.ownerID = user.uid;
+          formData.ownerId = user.uid;
         } else {
           // If no user is logged in, handle accordingly (e.g., show error or redirect)
           alert("User not logged in.");
