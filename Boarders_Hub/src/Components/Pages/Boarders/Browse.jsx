@@ -40,6 +40,8 @@ function Modal({ room, onClose }) {
         <p><strong>Price:</strong> {room.price}</p>
         <p><strong>Details:</strong> {room.details}</p>
         <p><strong>Owner:</strong> {room.owner}</p>
+        {/* Insert the array of images here from the listings */}
+
         <button className="More-button" onClick={handleSeeMore}>
           See More... <FaArrowRight className="More-button-icon" />
         </button>
