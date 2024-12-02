@@ -24,7 +24,7 @@ function ContactUs({ showModal, setShowModal }) {
               phone: "09123456789",
               fb: "https://www.facebook.com/earllawrence.baguio/",
               ig: "https://www.instagram.com/itaintearl/",
-              email: "mailto:danvincent.adlawan@cit.edu",
+              email: "mailto:earllawrence.baguio@cit.edu",
             },
             {
               name: "Adlawan, Dan Vincent",
@@ -70,7 +70,7 @@ function ContactUs({ showModal, setShowModal }) {
               name: "Montesclaros, Daniel M.",
               role: "Tester",
               phone: "09229554202",
-              fb: "https://www.facebook.com/montesclaros_daniel",
+              fb: "https://www.facebook.com/montesclaros.daniel.2024",
               ig: "https://www.instagram.com/danieldaniekl",
               email: "mailto:daniel.montesclaros@cit.edu",
             },
