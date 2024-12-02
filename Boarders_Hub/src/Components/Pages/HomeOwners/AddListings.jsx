@@ -50,16 +50,17 @@ function AddListings({ onAddListing }) {
         // Get the current user's ID (assuming you're using Firebase Auth)
         const user = auth.currentUser;
         if (user) {
-          formData.tenantId = user.uid; // Add tenantId with the current user's ID
+          formData.ownerID = user.uid;
         } else {
           // If no user is logged in, handle accordingly (e.g., show error or redirect)
           alert("User not logged in.");
           return;
         }
   
-        // Add status and requests fields
+        // Add status, requests fields, tenantId
         formData.status = "Available";
         formData.requests = []; // Empty array for now
+        formData.tenantId = "None"; // no tenant yet
   
         // Save listing to Firestore
         await addListingToFirestore(formData);
