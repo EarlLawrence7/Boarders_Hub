@@ -19,21 +19,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  justify-items: center;
-  /* Align items to the center of each grid cell */
+  justify-items: center; /* Align items to the center of each grid cell */
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
-}
-
-.Card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* Aligns footer elements */
-  margin-top: auto;
-  /* Pushes the footer to the bottom */
-  gap: 10px;
 }
 
 /* Room card */
@@ -46,13 +35,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 280px;
-  /* Set a consistent height */
+  width: 300px; /* Fixed width for each card */
+  height: 280px; /* Fixed height for each card */
   color: white;
-  overflow: hidden;
-  /* Prevent content overflow */
+  overflow: hidden; /* Prevent content overflow */
+  box-sizing: border-box; /* Ensure padding and border are included in width/height */
 }
 
+.Card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Aligns footer elements */
+  margin-top: auto;
+  /* Pushes the footer to the bottom */
+  gap: 10px;
+}
 
 .Room-card:hover {
   transform: scale(1.02);
