@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
 import ContactUs from "../ContactUs/ContactUs";  // Make sure the path is correct
+import ChatBot from "../ChatBot/ChatBot";  // Import the ChatBot component
 import "./Home.css";
 
 function Home() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);  // Modal state
+  const [showChatBot, setShowChatBot] = useState(false); // State to toggle ChatBot visibility
   const navigate = useNavigate();
 
   // To check if currently logged out: true -> redirect to login
@@ -25,6 +27,10 @@ function Home() {
 
   const toggleContactModal = () => {
     setShowContactModal(true);  // Trigger modal visibility
+  };
+
+  const toggleChatBot = () => {
+    setShowChatBot(!showChatBot);  // Toggle visibility of the ChatBot
   };
 
   return (
@@ -112,6 +118,14 @@ function Home() {
           <img src="Approved.png" alt="Small Image 3" className="small-image" />
         </div>
       </div>
+
+      {/* ChatBot Button */}
+      <button className="chatbot-button" onClick={toggleChatBot}>
+        Chat with Us
+      </button>
+
+      {/* Include the ChatBot Component */}
+      {showChatBot && <ChatBot />}
 
       {/* Include the Contact Us modal here */}
       <ContactUs showModal={showContactModal} setShowModal={setShowContactModal} />
