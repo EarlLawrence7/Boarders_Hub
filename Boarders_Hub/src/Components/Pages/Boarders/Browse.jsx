@@ -199,6 +199,7 @@ function Browse() {
       <div className="Room-card-container">
         {currentRooms.map((room) => (
           <div key={room.id} className="Room-card">
+            <div className="Room-card-image" style={{ backgroundImage: `url(${room.images[0]})` }}></div>
             <h2 className="Room-title">{room.RoomType}</h2>
             <p className="Room-summary">{room.shortDescription}</p>
             <div className="Card-footer">
