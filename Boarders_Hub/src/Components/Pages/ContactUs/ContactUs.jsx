@@ -12,8 +12,11 @@ function ContactUs({ showModal, setShowModal }) {
     <div className="ContactUs-modal-overlay">
       <div className="ContactUs-modal">
         <div className="ContactUs-header">
-          <h2>Contact Us</h2>
-          <button onClick={handleClose} className="close-button">X</button>
+          <h2 className="Headertitle">Contact Us</h2>
+          <p className="intro-text">
+            We're here to help and answer any questions you might have. We look forward to hearing from you.
+          </p>
+          <button onClick={handleClose} className="close-button">ｘ</button>
         </div>
 
         <div className="team-members">
