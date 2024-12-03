@@ -30,14 +30,14 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/addListings" element={<AddListings />} />
 
-        
+
         {/* Optional/Manual Routing */}
         <Route path="/signin" element={<Login />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/add-listing" element={<AddListings />} />
         <Route path="/view-properties" element={<Properties />} />
-        <Route path="/viewProperties" element={<Properties />} />
-        
+        <Route path="/history" element={<History />} />
+
 
       </Routes>
     </BrowserRouter>

@@ -5,6 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
 import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { AiFillHeart } from "react-icons/ai";
+import { BsBookmark } from "react-icons/bs";
 
 function Modal({ room, onClose }) {
   const [showAllImages, setShowAllImages] = useState(false);
@@ -73,8 +74,6 @@ function Modal({ room, onClose }) {
                 <button className="Contact-button" onClick={handleRentNow}>Edit listing</button>
                 <button className="Rent-button" onClick={onClose}>Go back</button>
               </>
-              
-              
             )
           }
         </div>
@@ -203,25 +202,25 @@ function Browse() {
             <h2 className="Room-title">{room.RoomType}</h2>
             <p className="Room-summary">{room.shortDescription}</p>
             <div className="Card-footer">
-            {room.owner.profilePicture ? (
-              <div className="Profile-picture-container">
-                <img
-                  src={room.owner.profilePicture}
-                  alt={`${room.owner.fullName}'s profile`}
-                  className="Profile-picture"
-                />
-              </div>                   
-            ) : (
-              <div className="Profile-placeholder">
-                {room.owner.fullName ? room.owner.fullName.split(' ').map(name => name.charAt(0).toUpperCase()).join('') : 'NA'}
-              </div>
-            )}
+              {room.owner.profilePicture ? (
+                <div className="Profile-picture-container">
+                  <img
+                    src={room.owner.profilePicture}
+                    alt={`${room.owner.fullName}'s profile`}
+                    className="Profile-picture"
+                  />
+                </div>
+              ) : (
+                <div className="Profile-placeholder">
+                  {room.owner.fullName ? room.owner.fullName.split(' ').map(name => name.charAt(0).toUpperCase()).join('') : 'NA'}
+                </div>
+              )}
               <button className="Details-button" onClick={() => handleOpenModal(room)}>
                 See Details
               </button>
               <div className="Save-icon" onClick={() => handleSave(room)}>
-                <AiFillHeart />
-                <span className="Tooltip-text">Save</span>
+                <BsBookmark />
+                <span className="Tooltip-text">Save Room</span>
               </div>
             </div>
           </div>

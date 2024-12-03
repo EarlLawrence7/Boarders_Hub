@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SavedRooms.css";
-import { AiOutlineSearch } from "react-icons/ai"; 
+import { AiOutlineSearch } from "react-icons/ai";
 import { handleLogout, redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +30,7 @@ function SavedRooms() {
 
   return (
     <div className="SavedRoom-container">
-      <header className="Top-container">
+      <div className="Top-container">
         <a href="/home">
           <img src="Boardershub.png" alt="Logo" className="Logo-image" />
         </a>
@@ -38,41 +38,31 @@ function SavedRooms() {
           <AiOutlineSearch className="Search-icon" />
           <input type="text" placeholder="Search..." className="Search-bar" />
         </div>
-        <nav className="Nav-bar">
-          {["home", "browse", "saved-rooms", "history"].map((path) => (
-            <button
-              key={path}
-              className={`Nav-button ${window.location.pathname === `/${path}` ? "active" : ""}`}
-              onClick={() => navigate(`/${path}`)}
-            >
-              {path.replace("-", " ").toUpperCase()}
-            </button>
-          ))}
-        </nav>
-        <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon" />
-          {dropdownVisible && (
-            <div className="dropdown-menu">
-              {["/profile", "/AddListings", "/Properties"].map((path, index) => (
-                <button
-                  key={index}
-                  onClick={() => navigate(path)}
-                  className="dropdown-item"
-                >
-                  {path === "/profile"
-                    ? "View Profile"
-                    : path === "/AddListings"
-                    ? "Add Listings"
-                    : "View Properties"}
-                </button>
-              ))}
-              <button onClick={() => handleLogout(navigate)} className="dropdown-item">
-                Logout
-              </button>
-            </div>
-          )}
+        <div className="Nav-bar">
+          <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
+            Home
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`} onClick={() => window.location.href = '/browse'}>
+            Browse
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/saved-rooms' ? 'active' : ''}`} onClick={() => window.location.href = '/saved-rooms'}>
+            Saved Rooms
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/history' ? 'active' : ''}`} onClick={() => window.location.href = '/history'}>
+            Boarding History
+          </button>
         </div>
-      </header>
+        <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
+          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
+          <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
+            <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
+            <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
+            <button onClick={() => navigate("/view-tenants")} className="dropdown-item">View Tenants</button>
+            <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
+            <button onClick={handleLogout} className="dropdown-item">Logout</button>
+          </div>
+        </div>
+      </div>
       <main>
         <h1 className="SavedRoom-title">Your Saved Rooms</h1>
         {savedRooms.length > 0 ? (
