@@ -82,10 +82,10 @@ function ContactUs({ showModal, setShowModal }) {
               <div className="social-icons">
                 {member.email && (
                   <a href={member.email}>
-                    <img 
-                      src="https://www.iconsdb.com/icons/preview/red/email-5-xxl.png" 
-                      alt="Email" 
-                      className="social-icon email-icon" 
+                    <img
+                      src="Cebu_Institute_of_Technology_University_logo.png"
+                      alt="Email"
+                      className="social-icon email-icon"
                     />
                   </a>
                 )}

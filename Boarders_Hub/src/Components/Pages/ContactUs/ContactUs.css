@@ -15,10 +15,14 @@
   background-color: white;
   border-radius: 8px;
   padding: 20px;
-  width: 80%;
+  width: 90%;
+  /* Adjusted for better fit on smaller screens */
   max-width: 900px;
+  max-height: 80vh;
+  /* Prevents modal from exceeding the viewport height */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
+  /* Makes content scrollable if it exceeds max-height */
 }
 
 .ContactUs-header {
@@ -74,4 +78,29 @@
 .social-icon.email-icon {
   width: 28px;
   height: 28px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .ContactUs-modal {
+    width: 95%;
+    /* Increase width for smaller screens */
+    padding: 15px;
+    /* Reduce padding */
+  }
+
+  .ContactUs-header h2 {
+    font-size: 20px;
+    /* Smaller heading on small screens */
+  }
+
+  .member h3 {
+    font-size: 16px;
+    /* Adjust member title size */
+  }
+
+  .close-button {
+    font-size: 20px;
+    /* Smaller close button */
+  }
 }
