@@ -347,6 +347,7 @@
   /* Pointer cursor on hover */
   transition: background-color 0.3s, transform 0.2s;
   /* Smooth transition */
+  margin-top: 10px;
 }
 
 .More-button:hover {
@@ -392,7 +393,7 @@
 }
 
 .Save-icon:hover {
-  color: rgb(0, 0, 0);
+  color: rgb(233, 0, 0);
   /* Change icon color on hover */
 }
 

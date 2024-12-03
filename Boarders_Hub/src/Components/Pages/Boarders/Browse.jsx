@@ -4,8 +4,7 @@ import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
 import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
-import { AiFillHeart } from "react-icons/ai";
-import { BsBookmark } from "react-icons/bs";
+import { BsBookmarkFill } from "react-icons/bs";
 
 function Modal({ room, onClose }) {
   const [showAllImages, setShowAllImages] = useState(false);
@@ -219,7 +218,7 @@ function Browse() {
                 See Details
               </button>
               <div className="Save-icon" onClick={() => handleSave(room)}>
-                <BsBookmark />
+                <BsBookmarkFill />
                 <span className="Tooltip-text">Save Room</span>
               </div>
             </div>

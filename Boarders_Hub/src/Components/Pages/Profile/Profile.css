@@ -2,7 +2,8 @@
 .Profile-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the Profile-info container */
+  align-items: center;
+  /* Centers the Profile-info container */
   justify-content: flex-start;
   width: 100vw;
   height: 100vh;
@@ -12,6 +13,7 @@
   background-repeat: no-repeat;
   font-family: Arial, sans-serif;
   overflow-y: auto;
+
 }
 
 /* Profile Info Section */
@@ -26,10 +28,14 @@
   max-width: 600px;
   text-align: center;
   display: flex;
-  flex-direction: column; /* Align sections vertically */
-  gap: 20px; /* Space between sections */
+  flex-direction: column;
+  /* Align sections vertically */
+  gap: 20px;
+  /* Space between sections */
   justify-content: center;
-  align-items: flex-start; /* Align items to the left */
+  align-items: flex-start;
+  /* Align items to the left */
+  margin-top: 150px;
 }
 
 /* Profile Details (Align profile picture and text containers horizontally) */
@@ -80,13 +86,15 @@
   margin-bottom: 10px;
   font-weight: bold;
   text-align: left;
-  color: #333;  /* Set a dark color for the header text */
+  color: #333;
+  /* Set a dark color for the header text */
 }
 
 .contact-details {
   display: flex;
   justify-content: flex-start;
-  gap: 30px; /* Space between phone and email */
+  gap: 30px;
+  /* Space between phone and email */
   text-align: left;
   width: 100%;
 }
@@ -194,9 +202,12 @@
 /* Button Group */
 .button-group {
   display: flex;
-  gap: 10px; /* Add space between the buttons */
-  justify-content: center; /* Center buttons horizontally */
-  align-items: center; /* Align buttons vertically */
+  gap: 10px;
+  /* Add space between the buttons */
+  justify-content: center;
+  /* Center buttons horizontally */
+  align-items: center;
+  /* Align buttons vertically */
 }
 
 /* Edit Profile Button */
@@ -204,9 +215,11 @@
   background-color: green;
   color: white;
   border: none;
-  padding: 6px 10px;  /* Reduced padding for smaller size */
+  padding: 6px 10px;
+  /* Reduced padding for smaller size */
   border-radius: 5px;
-  font-size: 12px;  /* Reduced font size */
+  font-size: 12px;
+  /* Reduced font size */
   cursor: pointer;
   width: auto;
   margin-top: 5px;
@@ -218,17 +231,38 @@
 
 /* Upload Picture Button */
 .upload-btn {
-  background-color: #091e09; /* Slightly lighter shade of green */
+  background-color: #091e09;
+  /* Slightly lighter shade of green */
   color: white;
   border: none;
-  padding: 6px 10px;  /* Same as the save button for consistency */
+  padding: 6px 10px;
+  /* Same as the save button for consistency */
   border-radius: 5px;
-  font-size: 12px;  /* Same font size as the save button */
+  font-size: 12px;
+  /* Same font size as the save button */
   cursor: pointer;
   width: auto;
   margin-top: 5px;
 }
 
 .upload-btn:hover {
-  background-color: #45a049; /* Slightly darker shade on hover */
+  background-color: #45a049;
+  /* Slightly darker shade on hover */
+}
+
+.go-back-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 100px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.go-back-btn:hover {
+  background-color: #0056b3;
 }
