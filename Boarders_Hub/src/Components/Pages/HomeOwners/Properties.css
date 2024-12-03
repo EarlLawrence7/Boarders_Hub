@@ -13,3 +13,193 @@
   font-family: Arial, sans-serif;
   overflow-y: auto;
 }
+
+/* Room cards grid */
+.Room-card-container1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  /* Align items to the center of each grid cell */
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Room card */
+.Room-card1 {
+  position: relative;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #5e5e5e;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 375px;
+  /* Fixed width for each card */
+  height: 280px;
+  /* Fixed height for each card */
+  color: white;
+  overflow: hidden;
+  /* Prevent content overflow */
+  box-sizing: border-box;
+  /* Ensure padding and border are included in width/height */
+  z-index: 1;
+  /* Keep the content above the background */
+}
+
+/* Room card background image */
+.Room-card-image1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.19;
+  /* 20% opacity for the background image */
+  z-index: -1;
+  /* Place it behind the content */
+}
+
+.Card-footer1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Aligns footer elements */
+  margin-top: auto;
+  /* Pushes the footer to the bottom */
+  gap: 10px;
+}
+
+.Profile-picture-container1 {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  /* Makes it a circle */
+  overflow: hidden;
+  /* Hides any excess parts of the image */
+  margin-right: 5px;
+  margin-top: 15px;
+  display: flex;
+  /* Flex for centering */
+  justify-content: center;
+  /* Center the image inside */
+  align-items: center;
+  /* Center the image inside */
+  border: 3px solid #000000;
+  /* Add a white border around the image (adjust color and thickness as needed) */
+}
+
+/* Profile picture */
+.Profile-picture1 {
+  width: 100%;
+  /* Image will stretch to fill the container */
+  height: 100%;
+  /* Image will stretch to fill the container */
+  object-fit: cover;
+  /* Crop and center the image to fit within the circle */
+}
+
+/* Profile placeholder */
+.Profile-placeholder1 {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background-color: #2b2323;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 0px;
+  font-size: 20px;
+}
+
+/* Details button */
+.Pendings-button {
+  margin-top: auto;
+  margin-bottom: 10px;
+
+  /* Push the button to the bottom of the card */
+  background-color: #424769;
+  color: white;
+  border-radius: 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 80%;
+  /* Ensure the button spans the full width of the card */
+  height: 40px;
+  /* Fixed height to maintain uniformity */
+  text-align: center;
+  font-size: 16px;
+  /* Ensure text is centered */
+}
+
+.Pendings-button:hover {
+  background-color: #4b537e;
+  color: black;
+}
+
+/* Close button */
+.Close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Rent button */
+.Edit-button {
+  padding: 10px 20px;
+  background-color: #ff9340;
+  color: Black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  /* Change to block for centering */
+  width: 45%;
+  margin-right: 60px
+    /* Centers the button horizontally */
+    /* Remove the left margin to avoid shifting */
+}
+
+.Edit-button:hover {
+  background-color: #ffb57d;
+}
+
+.Modal-buttons-container1 {
+  position: center;
+  margin-top: 20px;
+  margin-left: 160px;
+}
+
+.More-button1 {
+  background-color: transparent;
+  /* Green background */
+  color: white;
+  /* White text */
+  border: 2px solid black;
+  /* Black border */
+  /* Remove border */
+  border-radius: 100px;
+  /* Rounded corners */
+  padding: 5px 20px;
+  /* Padding */
+  font-size: 12px;
+  /* Font size */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s;
+  /* Smooth transition */
+  margin-top: 10px;
+}

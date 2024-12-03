@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./SavedRooms.css";
 import { AiOutlineSearch } from "react-icons/ai";
-import { handleLogout, redirectToLoginIfLoggedOut } from "../Login/firebaseConfig";
+import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
 import { useNavigate } from "react-router-dom";
 
 function SavedRooms() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [savedRooms, setSavedRooms] = useState([]);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    profilePicture: "",
+  });
+  useUserProfile(setUserData, navigate);
+  redirectToLoginIfLoggedOut(navigate);
 
   // Redirect if not logged in
   redirectToLoginIfLoggedOut(navigate);
@@ -53,13 +58,12 @@ function SavedRooms() {
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
-          <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
+          <img src={userData.profilePicture || "default-profpic.png"} alt="Profile Icon" className="Profile-icon-image" />
+          <div className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
-            <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
-            <button onClick={() => navigate("/view-tenants")} className="dropdown-item">View Tenants</button>
-            <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
-            <button onClick={handleLogout} className="dropdown-item">Logout</button>
+            <button onClick={() => navigate("/AddListings")} className="dropdown-item">Add Listings</button>
+            <button onClick={() => navigate("/Properties")} className="dropdown-item">View Properties</button>
+            <button onClick={() => handleLogout(navigate)} className="dropdown-item">Logout</button>
           </div>
         </div>
       </div>

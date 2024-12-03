@@ -21,7 +21,7 @@ function Home() {
   const [userData, setUserData] = useState({
     profilePicture: "", // Storing profile picture URL
   });
-  
+
   // Use the custom hook to fetch user profile picture
   useUserProfile(setUserData, navigate);
 
@@ -72,7 +72,7 @@ function Home() {
           </button>
           <button
             className={`Nav-button ${window.location.pathname === '/owner-listing' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/owner-listing'}
+            onClick={() => window.location.href = '/AddListings'}
           >
             Be a homeowner
           </button>
@@ -88,7 +88,7 @@ function Home() {
           </div>
         </div>
       </div>
-      
+
       <img src="Boarders_hub-removebg.png" alt="Boarders Hub Logo" className="welcome-image" />
       <div className="message-box">
         <p className="message-text">
@@ -99,7 +99,7 @@ function Home() {
           Whether you're looking for a cozy spot near your school, a vibrant area with easy access to nightlife, or a peaceful neighborhood close to work, we’re committed to making your stay in Cebu City both comfortable and stress-free. Start your journey with Boarder's Hub today and find the right place to truly call home!
         </p>
       </div>
-      
+
       <div className="button-container">
         <button className="browse-button" onClick={() => window.location.href = '/browse'}>
           Browse ROOMS NOW!
@@ -108,7 +108,7 @@ function Home() {
           List your room and be part of the homeowner community today.
         </p>
         <div className="button-container-Two">
-          <button className="Homeowner-button" onClick={() => window.location.href = '/Listing'}>
+          <button className="Homeowner-button" onClick={() => window.location.href = '/AddListings'}>
             BE A HOMEOWNER!
           </button>
         </div>
