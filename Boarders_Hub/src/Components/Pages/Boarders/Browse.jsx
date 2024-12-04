@@ -8,9 +8,9 @@ import { BsBookmarkFill } from "react-icons/bs";
 
 function Modal({ room, onClose }) {
   const [showAllImages, setShowAllImages] = useState(false);
-  // Get the currently signed-in user
+  const [showContactModal, setShowContactModal] = useState(false);
   const user = auth.currentUser;
-  const userId = user.uid; // This is the UID of the logged-in user
+  const userId = user.uid;
 
   const handleRentNow = () => {
     const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
@@ -26,7 +26,7 @@ function Modal({ room, onClose }) {
   };
 
   const handleContactOwner = () => {
-    alert(`Contacting owner: ${room.owner.fullName}`);
+    setShowContactModal(true);
   };
 
   const handleSeeMore = () => {
@@ -60,26 +60,37 @@ function Modal({ room, onClose }) {
           </button>
         )}
         <div className="Modal-buttons-container">
-          {/* Render buttons only if the logged-in user is not the owner */}
-          {
-            userId !== room.ownerId ? (
-              <>
-                <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
-                <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
-              </>
-            ) : (
-              <>
-                <p>You are the owner of this room.</p>
-                <button className="Contact-button" onClick={handleRentNow}>Edit listing</button>
-                <button className="Rent-button" onClick={onClose}>Go back</button>
-              </>
-            )
-          }
+          {userId !== room.ownerId ? (
+            <>
+              <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
+              <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
+            </>
+          ) : (
+            <>
+              <p>You are the owner of this room.</p>
+              <button className="Contact-button" onClick={handleRentNow}>Edit listing</button>
+              <button className="Rent-button" onClick={onClose}>Go back</button>
+            </>
+          )}
         </div>
       </div>
+      {showContactModal && (
+        <div className="Contact-modal-overlay">
+          <div className="Contact-modal">
+            <button className="Close-button" onClick={() => setShowContactModal(false)}>X</button>
+            <h2>Contact the Owner below</h2>
+            <p><strong>Name:</strong> {room.owner.fullName}</p>
+            <p><strong>Email:</strong> {room.owner.email}</p>
+            <p><strong>Phone:</strong> {room.owner.phone}</p>
+            <div className="Social-links">
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 
 function Browse() {
   const [expandedRoom, setExpandedRoom] = useState(null);
