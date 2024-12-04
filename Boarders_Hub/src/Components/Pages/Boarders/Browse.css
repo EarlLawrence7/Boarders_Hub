@@ -449,3 +449,43 @@
   height: auto;
   /* Automatically adjust the height to maintain the aspect ratio */
 }
+.Contact-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Contact modal container */
+.Contact-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  position: relative; /* Added to make Close button position relative to this container */
+}
+
+/* Close button in the Contact Owner modal */
+.Contact-modal .Close-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  position: absolute; /* Position the button relative to the modal container */
+  top: 10px;
+  right: 10px;
+}
+
+.Social-links a {
+  margin: 0 10px;
+  color: blue;
+  text-decoration: underline;
+}
