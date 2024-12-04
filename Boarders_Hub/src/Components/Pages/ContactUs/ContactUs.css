@@ -12,36 +12,85 @@
 }
 
 .ContactUs-modal {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
+  background-color: #E0F7FA;
+  opacity: 90%;
+  border-radius: 12px;
+  padding: 30px;
   width: 90%;
-  /* Adjusted for better fit on smaller screens */
   max-width: 900px;
   max-height: 80vh;
-  /* Prevents modal from exceeding the viewport height */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
-  /* Makes content scrollable if it exceeds max-height */
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}
+
+.ContactUs-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ContactUs-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ContactUs-modal::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+.ContactUs-modal::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .ContactUs-header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .ContactUs-header h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 36px; /* Larger title for better impact */
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; /* Bold title */
+  text-transform: uppercase; /* Adds emphasis */
+  letter-spacing: 2px; /* Adds some spacing between letters */
+  color: #00796b; /* Soft teal color for a friendly look */
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for aesthetic */
+}
+
+.intro-text {
+  font-size: 18px; /* Slightly larger intro text */
+  color: #555; /* Subtle color for readability */
+  text-align: center;
+  margin-top: 15px; /* Adds space between title and text */
+  line-height: 1.6; /* Makes text more readable with proper line height */
+  font-family: 'Roboto', sans-serif; /* Consistent font */
+  font-weight: 400; /* Normal weight for better readability */
 }
 
 .close-button {
-  font-size: 24px;
+  position: absolute;
+  top: 0; /* Align with the top of the header */
+  right: 10px;
+  font-size: 28px;
   background: transparent;
   border: none;
   cursor: pointer;
+  color: #00796b;
+  transition: color 0.3s ease, transform 0.3s ease;
+  border-radius: 50%;
+  
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-button:hover {
+  color: #004d40; /* Darker shade for hover effect */
+  transform: scale(1.1); /* Slight zoom on hover for better interaction */
 }
 
 .team-members {
@@ -51,14 +100,16 @@
 }
 
 .member {
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Light background for the member blocks */
 }
 
 .member h3 {
   font-size: 18px;
   margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .member p {
@@ -80,27 +131,21 @@
   height: 28px;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
   .ContactUs-modal {
     width: 95%;
-    /* Increase width for smaller screens */
-    padding: 15px;
-    /* Reduce padding */
+    padding: 20px;
   }
 
   .ContactUs-header h2 {
-    font-size: 20px;
-    /* Smaller heading on small screens */
+    font-size: 28px;
   }
 
-  .member h3 {
+  .intro-text {
     font-size: 16px;
-    /* Adjust member title size */
   }
 
   .close-button {
-    font-size: 20px;
-    /* Smaller close button */
+    font-size: 22px;
   }
 }
