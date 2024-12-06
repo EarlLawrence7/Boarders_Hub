@@ -13,6 +13,7 @@ import AddListings from "./Components/Pages/HomeOwners/AddListings";
 import Profile from "./Components/Pages/Profile/Profile";
 import Signup from "./Components/Pages/Signup/Signup";
 import AboutUs from "./Components/Pages/AboutUs/AboutUs";
+import PrivacyPolicy from "./Components/Pages/PrivacyPolicy/PrivacyPolicy";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/addListings" element={<AddListings />} />
         <Route path="/about-us" element={<AboutUs />} />
-
+        <Route path="/privacy" element={<PrivacyPolicy />} />
 
         {/* Optional/Manual Routing */}
         <Route path="/signin" element={<Login />} />

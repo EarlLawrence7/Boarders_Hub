@@ -71,7 +71,7 @@ function ContactUs({ showModal, setShowModal }) {
             },
             {
               name: "Montesclaros, Daniel M.",
-              role: "Tester",
+              role: "Co-Frontend Developer & Tester",
               phone: "09229554202",
               fb: "https://www.facebook.com/montesclaros.daniel.2024",
               ig: "https://www.instagram.com/danieldaniekl",
