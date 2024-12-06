@@ -33,6 +33,10 @@ function Home() {
     setShowChatBot(!showChatBot);  // Toggle visibility of the ChatBot
   };
 
+  const goToAboutUs = () => {
+    navigate("/about-us"); // Navigate to the AboutUs page
+  };
+
   return (
     <div className="Home-container">
       <div className="Top-container">
@@ -53,8 +57,8 @@ function Home() {
             Browse
           </button>
           <button
-            className={`Nav-button ${window.location.pathname === '/About' ? 'active' : ''}`}
-            onClick={() => window.location.href = '/About'}
+            className={`Nav-button ${window.location.pathname === '/about-us' ? 'active' : ''}`}
+            onClick={goToAboutUs}  // Navigate to About Us
           >
             About us
           </button>
