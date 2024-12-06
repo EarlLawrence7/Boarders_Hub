@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Groq from 'groq-sdk';  // Groq SDK import
 import './ChatBot.css';
 
-// Initialize Groq with your API key
 const groq = new Groq({
   apiKey: import.meta.env.VITE_GROQ_API_KEY,  // Access API key from .env
   dangerouslyAllowBrowser: true  // Allow usage in the browser environment
@@ -12,6 +11,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
+  const messagesEndRef = useRef(null);  // Reference for auto-scrolling
 
   // Initial welcome message
   useEffect(() => {
@@ -24,7 +24,11 @@ const ChatBot = () => {
     setMessages([welcomeMessage]);
   }, []);
 
-  // Handle sending messages
+  // Scroll to the bottom of the chat when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   const handleSend = async (text) => {
     const userMessage = {
       _id: new Date().getTime(),
@@ -45,7 +49,6 @@ const ChatBot = () => {
       'scuba', 'adventure', 'trip', 'transport', 'bus', 'jeepney'
     ];
 
-    // Check if the message contains any Cebu-related keywords
     if (cebuKeywords.some((keyword) => messageText.includes(keyword))) {
       setLoading(true);
 
@@ -94,14 +97,13 @@ const ChatBot = () => {
     }
   };
 
-  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     const text = query.trim();
     if (text) {
       handleSend(text);
     }
-    setQuery(''); // Clear the input after sending
+    setQuery('');
   };
 
   return (
@@ -123,6 +125,7 @@ const ChatBot = () => {
             <span>...</span>
           </div>
         )}
+        <div ref={messagesEndRef} /> {/* This is the reference for auto-scrolling */}
       </div>
 
       <form className="chatbot-input" onSubmit={handleSubmit}>
