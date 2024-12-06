@@ -1,0 +1,134 @@
+/* General container styles */
+.AboutUs-content {
+  background-color: #f8f9fa;
+  padding: 40px 20px;
+  margin-top: 20px;
+}
+
+/* Inner container styles */
+.AboutUs-inner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styles */
+.AboutUs-title {
+  font-size: 3rem;
+  color: #343a40;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Description styles */
+.AboutUs-description {
+  font-size: 1.2rem;
+  color: #495057;
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Team info section */
+.Team-info {
+  margin-bottom: 40px;
+}
+
+.Team-title {
+  font-size: 2rem;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Team members list */
+.Team-members-list {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+/* Styles for each team member */
+.Team-member {
+  background-color: #e9ecef;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
+.Team-member:hover {
+  transform: translateY(-5px);
+}
+
+/* Team member image wrapper and styles */
+.Team-member-img-wrapper {
+  width: 100%;
+  height: 75%; /* 3/4 of the box height */
+  overflow: hidden;
+}
+
+.Team-member-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Team member name */
+.Team-member-name {
+  font-size: 1.1rem;
+  color: #343a40;
+  font-weight: bold;
+  margin-top: 10px;
+  text-transform: capitalize;
+}
+
+/* Project info section */
+.Project-info {
+  margin-bottom: 40px;
+}
+
+.Project-title {
+  font-size: 2rem;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.Project-description {
+  font-size: 1.2rem;
+  color: #495057;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .AboutUs-title {
+    font-size: 2.5rem;
+  }
+
+  .AboutUs-description {
+    font-size: 1rem;
+  }
+
+  .Team-title,
+  .Project-title {
+    font-size: 1.5rem;
+  }
+
+  .Team-members-list {
+    grid-template-columns: 1fr;
+  }
+}

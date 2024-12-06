@@ -12,8 +12,7 @@ import Properties from "./Components/Pages/HomeOwners/Properties";
 import AddListings from "./Components/Pages/HomeOwners/AddListings";
 import Profile from "./Components/Pages/Profile/Profile";
 import Signup from "./Components/Pages/Signup/Signup";
-
-
+import AboutUs from "./Components/Pages/AboutUs/AboutUs";
 
 function App() {
   return (
@@ -29,6 +28,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/addListings" element={<AddListings />} />
+        <Route path="/about-us" element={<AboutUs />} />
 
 
         {/* Optional/Manual Routing */}
