@@ -1,0 +1,102 @@
+/* Privacy Policy Page Styles */
+.privacy-policy-page-container {
+  max-width: 1200px;
+  margin: 30px auto 30px; /* Added top margin (30px), centered horizontally, and bottom margin (30px) */
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 15px; /* Added border radius for rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds subtle shadow for depth */
+}
+
+.privacy-policy-page-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #2C3E50;
+  margin-bottom: 20px;
+}
+
+.privacy-policy-page-introduction {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
+.privacy-policy-page-section {
+  margin-bottom: 30px;
+}
+
+.privacy-policy-page-section-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2980B9;
+  margin-bottom: 15px;
+}
+
+.privacy-policy-page-section ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.privacy-policy-page-section li {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.privacy-policy-page-section p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.privacy-policy-page-section strong {
+  font-weight: bold;
+}
+
+.privacy-policy-page-section ul li {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.privacy-policy-page-section ul li strong {
+  font-weight: bold;
+}
+
+.privacy-policy-page-section p a {
+  color: #2980B9;
+  text-decoration: none;
+}
+
+.privacy-policy-page-section p a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .privacy-policy-page-container {
+    padding: 15px;
+  }
+
+  .privacy-policy-page-title {
+    font-size: 28px;
+  }
+
+  .privacy-policy-page-introduction {
+    font-size: 16px;
+  }
+
+  .privacy-policy-page-section-title {
+    font-size: 20px;
+  }
+
+  .privacy-policy-page-section ul {
+    margin-left: 15px;
+  }
+
+  .privacy-policy-page-section li {
+    font-size: 14px;
+  }
+}

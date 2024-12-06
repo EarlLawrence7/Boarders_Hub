@@ -103,54 +103,90 @@ function AboutUs() {
   <div className="AboutUs-inner-container">
     <h1 className="AboutUs-title">About Us</h1>
     <p className="AboutUs-description">
-      We are seven members working on this project for our CPEPE361 class. We are from H2 and Group 1.
+    Welcome to our project! We are a team of seven students from H2 and Group 1 working on a platform
+            that simplifies room rentals and management. This project is for our CPEPE361 class, and we are
+            excited to present our work!
     </p>
 
     <div className="Team-info">
-      <h2 className="Team-title">Meet Our Team</h2>
-      <ul className="Team-members-list">
-        <li className="Team-member">
-          <img src="path/to/arbien-image.jpg" alt="Arbien M. Armenion" className="Team-member-img" />
-          <div className="Team-member-name">Arbien M. Armenion</div>
-        </li>
-        <li className="Team-member">
-          <img src="path/to/danvincent-image.jpg" alt="Dan Vincent Y. Adlawan" className="Team-member-img" />
-          <div className="Team-member-name">Dan Vincent Y. Adlawan</div>
-        </li>
-        <li className="Team-member">
-          <img src="path/to/daryl-image.jpg" alt="Daryl D. Butar" className="Team-member-img" />
-          <div className="Team-member-name">Daryl D. Butar</div>
-        </li>
-        <li className="Team-member">
-          <img src="path/to/jeremiah-image.jpg" alt="Jeremiah Calbario" className="Team-member-img" />
-          <div className="Team-member-name">Jeremiah Calbario</div>
-        </li>
-        <li className="Team-member">
-          <img src="path/to/earl-image.jpg" alt="Earl Lawrence O. Baguio" className="Team-member-img" />
-          <div className="Team-member-name">Earl Lawrence O. Baguio</div>
-        </li>
-        <li className="Team-member">
-          <img src="path/to/nicko-image.jpg" alt="Nicko Louis Adora" className="Team-member-img" />
-          <div className="Team-member-name">Nicko Louis Adora</div>
-        </li>
-        <li className="Team-member">
-          <img src="path/to/daniel-image.jpg" alt="Daniel M. Montesclaros" className="Team-member-img" />
-          <div className="Team-member-name">Daniel M. Montesclaros</div>
-        </li>
-      </ul>
-    </div>
+  <h2 className="Team-title">Meet Our Team</h2>
+  <ul className="Team-members-list">
+    <li className="Team-member">
+      <img
+        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        alt="Arbien M. Armenion"
+        className="Team-member-img"
+      />
+      <div className="Team-member-name">Arbien M. Armenion</div>
+      <div className="Team-member-role">Co-Frontend Developer</div>
+    </li>
+    <li className="Team-member">
+      <img
+        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        alt="Dan Vincent Y. Adlawan"
+        className="Team-member-img"
+      />
+      <div className="Team-member-name">Dan Vincent Y. Adlawan</div>
+      <div className="Team-member-role">Co-Frontend Developer</div>
+    </li>
+    <li className="Team-member">
+      <img
+        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        alt="Daryl D. Butar"
+        className="Team-member-img"
+      />
+      <div className="Team-member-name">Daryl D. Butar</div>
+      <div className="Team-member-role">Main Backend Developer</div>
+    </li>
+    <li className="Team-member">
+      <img
+        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        alt="Jeremiah Calbario"
+        className="Team-member-img"
+      />
+      <div className="Team-member-name">Jeremiah Calbario</div>
+      <div className="Team-member-role">Co-Backend Developer</div>
+    </li>
+    <li className="Team-member">
+      <img
+        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        alt="Earl Lawrence O. Baguio"
+        className="Team-member-img"
+      />
+      <div className="Team-member-name">Earl Lawrence O. Baguio</div>
+      <div className="Team-member-role">Main Frontend Developer</div>
+    </li>
+    <li className="Team-member">
+      <img
+        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        alt="Nicko Louis Adora"
+        className="Team-member-img"
+      />
+      <div className="Team-member-name">Nicko Louis Adora</div>
+      <div className="Team-member-role">Co-Frontend Developer</div>
+    </li>
+    <li className="Team-member">
+      <img
+        src="/src/Components/Aboutuspictures/Daniel image.jpg"
+        alt="Daniel Montesclaros"
+        className="Team-member-img"
+      />
+      <div className="Team-member-name">Daniel M. Montesclaros</div>
+      <div className="Team-member-role">Co-Frontend Developer & Tester</div>
+    </li>
+  </ul>
+</div>
+
 
     <div className="Project-info">
       <h2 className="Project-title">Our Project</h2>
       <p className="Project-description">
-        This project aims to create a platform for easy room rentals and management, providing an efficient
-        and user-friendly experience for homeowners and tenants.
+      This project aims to create a platform for easy room rentals and management, providing an efficient and user-friendly experience for homeowners and tenants. Our goal is to streamline the rental process, making it easier for both parties to manage listings, payments, and communication.
       </p>
     </div>
   </div>
 </div>
-
-    </div> // Close Home-container
+</div> // Close Home-container
   );
 }
 
