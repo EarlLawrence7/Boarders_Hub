@@ -113,7 +113,7 @@ function AboutUs() {
   <ul className="Team-members-list">
     <li className="Team-member">
       <img
-        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        src="/src/Components/Aboutuspictures/arbien.jpg"
         alt="Arbien M. Armenion"
         className="Team-member-img"
       />
@@ -122,7 +122,7 @@ function AboutUs() {
     </li>
     <li className="Team-member">
       <img
-        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        src="/src/Components/Aboutuspictures/dan.jpg"
         alt="Dan Vincent Y. Adlawan"
         className="Team-member-img"
       />
@@ -131,7 +131,7 @@ function AboutUs() {
     </li>
     <li className="Team-member">
       <img
-        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        src="/src/Components/Aboutuspictures/daryl.jpg"
         alt="Daryl D. Butar"
         className="Team-member-img"
       />
@@ -140,7 +140,7 @@ function AboutUs() {
     </li>
     <li className="Team-member">
       <img
-        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        src="/src/Components/Aboutuspictures/jeremiah.jpg"
         alt="Jeremiah Calbario"
         className="Team-member-img"
       />
@@ -149,7 +149,7 @@ function AboutUs() {
     </li>
     <li className="Team-member">
       <img
-        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        src="/src/Components/Aboutuspictures/earl.jpg"
         alt="Earl Lawrence O. Baguio"
         className="Team-member-img"
       />
@@ -158,7 +158,7 @@ function AboutUs() {
     </li>
     <li className="Team-member">
       <img
-        src="/src/Components/Aboutuspictures/kissing niggas.jpg"
+        src="/src/Components/Aboutuspictures/Nicko.jpg"
         alt="Nicko Louis Adora"
         className="Team-member-img"
       />
