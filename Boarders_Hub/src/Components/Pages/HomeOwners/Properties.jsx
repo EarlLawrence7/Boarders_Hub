@@ -14,6 +14,7 @@ function Modal({ room, onClose }) {
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
       onClose();
+      
     }
   };
 
