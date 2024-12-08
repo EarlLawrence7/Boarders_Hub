@@ -12,8 +12,7 @@
 }
 
 .ContactUs-modal {
-  background-color: #E0F7FA;
-  opacity: 90%;
+  background-color: #e5e5e5;
   border-radius: 12px;
   padding: 30px;
   width: 90%;
@@ -53,44 +52,59 @@
 
 .ContactUs-header h2 {
   margin: 0;
-  font-size: 36px; /* Larger title for better impact */
+  font-size: 36px;
+  /* Larger title for better impact */
   font-family: 'Roboto', sans-serif;
-  font-weight: 700; /* Bold title */
-  text-transform: uppercase; /* Adds emphasis */
-  letter-spacing: 2px; /* Adds some spacing between letters */
-  color: #00796b; /* Soft teal color for a friendly look */
+  font-weight: 700;
+  /* Bold title */
+  text-transform: uppercase;
+  /* Adds emphasis */
+  letter-spacing: 2px;
+  /* Adds some spacing between letters */
+  color: #00796b;
+  /* Soft teal color for a friendly look */
   text-align: center;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for aesthetic */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for aesthetic */
 }
 
 .intro-text {
-  font-size: 18px; /* Slightly larger intro text */
-  color: #555; /* Subtle color for readability */
+  font-size: 18px;
+  /* Slightly larger intro text */
+  color: #555;
+  /* Subtle color for readability */
   text-align: center;
-  margin-top: 15px; /* Adds space between title and text */
-  line-height: 1.6; /* Makes text more readable with proper line height */
-  font-family: 'Roboto', sans-serif; /* Consistent font */
-  font-weight: 400; /* Normal weight for better readability */
+  margin-top: 15px;
+  /* Adds space between title and text */
+  line-height: 1.6;
+  /* Makes text more readable with proper line height */
+  font-family: 'Roboto', sans-serif;
+  /* Consistent font */
+  font-weight: 400;
+  /* Normal weight for better readability */
 }
 
 .close-button {
   position: absolute;
-  top: 0; /* Align with the top of the header */
+  top: 0;
+  /* Align with the top of the header */
   right: 10px;
-  font-size: 28px;
+  font-size: 20px;
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #00796b;
+  color: #000000;
   transition: color 0.3s ease, transform 0.3s ease;
   border-radius: 50%;
-  
+
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .close-button:hover {
-  color: #004d40; /* Darker shade for hover effect */
-  transform: scale(1.1); /* Slight zoom on hover for better interaction */
+  color: #000000;
+  /* Darker shade for hover effect */
+  transform: scale(1.1);
+  /* Slight zoom on hover for better interaction */
 }
 
 .team-members {
@@ -103,7 +117,8 @@
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9; /* Light background for the member blocks */
+  background-color: #f9f9f9;
+  /* Light background for the member blocks */
 }
 
 .member h3 {
