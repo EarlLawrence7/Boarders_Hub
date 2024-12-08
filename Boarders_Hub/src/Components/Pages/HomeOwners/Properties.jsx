@@ -11,6 +11,12 @@ function Modal({ room, onClose }) {
   const user = auth.currentUser;
   const userId = user.uid; // This is the UID of the logged-in user
 
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains('Modal-overlay')) {
+      onClose();
+    }
+  };
+
   const handleRentNow = () => {
     const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
     history.push({
@@ -24,16 +30,12 @@ function Modal({ room, onClose }) {
     onClose();
   };
 
-  const handleContactOwner = () => {
-    alert(`Contacting owner: ${room.owner.fullName}`);
-  };
-
   const handleSeeMore = () => {
     setShowAllImages(true);
   };
 
   return (
-    <div className="Modal-overlay">
+    <div className="Modal-overlay" onClick={handleOverlayClick}>
       <div className="Modal-content">
         <button className="Close-button" onClick={onClose}>X</button>
         <h2>{room.RoomType}</h2>
