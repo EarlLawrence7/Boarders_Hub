@@ -1,7 +1,22 @@
-import React from 'react';
-import './ContactUs.css';
+import React, { useEffect } from "react";
+import "./ContactUs.css";
 
 function ContactUs({ showModal, setShowModal }) {
+  // Close modal on Esc key
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" && showModal) {
+        setShowModal(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showModal, setShowModal]);
+
   if (!showModal) return null;
 
   const handleClose = () => {
