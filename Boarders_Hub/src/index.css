@@ -1,7 +1,7 @@
 /* Top Container */
 .Top-container {
   width: 100%;
-  min-height: 70px;
+  min-height: 75px; /* Increased by 5px from 70px */
   display: flex;
   flex-wrap: wrap;
   /* Ensure components can wrap */
@@ -16,32 +16,15 @@
   transition: all 0.3s ease;
 }
 
-/* Logo Image */
 .Logo-image {
-  width: auto;
-  height: 100px;
-  /* Default height */
-  max-height: 60px;
-  /* Default max-height */
-  border-radius: 50%;
-  object-fit: cover;
-  margin-left: 50px;
-  transition: all 0.3s ease;
-  /* Smooth transition for logo resizing */
-}
-
-/* On Hover: Increase size of Top-container */
-.Top-container:hover {
-  min-height: 220px;
-  /* Expand on hover */
-}
-
-/* On Hover: Increase logo size */
-.Top-container:hover .Logo-image {
-  height: 200px;
-  max-height: 200px;
-  /* Adjust to make logo bigger */
-  margin-left: 80px;
+  width: 100%; /* Make the image fill its container horizontally */
+  height: 100%; /* Make the image fill its container vertically */
+  max-width: 60px; /* Restrict the maximum width */
+  max-height: 60px; /* Restrict the maximum height */
+  border-radius: 50%; /* Circular logo */
+  object-fit: cover; /* Ensures the image fills the area while maintaining aspect ratio */
+  margin-left: 50px; /* Optional margin */
+  transition: all 0.3s ease; /* Smooth transition for resizing */
 }
 
 @media (max-width: 768px) {

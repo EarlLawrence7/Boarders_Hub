@@ -7,14 +7,10 @@ import { useNavigate } from 'react-router-dom';
 
 function Modal({ room, onClose }) {
   const [showAllImages, setShowAllImages] = useState(false);
-  // Get the currently signed-in user
-  const user = auth.currentUser;
-  const userId = user.uid; // This is the UID of the logged-in user
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
       onClose();
-      
     }
   };
 
@@ -84,7 +80,6 @@ function Properties() {
   useUserProfile(setUserData, navigate);
   redirectToLoginIfLoggedOut(navigate);
 
-  // Fetch room data from Firestore using fetchListings
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -98,11 +93,11 @@ function Properties() {
     };
     fetchRooms();
   }, []);
-  const [pendingRequests, setPendingRequests] = useState([]);
+
   const handleGoBack = () => {
     navigate(-1); // Navigate to the previous page
   };
-  // Pagination logic
+
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
   const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
@@ -131,6 +126,9 @@ function Properties() {
     setExpandedRoom(null);
   };
 
+  const handleViewRequests = (room) => {
+    navigate("/view-requests", { state: { room } });
+  };
 
   return (
     <div className="Properties-container">
@@ -177,7 +175,7 @@ function Properties() {
             <h2 className="Room-title">{room.RoomType}</h2>
             <p className="Room-summary">{room.shortDescription}</p>
             <div className="Card-footer1">
-              <button className="Pendings-button" onClick={() => handleOpenModal(room)}>
+              <button className="Pendings-button" onClick={() => handleViewRequests(room)}>
                 View Requests
               </button>
               <button className="Pendings-button" onClick={() => handleOpenModal(room)}>

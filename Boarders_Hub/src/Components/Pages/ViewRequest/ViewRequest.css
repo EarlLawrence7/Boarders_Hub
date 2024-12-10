@@ -1,0 +1,165 @@
+/* General Styling for the Page */
+.view-request-page-container {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  background: url('path-to-your-image.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Overlay on the background image */
+.view-request-page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  z-index: -1;
+}
+
+/* Header Section */
+.view-request-page-container h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.view-request-page-container h3 {
+  font-size: 1.75rem;
+  margin-top: 20px;
+  text-align: center;
+  color: #f4f4f4;
+}
+
+/* Table Styles */
+.view-request-table {
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.view-request-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.view-request-table th, .view-request-table td {
+  padding: 15px;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+}
+
+.view-request-table th {
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.view-request-table tr:nth-child(even) {
+  background-color: #2c2c2c;
+}
+
+.view-request-table tr:nth-child(odd) {
+  background-color: #3a3a3a;
+}
+
+.view-request-table tr:hover {
+  background-color: #555;
+}
+
+.view-request-table td {
+  color: #ddd;
+}
+
+/* No Requests Message */
+.view-request-table td[colspan="3"] {
+  text-align: center;
+  font-style: italic;
+  color: #bbb;
+}
+
+/* Styling for the Loading Message */
+.view-request-page-container p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #f4f4f4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .view-request-page-container {
+    padding: 15px;
+  }
+
+  .view-request-page-container h1 {
+    font-size: 2.5rem;
+  }
+
+  .view-request-page-container h3 {
+    font-size: 1.5rem;
+  }
+
+  .view-request-table {
+    padding: 15px;
+  }
+
+  .view-request-table th, .view-request-table td {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+/* Button Styling (if you have buttons like "View Requests") */
+.view-request-page-container .view-request-button {
+  background-color: #5c6bc0;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.view-request-page-container .view-request-button:hover {
+  background-color: #3f51b5;
+}
+
+/* Back Button */
+.back-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px; /* Space between button and content */
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+
+.viewborder{
+  margin-top: 10px;
+}

@@ -14,6 +14,8 @@ import Profile from "./Components/Pages/Profile/Profile";
 import Signup from "./Components/Pages/Signup/Signup";
 import AboutUs from "./Components/Pages/AboutUs/AboutUs";
 import PrivacyPolicy from "./Components/Pages/PrivacyPolicy/PrivacyPolicy";
+import ViewRequest from "./Components/Pages/ViewRequest/ViewRequest"; 
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
         <Route path="/addListings" element={<AddListings />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/view-requests" element={<ViewRequest />} />
 
         {/* Optional/Manual Routing */}
         <Route path="/signin" element={<Login />} />
