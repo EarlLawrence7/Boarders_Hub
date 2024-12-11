@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, addDoc, collection, getDocs } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, addDoc, collection, getDocs, arrayUnion  } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -199,7 +199,7 @@ const fetchListings = async () => {
 
 
 // Export in other files
-export { auth, db, 
+export { auth, db, doc, setDoc, arrayUnion,
   handleLogout, 
   redirectToHomeIfLoggedIn, 
   redirectToLoginIfLoggedOut,
