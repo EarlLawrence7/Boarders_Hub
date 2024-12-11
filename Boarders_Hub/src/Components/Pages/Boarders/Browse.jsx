@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
+import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { BsBookmarkFill } from "react-icons/bs";
 
@@ -156,16 +156,30 @@ function Browse() {
     setExpandedRoom(null);
   };
 
-  const handleSave = (room) => {
-    const savedRooms = JSON.parse(localStorage.getItem("savedRooms")) || [];
-    if (!savedRooms.some((savedRoom) => savedRoom.id === room.id)) {
-      savedRooms.push(room);
-      localStorage.setItem("savedRooms", JSON.stringify(savedRooms));
-      alert(`${room.RoomType} has been saved.`);
+  // Function to save a room to the user's savedRooms array
+const handleSave = async (roomId) => {
+  try {
+    const user = auth.currentUser; // Get the current authenticated user
+    if (user) {
+      const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
+
+      // Check if savedRooms array exists, if not, create it
+      await setDoc(
+        userDocRef,
+        {
+          savedRooms: arrayUnion(roomId), // Append roomId to savedRooms array
+        },
+        { merge: true } // Use merge to avoid overwriting other user data
+      );
+
+      console.log("Room saved to savedRooms array.");
     } else {
-      alert(`${room.RoomType} is already in your saved rooms.`);
+      console.log("User is not authenticated.");
     }
-  };
+  } catch (error) {
+    console.error("Error saving room:", error);
+  }
+};
 
   return (
     <div className="Browse-container">
@@ -234,7 +248,7 @@ function Browse() {
               <button className="Details-button" onClick={() => handleOpenModal(room)}>
                 See Details
               </button>
-              <div className="Save-icon" onClick={() => handleSave(room)}>
+              <div className="Save-icon" onClick={() => handleSave(room.id)}>
                 <BsBookmarkFill />
                 <span className="Tooltip-text">Save Room</span>
               </div>
