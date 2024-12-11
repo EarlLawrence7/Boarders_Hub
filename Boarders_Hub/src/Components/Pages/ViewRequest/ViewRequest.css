@@ -89,7 +89,7 @@
 }
 
 /* No Requests Message */
-.view-request-table td[colspan="3"] {
+.view-request-table td[colspan="4"] {
   text-align: center;
   font-style: italic;
   color: #bbb;

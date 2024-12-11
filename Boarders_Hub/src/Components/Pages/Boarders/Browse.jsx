@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { BsBookmarkFill } from "react-icons/bs";
 
 function Modal({ room, onClose }) {
+  const [showRentModal, setShowRentModal] = useState(false);
   const [showAllImages, setShowAllImages] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const user = auth.currentUser;
@@ -18,17 +19,12 @@ function Modal({ room, onClose }) {
     }
   };
 
-  const handleRentNow = () => {
-    const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
-    history.push({
-      title: room.title,
-      location: room.location,
-      checkInDate: new Date().toLocaleDateString(),
-      status: "Pending",
-    });
-    localStorage.setItem("rentalHistory", JSON.stringify(history));
-    alert(`You have chosen to rent: ${room.title}`);
-    onClose();
+  const handleOpenRentModal = (room) => {
+    setShowRentModal(room);
+  };
+
+  const handleCloseRentModal = () => {
+    setShowRentModal(null);
   };
 
   const handleContactOwner = () => {
@@ -68,13 +64,13 @@ function Modal({ room, onClose }) {
         <div className="Modal-buttons-container">
           {userId !== room.ownerId ? (
             <>
-              <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
+              <button className="Rent-button" onClick={() => handleOpenRentModal(room)}>Rent now</button>
               <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
             </>
           ) : (
             <>
               <p>You are the owner of this room.</p>
-              <button className="Contact-button" onClick={handleRentNow}>Edit listing</button>
+              <button className="Contact-button" onClick={null}>Edit listing</button>
               <button className="Rent-button" onClick={onClose}>Go back</button>
             </>
           )}
@@ -93,10 +89,34 @@ function Modal({ room, onClose }) {
           </div>
         </div>
       )}
+      {showRentModal && <RentModal room={showRentModal} onClose={handleCloseRentModal} />}
     </div>
   );
 }
 
+function RentModal({ room, onClose }) {
+  const user = auth.currentUser;
+  const userId = user.uid;
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains('Modal-overlay')) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="Modal-overlay" onClick={handleOverlayClick}>
+      <div className="Modal-content">
+        <button className="Close-button" onClick={onClose}>X</button>
+        <h2>{room.RoomType}</h2>
+        <p><strong>Location:</strong> {room.location}</p>
+        <p><strong>Price:</strong> {room.price}</p>
+        <p><strong>Details:</strong> {room.details}</p>
+        <p><strong>Owner:</strong> {room.owner.fullName}</p>
+      </div>
+    </div>
+  );
+}
 
 function Browse() {
   const [expandedRoom, setExpandedRoom] = useState(null);
