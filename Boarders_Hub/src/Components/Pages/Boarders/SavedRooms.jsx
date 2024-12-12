@@ -68,31 +68,53 @@ function SavedRooms() {
         </div>
       </div>
       <main>
-        <h1 className="SavedRoom-title">Your Saved Rooms</h1>
-        {savedRooms.length > 0 ? (
-          <div className="SavedRoom-box">
-            <div className="SavedRoom-list">
-              {savedRooms.map((room) => (
-                <div key={room.id} className="SavedRoom-item">
-                  <h2 className="SavedRoom-item-title">{room.title}</h2>
-                  <p>{room.location}</p>
-                  <p>{room.price}</p>
-                  <button
-                    className="Delete-button"
-                    onClick={() => handleRemoveRoom(room.id)}
-                  >
-                    Remove
-                  </button>
+  <h1 className="SavedRoom-title">Your Saved Rooms</h1>
+  {savedRooms.length > 0 ? (
+    <div className="saved-card-container">
+      {savedRooms.map((room) => (
+        <div key={room.id} className="Room-card">
+          {/* Add room image here if available */}
+          <div className="Room-card-image" style={{ backgroundImage: `url(${room.images[0]})` }}></div>
+          
+          <h2 className="Room-title">{room.RoomType}</h2>
+          <p className="Room-summary">{room.shortDescription}</p>
+          <p className="Room-price">{room.price}</p>
+
+          {/* Profile Picture or Placeholder */}
+          <div className="Card-footer">
+              {room.owner.profilePicture ? (
+                <div className="Profile-picture-container">
+                  <img
+                    src={room.owner.profilePicture}
+                    alt={`${room.owner.fullName}'s profile`}
+                    className="Profile-picture"
+                  />
                 </div>
-              ))}
-            </div>
+            ) : (
+              <div className="Profile-placeholder">
+                {room.owner.fullName
+                  ? room.owner.fullName.split(' ').map(name => name.charAt(0).toUpperCase()).join('')
+                  : 'NA'}
+              </div>
+            )}
+            
+            {/* Remove button */}
+            <button
+              className="Delete-button"
+              onClick={() => handleRemoveRoom(room.id)}
+            >
+              Remove
+            </button>
           </div>
-        ) : (
-          <p className="SavedRoom-empty">
-            You have no saved rooms yet. Start saving your favorite listings!
-          </p>
-        )}
-      </main>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <p className="SavedRoom-empty">
+      You have no saved rooms yet. Start saving your favorite listings!
+    </p>
+  )}
+</main>
     </div>
   );
 }

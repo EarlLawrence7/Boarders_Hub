@@ -59,7 +59,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0.19;
+  opacity: 90%;
   /* 20% opacity for the background image */
   z-index: -1;
   /* Place it behind the content */
@@ -123,6 +123,13 @@
   margin-top: 40px;
 }
 
+.Modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Modal content */
 .Modal-content {
   background-color: #48507e;
@@ -134,11 +141,8 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
   max-height: 80vh;
-  /* Limit the height of the modal */
   overflow-y: auto;
-  /* Enable vertical scrolling when content overflows */
 }
-
 
 /* Close button */
 .Close-button {
@@ -300,78 +304,66 @@
 
 .Pagination-container {
   position: relative;
-  /* Change from fixed to relative */
   margin-top: 20px;
-  /* Add space between the cards and the pagination */
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  /* Allows wrapping if needed */
-  gap: 10px;
+  gap: 15px; /* Increased gap for better spacing */
   z-index: 1000;
 }
 
 .Pagination-button {
-  padding: 10px 25px;
-  background-color: #565656;
-  /* Button color */
-  color: rgb(255, 255, 255);
+  padding: 12px 30px; /* Increased padding for a more prominent button */
+  background-color: #4CAF50; /* Vibrant green for better visual appeal */
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px; /* Fully rounded corners for modern look */
   cursor: pointer;
   font-size: 16px;
+  font-weight: 500; /* Slightly lighter font weight */
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  /* Smooth transitions for hover effects */
 }
 
+.Pagination-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
 
 .Pagination-button:disabled {
   background-color: #929292;
-  /* Disabled button color */
   cursor: not-allowed;
 }
 
 .More-button {
   background-color: transparent;
-  /* Green background */
-  color: white;
-  /* White text */
-  border: 2px solid black;
-  /* Black border */
-  /* Remove border */
-  border-radius: 100px;
-  /* Rounded corners */
-  padding: 5px 20px;
-  /* Padding */
-  font-size: 12px;
-  /* Font size */
+  color: #4CAF50; /* Green text for a clean look */
+  border: 2px solid #4CAF50; /* Green border */
+  border-radius: 100px; /* Fully rounded corners */
+  padding: 8px 25px; /* Slightly increased padding */
+  font-size: 14px; /* Larger font size for readability */
   cursor: pointer;
-  /* Pointer cursor on hover */
   transition: background-color 0.3s, transform 0.2s;
-  /* Smooth transition */
   margin-top: 10px;
+  font-weight: 500;
 }
 
 .More-button:hover {
-  background-color: #4e557d;
-  /* Darker green on hover */
-  transform: scale(1.09);
-  /* Slightly enlarge on hover */
-  color: white;
-}
-
-.More-button {
-  margin-top: 10px;
+  background-color: #4CAF50; /* Green background on hover */
+  color: white; /* White text on hover */
+  transform: scale(1.09); /* Slightly enlarge on hover */
 }
 
 .More-button:active {
-  transform: scale(1);
-  /* Reset size on click */
+  transform: scale(1); /* Reset size on click */
 }
 
 .More-button-icon {
   font-size: 15px;
-  margin-left: 10px;
-  /* Icon size */
+  margin-left: 10px; /* Space between icon and text */
 }
+
 
 .Save-icon {
   position: relative;
