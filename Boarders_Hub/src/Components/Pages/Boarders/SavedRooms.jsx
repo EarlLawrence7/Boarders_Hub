@@ -46,7 +46,12 @@ function SavedRooms() {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading message while data is being fetched
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div> {/* Add a spinner or loading animation */}
+        <p>Loading your saved rooms...</p> {/* Loading text */}
+      </div>
+    );
   }
 
   return (
@@ -133,7 +138,7 @@ function SavedRooms() {
             ))}
           </div>
         ) : (
-          <p className="SavedRoom-empty">You have no saved rooms yet. Start saving your favorite listings!</p>
+          <p className="SavedRoom-empty">Start saving your favorite listings!</p>
         )}
       </main>
     </div>
