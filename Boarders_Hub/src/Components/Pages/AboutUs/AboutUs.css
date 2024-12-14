@@ -42,7 +42,7 @@
 }
 
 .Team-title {
-  font-size: 2rem;
+  font-size: 3rem;
   color: #007bff;
   text-align: center;
   margin-bottom: 15px;
@@ -164,4 +164,18 @@
 
 .dropdown-item:hover {
   background-color: #f0f0f0;
+}
+.AboutUs-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.AboutUs-image {
+  width: 500px; /* Set the desired size */
+  height: 500px;
+  object-fit: cover;
+  border-radius: 10px; /* Make it square with rounded corners */
 }

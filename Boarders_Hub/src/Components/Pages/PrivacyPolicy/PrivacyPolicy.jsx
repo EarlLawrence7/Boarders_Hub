@@ -34,12 +34,6 @@ function PrivacyPolicy() {
             About Us
           </button>
           <button
-            className={`Nav-button ${window.location.pathname === "/Contact" ? "active" : ""}`}
-            onClick={() => (window.location.href = "/Contact")}
-          >
-            Contact Us
-          </button>
-          <button
             className={`Nav-button ${window.location.pathname === "/Privacy" ? "active" : ""}`}
             onClick={() => (window.location.href = "/Privacy")}
           >

@@ -447,7 +447,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(187, 11, 11, 0); /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -456,28 +456,88 @@
 
 /* Contact modal container */
 .Contact-modal {
-  background: white;
+  position: relative;
+  background-color: #fffffff3;
+  color:#000000;
   padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 300px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-  position: relative; /* Added to make Close button position relative to this container */
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid #000000;
+  border-radius: 5%;  /* Rounded corners */
+
 }
 
 /* Close button in the Contact Owner modal */
 .Contact-modal .Close-button {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  position: absolute; /* Position the button relative to the modal container */
-  top: 10px;
+  position: absolute;
+  top: 1px;  /* Increased space from the top of the modal */
   right: 10px;
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
+}
+/* Title styling */
+.Contact-modal h2 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-.Social-links a {
-  margin: 0 10px;
-  color: blue;
-  text-decoration: underline;
+/* Paragraph styling */
+.Contact-modal p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.Contact-modal strong {
+  font-weight: bold;
+  color: #0f7fc5; /* Slightly darker labels */
+}
+/* Parent container for contact details */
+.Contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  text-align: left; 
+}
+
+/* Each row container */
+.Contact-row {
+  display: flex; 
+  justify-content: flex-start; 
+  align-items: center; 
+  margin-bottom:8px; 
+}
+
+.Contact-row strong {
+  margin-right: 5px; 
+}
+
+.Contact-row span {
+  display: inline;
+}
+.Profile-picture-contactowner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;  /* Space between profile picture and contact details */
+}
+
+.Profile-picture-contactown {
+  width: 200px;  
+  height: 200px;  
+  object-fit: cover; 
+  margin-bottom: 50px; 
+  border-radius: 20%;  /* Rounded corners */
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  margin: 0 auto; 
+  border: 5px solid #0a8cc0;  /* Border width and color (adjust as needed) */
 }
