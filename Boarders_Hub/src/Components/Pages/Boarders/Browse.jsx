@@ -185,30 +185,33 @@ function Browse() {
   };
 
   // Function to save a room to the user's savedRooms array
-const handleSave = async (roomId) => {
-  try {
-    const user = auth.currentUser; // Get the current authenticated user
-    if (user) {
-      const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
+  const handleSave = async (roomId) => {
+    try {
+      const user = auth.currentUser; // Get the current authenticated user
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
 
-      // Check if savedRooms array exists, if not, create it
-      await setDoc(
-        userDocRef,
-        {
-          savedRooms: arrayUnion(roomId), // Append roomId to savedRooms array
-        },
-        { merge: true } // Use merge to avoid overwriting other user data
-      );
+        // Create the reference to the listing document
+        const roomRef = doc(db, "listings", roomId); // Path: /listings/{roomId}
 
-      console.log("Room saved to savedRooms array.");
-      alert("Listing successfully added to your saved rooms.");
-    } else {
-      console.log("User is not authenticated.");
+        // Check if savedRooms array exists, if not, create it
+        await setDoc(
+          userDocRef,
+          {
+            savedRooms: arrayUnion(roomRef), // Append the room reference to savedRooms array
+          },
+          { merge: true } // Use merge to avoid overwriting other user data
+        );
+
+        console.log("Room saved to savedRooms array.");
+        alert("Listing successfully added to your saved rooms.");
+      } else {
+        console.log("User is not authenticated.");
+      }
+    } catch (error) {
+      console.error("Error saving room:", error);
     }
-  } catch (error) {
-    console.error("Error saving room:", error);
-  }
-};
+  };
 
   return (
     <div className="Browse-container">
