@@ -42,7 +42,7 @@ function Modal({ room, onClose }) {
   return (
     <div className="Modal-overlay" onClick={handleOverlayClick}>
       <div className="Modal-content">
-        <button className="Close-button" onClick={onClose}>X</button>
+        <button className="Close-button" onClick={onClose}>✖</button>
         <h2>{room.RoomType}</h2>
         <p><strong>Location:</strong> {room.location}</p>
         <p><strong>Price:</strong> {room.price}</p>
@@ -81,23 +81,51 @@ function Modal({ room, onClose }) {
         </div>
       </div>
       {showContactModal && (
-        <div className="Contact-modal-overlay">
-          <div className="Contact-modal">
-            <button className="Close-button" onClick={() => setShowContactModal(false)}>X</button>
-            <h2>Contact the Owner below</h2>
-            <p><strong>Name:</strong> {room.owner.fullName}</p>
-            <p><strong>Email:</strong> {room.owner.email}</p>
-            <p><strong>Phone:</strong> {room.owner.phone}</p>
-            <div className="Social-links">
-            </div>
-          </div>
+  <div className="Contact-modal-overlay">
+    <div className="Contact-modal">
+      <button 
+        className="Close-button" 
+        onClick={() => setShowContactModal(false)}
+      >
+        ✖
+      </button>
+      
+      <h2>Contact the Owner below</h2>
+
+      <div className="Contact-details">
+        {/* Owner's Picture */}
+        <div className=".Profile-picture-contactowner">
+          <img
+            src={room.owner.profilePicture || "default-profpic.png"} // Use a default image if no profile picture exists
+            alt={`${room.owner.fullName}'s profile`}
+            className="Profile-picture-contactown"
+          />
         </div>
-      )}
+
+        {/* Contact Information */}
+        <div className="Contact-row">
+          <strong>Name:</strong>
+          <span>{room.owner.fullName}</span>
+        </div>
+        <div className="Contact-row">
+          <strong>Email:</strong>
+          <span>{room.owner.email}</span>
+        </div>
+        <div className="Contact-row">
+          <strong>Phone:</strong>
+          <span>{room.owner.phone}</span>
+        </div>
+      </div>
+
+      <div className="Social-links">
+        {/* Add social links or icons here */}
+      </div>
     </div>
-  );
-}
-
-
+  </div>
+)}
+</div>
+  )}
+  ;
 function Browse() {
   const [expandedRoom, setExpandedRoom] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
