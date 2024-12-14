@@ -15,7 +15,7 @@ import Signup from "./Components/Pages/Signup/Signup";
 import AboutUs from "./Components/Pages/AboutUs/AboutUs";
 import PrivacyPolicy from "./Components/Pages/PrivacyPolicy/PrivacyPolicy";
 import ViewRequest from "./Components/Pages/ViewRequest/ViewRequest"; 
-
+import EditProperties from "./Components/Pages/HomeOwners/EditProperties";
 
 function App() {
   return (
@@ -34,13 +34,13 @@ function App() {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/view-requests" element={<ViewRequest />} />
+        <Route path="/edit" element={<EditProperties />} />
 
         {/* Optional/Manual Routing */}
         <Route path="/signin" element={<Login />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/add-listing" element={<AddListings />} />
         <Route path="/view-properties" element={<Properties />} />
-        <Route path="/history" element={<History />} />
 
 
       </Routes>
