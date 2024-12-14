@@ -193,6 +193,7 @@ function Browse() {
         );
 
         console.log("Room saved to savedRooms array.");
+        alert("Listing added to your saved rooms!");
       } else {
         console.log("User is not authenticated.");
       }

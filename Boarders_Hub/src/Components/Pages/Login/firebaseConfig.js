@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, addDoc, collection, getDocs, arrayUnion  } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -254,6 +254,31 @@ const fetchSavedListings = async (savedRoomRefs) => {
   }
 };
 
+// Function to remove a room from the savedRooms array in the user's document
+const handleRemoveRoom = async (userId, roomId) => {
+  try {
+    // Get the path of the room listing in the "listings" collection
+    const roomRef = doc(db, "listings", roomId);  // Path like /listings/{roomId}
+
+    // Get the reference to the user's document
+    const userDocRef = doc(db, "users", userId);
+
+    // Remove the room reference from the savedRooms array in the user's document
+    await setDoc(
+      userDocRef,
+      {
+        savedRooms: arrayRemove(roomRef), // Remove the room reference from savedRooms
+      },
+      { merge: true } // Merge to avoid overwriting other fields
+    );
+
+    console.log("Room removed from saved rooms.");
+  } catch (error) {
+    console.error("Error removing room:", error);
+    throw new Error("Failed to remove room from saved rooms");
+  }
+};
+
 // Export in other files
 export { auth, db, doc, setDoc, arrayUnion,
   handleLogout, 
@@ -265,5 +290,6 @@ export { auth, db, doc, setDoc, arrayUnion,
   addListingToFirestore,
   fetchListings,
   fetchSavedRooms,
-  fetchSavedListings
+  fetchSavedListings,
+  handleRemoveRoom
 };

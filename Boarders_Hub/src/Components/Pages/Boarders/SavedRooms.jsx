@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./SavedRooms.css";
 import { AiOutlineSearch } from "react-icons/ai";
-import { auth, fetchSavedRooms, handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
+import { auth, handleRemoveRoom, fetchSavedRooms, handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
 function SavedRooms() {
@@ -35,14 +35,19 @@ function SavedRooms() {
     fetchRooms();
   }, [auth.currentUser]); // Re-fetch when auth.currentUser changes  
 
-  const toggleDropdown = () => {
-    setDropdownVisible((prev) => !prev);
+  // Remove a saved room
+  const handleRemoveRoomButton = async (roomId) => {
+    const user = auth.currentUser; // Get the current user
+    if (user) {
+      await handleRemoveRoom(user.uid, roomId); // Call the function with userId and roomId
+      const updatedRooms = savedRooms.filter((room) => room.id !== roomId);
+      setSavedRooms(updatedRooms); // Update local state
+      alert("Room removed from saved rooms.");
+    }
   };
 
-  const handleRemoveRoom = (roomId) => {
-    const updatedRooms = savedRooms.filter((room) => room.id !== roomId);
-    setSavedRooms(updatedRooms);
-    alert("Room removed from saved rooms.");
+  const toggleDropdown = () => {
+    setDropdownVisible((prev) => !prev);
   };
 
   if (loading) {
@@ -130,7 +135,7 @@ function SavedRooms() {
                 <p className="Room-price">{room.price || "Price not listed"}</p>
 
                 <div className="Card-footer">
-                  <button className="Delete-button" onClick={() => handleRemoveRoom(room.id)}>
+                  <button className="Delete-button" onClick={() => handleRemoveRoomButton(room.id)}>
                     Remove
                   </button>
                 </div>
