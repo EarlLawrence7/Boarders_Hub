@@ -116,21 +116,23 @@ function ViewRequest() {
                 <table>
                   <thead>
                     <tr>
-                      <th>Customer Name</th>
+                      <th>Name</th>
                       <th>Purpose</th>
+                      <th>Offer (PHP)</th>
                       <th>Request Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {requests.length === 0 ? (
+                    {requests.length == 0 ? (
                       <tr>
-                        <td colSpan="3">No requests yet</td>
+                        <td colSpan="4">No requests yet</td>
                       </tr>
                     ) : (
                       requests.map((request) => (
                         <tr key={request.id}>
                           <td>{request.customerName}</td>
                           <td>{request.purpose}</td>
+                          <td>{request.offer}</td>
                           <td>{new Date(request.date).toLocaleDateString()}</td>
                         </tr>
                       ))

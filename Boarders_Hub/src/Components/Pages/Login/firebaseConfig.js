@@ -70,6 +70,7 @@ const useUserProfile = (setUserData, navigate) => {
           if (userDoc.exists()) {
             const userDetails = userDoc.data();
             setUserData({
+              userID: user.uid,
               nickname: userDetails.username || "No Nickname",
               fullName: userDetails.fullName || "No Nickname",
               phone: userDetails.phone || "No Phone",
@@ -197,6 +198,61 @@ const fetchListings = async () => {
   }
 };
 
+const fetchSavedRooms = async (userId) => {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    const userDocSnap = await getDoc(userDocRef);
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const savedRoomRefs = userData.savedRooms || []; // Get saved room references
+
+      // Fetch the actual listings based on the references
+      const savedRooms = await Promise.all(
+        savedRoomRefs.map(async (roomRef) => {
+          const roomDocSnap = await getDoc(roomRef); // Resolve the reference
+          if (roomDocSnap.exists()) {
+            return {
+              id: roomDocSnap.id,
+              ...roomDocSnap.data(),
+            };
+          } else {
+            return null; // Handle case where room reference doesn't exist
+          }
+        })
+      );
+
+      // Filter out null results (if any references were invalid or deleted)
+      return savedRooms.filter((room) => room !== null);
+    }
+  } catch (error) {
+    console.error("Error fetching saved rooms:", error);
+    throw new Error("Failed to fetch saved rooms");
+  }
+};
+
+const fetchSavedListings = async (savedRoomRefs) => {
+  try {
+    const matchingListings = await Promise.all(
+      savedRoomRefs.map(async (roomRef) => {
+        const roomDocSnap = await getDoc(roomRef); // Dereference and fetch room data
+        if (roomDocSnap.exists()) {
+          return {
+            id: roomDocSnap.id,
+            ...roomDocSnap.data(),
+          };
+        } else {
+          return null; // Handle missing rooms
+        }
+      })
+    );
+
+    // Filter out null values (invalid or deleted rooms)
+    return matchingListings.filter((room) => room !== null);
+  } catch (error) {
+    console.error("Error fetching saved listings:", error);
+    throw new Error("Failed to fetch saved listings");
+  }
+};
 
 // Export in other files
 export { auth, db, doc, setDoc, arrayUnion,
@@ -207,5 +263,7 @@ export { auth, db, doc, setDoc, arrayUnion,
   useUserProfile,
   uploadListingImages,
   addListingToFirestore,
-  fetchListings
+  fetchListings,
+  fetchSavedRooms,
+  fetchSavedListings
 };
