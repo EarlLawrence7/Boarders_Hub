@@ -96,7 +96,6 @@ function Modal({ room, onClose }) {
 
 function RentModal({ room, onClose }) {
   const user = auth.currentUser;
-  const userId = user.uid;
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
@@ -177,29 +176,30 @@ function Browse() {
   };
 
   // Function to save a room to the user's savedRooms array
-const handleSave = async (roomId) => {
-  try {
-    const user = auth.currentUser; // Get the current authenticated user
-    if (user) {
-      const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
+  const handleSave = async (roomId) => {
+    try {
+      const user = auth.currentUser; // Get the current authenticated user
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
+        const roomRef = doc(db, "listings", roomId); // Create a reference to the listing document in the 'listings' collection
 
-      // Check if savedRooms array exists, if not, create it
-      await setDoc(
-        userDocRef,
-        {
-          savedRooms: arrayUnion(roomId), // Append roomId to savedRooms array
-        },
-        { merge: true } // Use merge to avoid overwriting other user data
-      );
+        // Check if savedRooms array exists, if not, create it
+        await setDoc(
+          userDocRef,
+          {
+            savedRooms: arrayUnion(roomRef), // Append the room reference to savedRooms array
+          },
+          { merge: true } // Use merge to avoid overwriting other user data
+        );
 
-      console.log("Room saved to savedRooms array.");
-    } else {
-      console.log("User is not authenticated.");
+        console.log("Room saved to savedRooms array.");
+      } else {
+        console.log("User is not authenticated.");
+      }
+    } catch (error) {
+      console.error("Error saving room:", error);
     }
-  } catch (error) {
-    console.error("Error saving room:", error);
-  }
-};
+  };
 
   return (
     <div className="Browse-container">
