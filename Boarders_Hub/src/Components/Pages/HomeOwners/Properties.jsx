@@ -58,7 +58,8 @@ function Modal({ room, onClose }) {
           </button>
         )}
         <div className="Modal-buttons-container1">
-          <button className="Edit-button" onClick={handleRentNow}>Edit listing</button>
+          <button className="Edit-button"
+          onClick={() => window.location.href = "/edit"}>Edit listing</button>
         </div>
       </div>
     </div>
@@ -151,11 +152,17 @@ function Properties() {
           />
         </div>
         <div className="Nav-bar">
-          <button
-            className="Nav-button"
-            onClick={handleGoBack}
-          >
-            Go back
+        <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
+            Home
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`} onClick={() => window.location.href = '/browse'}>
+            Browse
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/saved-rooms' ? 'active' : ''}`} onClick={() => window.location.href = '/saved-rooms'}>
+            Saved Rooms
+          </button>
+          <button className={`Nav-button ${window.location.pathname === '/history' ? 'active' : ''}`} onClick={() => window.location.href = '/history'}>
+            Boarding History
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>

@@ -6,9 +6,9 @@ function AboutUs() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   // Placeholder user data
-  const userData = {
-    profilePicture: null, // Replace with actual profile picture URL or leave null for default
-  };
+  const [userData, setUserData] = useState({
+    profilePicture: "", // Storing profile picture URL
+  });
 
   // Functions to handle button actions
   const toggleDropdown = () => {
@@ -29,6 +29,8 @@ function AboutUs() {
     alert("Contact Us modal triggered!"); // Replace with actual modal logic
   };
 
+  
+  
   return (
     <div className="Home-container">
       <div className="Top-container">
