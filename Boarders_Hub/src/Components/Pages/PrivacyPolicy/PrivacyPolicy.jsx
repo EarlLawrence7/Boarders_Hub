@@ -86,7 +86,7 @@ function PrivacyPolicy() {
         <h1 className="privacy-policy-page-title">Privacy Policy for Boarding Hub</h1>
 
         <p className="privacy-policy-page-introduction">
-          At Boarding Hub, accessible from [your website URL], we prioritize the privacy of our users. This Privacy Policy document outlines the types of information we collect and how we use it. By using our services, you agree to the collection and use of information in accordance with this policy.
+          At Boarding Hub, accessible from BoardersHub.com, we prioritize the privacy of our users. This Privacy Policy document outlines the types of information we collect and how we use it. By using our services, you agree to the collection and use of information in accordance with this policy.
         </p>
 
         <section className="privacy-policy-page-section">
@@ -137,7 +137,7 @@ function PrivacyPolicy() {
             <li>Withdraw consent for us to collect your data (where applicable).</li>
             <li>Opt out of marketing communications at any time.</li>
           </ul>
-          <p>To exercise these rights, please contact us at [contact email].</p>
+          <p>To exercise these rights, please contact us at our email boardershub@gmail.com.</p>
         </section>
 
         <section className="privacy-policy-page-section">
@@ -153,9 +153,10 @@ function PrivacyPolicy() {
         <section className="privacy-policy-page-section">
           <h2 className="privacy-policy-page-section-title">Contact Us</h2>
           <ul>
-            <li><strong>Email:</strong> [your contact email]</li>
-            <li><strong>Address:</strong> [your physical address]</li>
-            <li><strong>Phone Number:</strong> [your phone number]</li>
+            <li><strong>Email:</strong> boardershub@gmail.com</li>
+            <li><strong>Address:</strong> Cebu Institute of Technology - University (CITU)
+            N. Bacalso Ave, Cebu City, 6000, Philippines</li>
+            <li><strong>Phone Number:</strong> 09XXXXXXXXX</li>
           </ul>
         </section>
       </div>
