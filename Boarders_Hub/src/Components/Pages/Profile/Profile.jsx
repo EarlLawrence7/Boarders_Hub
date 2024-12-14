@@ -15,6 +15,8 @@ function Profile() {
     nickname: "",
     phone: "",
     email: "",
+    messenger: "",
+    instagram: "",
     birthday: "",
     profilePicture: "", // Storing profile picture URL
   });
@@ -172,6 +174,26 @@ function Profile() {
                   />
                 </p>
                 <p>
+              <strong>Messenger:</strong>{" "}
+              <input
+                type="text"
+                name="messenger"
+                value={userData.messenger}
+                onChange={handleInputChange}
+                className="edit-input"
+              />
+            </p>
+            <p>
+              <strong>Instagram:</strong>{" "}
+              <input
+                type="text"
+                name="instagram"
+                value={userData.instagram}
+                onChange={handleInputChange}
+                className="edit-input"
+              />
+            </p>
+                <p>
                   <strong>Birthday:</strong>{" "}
                   <input
                     type="text"
@@ -193,23 +215,25 @@ function Profile() {
                 <p>
                   <strong>Birthday:</strong> {userData.birthday}
                 </p>
+                 <p>
+              <strong>Messenger:</strong>{" "}
+              <a href={userData.messenger} target="_blank" rel="noopener noreferrer" className="social-link">
+                {userData.messenger}
+              </a>
+            </p>
+            <p>
+              <strong>Instagram:</strong>{" "}
+              <a href={userData.instagram} target="_blank" rel="noopener noreferrer" className="social-link">
+                {userData.instagram}
+              </a>
+            </p>
               </>
             )}
           </div>
         </div>
 
-        {/* Favorites Section */}
-        <div className="favorites">
-          <h1>Favorites</h1>
-          <p>List of user favorites will go here.</p>
-        </div>
-
-        {/* Properties Owned Section */}
-        <div className="properties-owned">
-          <h1>Properties Owned</h1>
-          <p>List of properties the user owns will go here.</p>
-        </div>
         <button onClick={() => navigate(-1)} className="go-back-btn">Go Back</button>
+        <button onClick={() => navigate(-1)} className="view-properties-btn">View Properties</button>
       </div>
     </div>
   );

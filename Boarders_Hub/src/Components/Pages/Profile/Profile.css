@@ -80,7 +80,6 @@
 }
 
 .contact-info h1,
-.favorites h1,
 .properties-owned h1 {
   font-size: 22px;
   margin-bottom: 10px;
@@ -89,26 +88,51 @@
   color: #333;
   /* Set a dark color for the header text */
 }
-
 .contact-details {
   display: flex;
-  justify-content: flex-start;
-  gap: 30px;
-  /* Space between phone and email */
+  flex-direction: column; /* Stack items vertically */
   text-align: left;
   width: 100%;
+  gap: 10px; /* Adds spacing between each section */
 }
 
 .contact-details p {
   font-size: 16px;
-  margin: 5px 0;
+  margin: 5px 0; /* Spacing between paragraphs */
 }
 
 .contact-details p strong {
   font-weight: bold;
 }
 
-.favorites p,
+/* Section for social links */
+.social-links {
+  display: flex;
+  flex-direction: column; /* Stack social links vertically */
+  gap: 10px; /* Spacing between social links */
+  margin-top: 15px; /* Adds space between basic info and social links */
+}
+
+/* Style for individual social links */
+.social-link {
+  color: #0077cc; /* Custom link color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.social-link:hover {
+  text-decoration: underline;
+  color: #005fa3; /* Darker color on hover */
+}
+
+/* Basic info styling for separation */
+.basic-info {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: 10px;
+}
+
+/*do not touch below */
 .properties-owned p {
   font-size: 16px;
   margin: 5px 0;
@@ -261,6 +285,16 @@
   margin-right: 100px;
   display: inline-block;
   transition: background-color 0.3s ease;
+}
+
+.view-properties-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .go-back-btn:hover {
