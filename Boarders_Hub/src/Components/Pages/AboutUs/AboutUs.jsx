@@ -57,12 +57,6 @@ function AboutUs() {
             About Us
           </button>
           <button
-            className={`Nav-button ${window.location.pathname === "/Contact" ? "active" : ""}`}
-            onClick={toggleContactModal}
-          >
-            Contact Us
-          </button>
-          <button
             className={`Nav-button ${window.location.pathname === "/Privacy" ? "active" : ""}`}
             onClick={() => (window.location.href = "/Privacy")}
           >
@@ -103,13 +97,25 @@ function AboutUs() {
 
       <div className="AboutUs-content">
   <div className="AboutUs-inner-container">
-    <h1 className="AboutUs-title">About Us</h1>
+    <h1 className="AboutUs-title">ABOUT US</h1>
     <p className="AboutUs-description">
-    Welcome to our project! We are a team of seven students from H2 and Group 1 working on a platform
-            that simplifies room rentals and management. This project is for our CPEPE361 class, and we are
-            excited to present our work!
+      Welcome to our project! We are a team of seven students from H2,
+      Group 1, collaborating on an innovative platform designed to streamline
+      room rentals and management. This project is part of our CPEPE361 class, 
+      and we are excited to showcase our work and the progress we've made. We look forward
+      to sharing our vision and demonstrating how our platform will simplify the rental process
+      for both landlords and tenants.
     </p>
 
+     {/* Centered Image */}
+     <div className="AboutUs-image-container">
+            <img
+              src="/public/Boardershub.png"
+              alt="BoardersHub Logo"
+              className="AboutUs-image"
+            />
+          </div>
+          
     <div className="Team-info">
   <h2 className="Team-title">Meet Our Team</h2>
   <ul className="Team-members-list">
