@@ -54,8 +54,8 @@ function History() {
   };
 
   const filteredHistory = rentalHistory.filter((entry) =>
-    entry.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    entry.title && entry.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );  
 
   const totalPages = Math.ceil(filteredHistory.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
