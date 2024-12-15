@@ -14,19 +14,6 @@ function Modal({ room, onClose }) {
     }
   };
 
-  const handleRentNow = () => {
-    const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
-    history.push({
-      title: room.title,
-      location: room.location,
-      checkInDate: new Date().toLocaleDateString(),
-      status: "Pending",
-    });
-    localStorage.setItem("rentalHistory", JSON.stringify(history));
-    alert(`You have chosen to rent: ${room.title}`);
-    onClose();
-  };
-
   const handleSeeMore = () => {
     setShowAllImages(true);
   };
@@ -128,7 +115,7 @@ function Properties() {
   };
 
   const handleViewRequests = (room) => {
-    navigate("/view-requests", { state: { room } });
+    navigate("/view-requests", { state: { roomId: room.id } });
   };
 
   return (
