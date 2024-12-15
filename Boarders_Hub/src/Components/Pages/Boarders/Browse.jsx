@@ -11,6 +11,7 @@ function Modal({ room, onClose }) {
   const [showContactModal, setShowContactModal] = useState(false);
   const user = auth.currentUser;
   const userId = user.uid;
+  const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
@@ -36,6 +37,10 @@ function Modal({ room, onClose }) {
       console.error("Error handling rent request:", error);
       alert("There was an error processing your rent request.");
     }
+  };
+
+  const handleEditListing = (roomId) => {
+    navigate("/edit", { state: { roomId } }); // Pass only roomId
   };
 
   const handleContactOwner = () => {
@@ -77,7 +82,7 @@ function Modal({ room, onClose }) {
           ) : (
             <>
               <p>You are the owner of this room.</p>
-              <button className="Contact-button" onClick={handleRentNow}>Edit listing</button>
+              <button className="Contact-button" onClick={() => handleEditListing(room.id)}>Edit listing</button>
               <button className="Rent-button" onClick={onClose}>Go back</button>
             </>
           )}

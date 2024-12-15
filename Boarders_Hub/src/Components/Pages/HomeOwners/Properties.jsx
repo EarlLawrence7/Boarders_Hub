@@ -7,11 +7,16 @@ import { useNavigate } from 'react-router-dom';
 
 function Modal({ room, onClose }) {
   const [showAllImages, setShowAllImages] = useState(false);
+  const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
       onClose();
     }
+  };
+
+  const handleEditListing = (roomId) => {
+    navigate("/edit", { state: { roomId } }); // Pass only roomId
   };
 
   const handleSeeMore = () => {
@@ -45,8 +50,9 @@ function Modal({ room, onClose }) {
           </button>
         )}
         <div className="Modal-buttons-container1">
-          <button className="Edit-button"
-          onClick={() => window.location.href = "/edit"}>Edit listing</button>
+        <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
+          Edit listing
+        </button>
         </div>
       </div>
     </div>

@@ -320,7 +320,7 @@ const addRentRequest = async (listingId, userId) => {
 };
 
 // Export in other files
-export { auth, db, doc, setDoc, arrayUnion,
+export { auth, db, doc, setDoc, arrayUnion, updateDoc,
   handleLogout, 
   redirectToHomeIfLoggedIn, 
   redirectToLoginIfLoggedOut,
