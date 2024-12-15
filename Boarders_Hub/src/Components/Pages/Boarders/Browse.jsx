@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { BsBookmarkFill } from "react-icons/bs";
 
 function Modal({ room, onClose }) {
-  const [showAllImages, setShowAllImages] = useState(false);
+  const [showAllImages, setShowAllImages] = useState(true);
   const [showContactModal, setShowContactModal] = useState(false);
   const user = auth.currentUser;
   const userId = user.uid;
@@ -60,11 +60,7 @@ function Modal({ room, onClose }) {
             )}
           </div>
         )}
-        {room.images.length > 1 && !showAllImages && (
-          <button className="More-button" onClick={handleSeeMore}>
-            See More... <FaArrowRight className="More-button-icon" />
-          </button>
-        )}
+        
         <div className="Modal-buttons-container">
           {userId !== room.ownerId ? (
             <>
