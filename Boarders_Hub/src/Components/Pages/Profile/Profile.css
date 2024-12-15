@@ -1,5 +1,5 @@
 /* Profile Container */
-.Profile-container {
+.Profile-container-custom {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +17,7 @@
 }
 
 /* Profile Info Section */
-.Profile-info {
+.Profile-info-custom {
   margin-top: 20px;
   color: rgb(0, 0, 0);
   padding: 20px;
@@ -39,7 +39,7 @@
 }
 
 /* Profile Details (Align profile picture and text containers horizontally) */
-.Profile-details {
+.Profile-details-custom {
   display: flex;
   gap: 20px;
   justify-content: flex-start;
@@ -47,7 +47,7 @@
 }
 
 /* Profile Picture */
-.profile-picture {
+.profile-picture2 {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -57,7 +57,7 @@
 }
 
 /* Text container for nickname and full name */
-.text-container {
+.text-container-custom {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -65,7 +65,7 @@
 }
 
 /* Nickname */
-.nickname {
+.nickname-custom {
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 5px;
@@ -73,15 +73,15 @@
 }
 
 /* Full Name */
-.name {
+.name-custom {
   color: gray;
   font-size: 16px;
   margin-bottom: 10px;
 }
 
-.contact-info h1,
-.favorites h1,
-.properties-owned h1 {
+.contact-info-custom h1,
+.favorites-custom h1,
+.properties-owned-custom h1 {
   font-size: 22px;
   margin-bottom: 10px;
   font-weight: bold;
@@ -90,7 +90,7 @@
   /* Set a dark color for the header text */
 }
 
-.contact-details {
+.contact-details-custom {
   display: flex;
   justify-content: flex-start;
   gap: 30px;
@@ -99,60 +99,24 @@
   width: 100%;
 }
 
-.contact-details p {
+.contact-details-custom p {
   font-size: 16px;
   margin: 5px 0;
 }
 
-.contact-details p strong {
+.contact-details-custom p strong {
   font-weight: bold;
 }
 
-.favorites p,
-.properties-owned p {
+.favorites-custom p,
+.properties-owned-custom p {
   font-size: 16px;
   margin: 5px 0;
   text-align: left;
 }
 
-/* Top Container */
-.Top-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  width: 100%;
-}
-
-/* Navigation Bar */
-.Nav-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Navigation Button */
-.Nav-button {
-  background: none;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 1.1rem;
-}
-
-.Nav-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-}
-
-.Nav-button.active {
-  font-weight: bold;
-  border-bottom: 2px solid white;
-}
-
 /* Profile Icon Image */
-.Profile-icon-image {
+.Profile-icon-image-custom {
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -164,13 +128,13 @@
 }
 
 /* Profile Icon Wrapper */
-.Profile-icon-wrapper {
+.Profile-icon-wrapper-custom {
   cursor: pointer;
   position: relative;
 }
 
 /* Dropdown Menu */
-.dropdown-menu {
+.dropdown-menu-custom {
   display: none;
   position: absolute;
   right: 0;
@@ -181,11 +145,11 @@
   padding: 10px;
 }
 
-.dropdown-menu.show {
+.dropdown-menu-custom.show {
   display: block;
 }
 
-.dropdown-item {
+.dropdown-item-custom {
   background: none;
   border: none;
   padding: 8px 15px;
@@ -195,12 +159,12 @@
   text-align: left;
 }
 
-.dropdown-item:hover {
+.dropdown-item-custom:hover {
   background-color: #f0f0f0;
 }
 
 /* Button Group */
-.button-group {
+.button-group-custom {
   display: flex;
   gap: 10px;
   /* Add space between the buttons */
@@ -211,7 +175,7 @@
 }
 
 /* Edit Profile Button */
-.edit-profile-btn {
+.edit-profile-btn-custom {
   background-color: green;
   color: white;
   border: none;
@@ -225,12 +189,12 @@
   margin-top: 5px;
 }
 
-.edit-profile-btn:hover {
+.edit-profile-btn-custom:hover {
   background-color: darkgreen;
 }
 
 /* Upload Picture Button */
-.upload-btn {
+.upload-btn-custom {
   background-color: #091e09;
   /* Slightly lighter shade of green */
   color: white;
@@ -245,12 +209,12 @@
   margin-top: 5px;
 }
 
-.upload-btn:hover {
+.upload-btn-custom:hover {
   background-color: #45a049;
   /* Slightly darker shade on hover */
 }
 
-.go-back-btn {
+.go-back-btn-custom {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
@@ -263,6 +227,6 @@
   transition: background-color 0.3s ease;
 }
 
-.go-back-btn:hover {
+.go-back-btn-custom:hover {
   background-color: #0056b3;
 }

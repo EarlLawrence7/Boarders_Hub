@@ -85,17 +85,17 @@ function Profile() {
   };
 
   return (
-    <div className="Profile-container">
-      <div className="Profile-info">
-        <div className="Profile-details">
+    <div className="Profile-container-custom">
+      <div className="Profile-info-custom">
+        <div className="Profile-details-custom">
           <div className="profile-picture-container">
             <img
               src={userData.profilePicture ? `${userData.profilePicture}?t=${new Date().getTime()}` : "default-profpic.png"}
               alt="Profile"
-              className="profile-picture"
+              className="profile-picture2"
             />
           </div>
-          <div className="text-container">
+          <div className="text-container-custom">
             {isEditing ? (
               <>
                 <input
@@ -103,17 +103,17 @@ function Profile() {
                   name="nickname"
                   value={userData.nickname}
                   onChange={handleInputChange}
-                  className="edit-input"
+                  className="edit-input-custom"
                 />
                 <input
                   type="text"
                   name="fullName"
                   value={userData.fullName}
                   onChange={handleInputChange}
-                  className="edit-input"
+                  className="edit-input-custom"
                 />
-                <div className="button-group">
-                  <label htmlFor="file-upload" className="upload-btn">
+                <div className="button-group-custom">
+                  <label htmlFor="file-upload" className="upload-btn-custom">
                     Upload Picture
                   </label>
                   <input
@@ -124,7 +124,7 @@ function Profile() {
                     style={{ display: "none" }}
                   />
                   <button
-                    className="edit-profile-btn"
+                    className="edit-profile-btn-custom"
                     onClick={handleSave}
                   >
                     Save
@@ -133,10 +133,10 @@ function Profile() {
               </>
             ) : (
               <>
-                <h1 className="nickname">{userData.nickname}</h1>
-                <h1 className="name">{userData.fullName}</h1>
+                <h1 className="nickname-custom">{userData.nickname}</h1>
+                <h1 className="name-custom">{userData.fullName}</h1>
                 <button
-                  className="edit-profile-btn"
+                  className="edit-profile-btn-custom"
                   onClick={handleEditToggle}
                 >
                   Edit Profile
@@ -146,9 +146,9 @@ function Profile() {
           </div>
         </div>
 
-        <div className="contact-info">
+        <div className="contact-info-custom">
           <h1>Contact Information</h1>
-          <div className="contact-details">
+          <div className="contact-details-custom">
             {isEditing ? (
               <>
                 <p>
@@ -158,7 +158,7 @@ function Profile() {
                     name="phone"
                     value={userData.phone}
                     onChange={handleInputChange}
-                    className="edit-input"
+                    className="edit-input-custom"
                   />
                 </p>
                 <p>
@@ -168,7 +168,7 @@ function Profile() {
                     name="email"
                     value={userData.email}
                     onChange={handleInputChange}
-                    className="edit-input"
+                    className="edit-input-custom"
                   />
                 </p>
                 <p>
@@ -178,7 +178,7 @@ function Profile() {
                     name="birthday"
                     value={userData.birthday}
                     onChange={handleInputChange}
-                    className="edit-input"
+                    className="edit-input-custom"
                   />
                 </p>
               </>
@@ -199,20 +199,21 @@ function Profile() {
         </div>
 
         {/* Favorites Section */}
-        <div className="favorites">
+        <div className="favorites-custom">
           <h1>Favorites</h1>
           <p>List of user favorites will go here.</p>
         </div>
 
         {/* Properties Owned Section */}
-        <div className="properties-owned">
+        <div className="properties-owned-custom">
           <h1>Properties Owned</h1>
           <p>List of properties the user owns will go here.</p>
         </div>
-        <button onClick={() => navigate(-1)} className="go-back-btn">Go Back</button>
+        <button onClick={() => navigate(-1)} className="go-back-btn-custom">Go Back</button>
       </div>
     </div>
   );
+
 }
 
 export default Profile;

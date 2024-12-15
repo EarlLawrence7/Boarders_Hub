@@ -135,23 +135,45 @@
 
 /* Dropdown Menu */
 .dropdown-menu {
-  position: absolute;
-  top: 45px;
-  /* Adjust the top position to align with the profile icon */
-  left: -150x;
-  /* Slightly adjust horizontal positioning */
-  background-color: rgb(51, 0, 0);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  /* Smaller border radius for a less rounded look */
-  z-index: 100;
   display: none;
-  /* Hide dropdown by default */
-  min-width: 120px;
-  /* Set a smaller width */
+  position: absolute;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  
 }
-
+.dropdown-menu.show {
+  display: block;
+  border-left: 5px;
+  border-right: 5px;
+  
+}
 /* Dropdown Item Hover Effect */
 .dropdown-item:hover {
   text-align: center;
+}
+
+.Profile-icon-image{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none !important;
+  outline: none !important;
+  display: block;
+  box-shadow: none !important;
+}
+
+.dropdown-item{
+  background: none;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  text-align: left;
+  
 }
