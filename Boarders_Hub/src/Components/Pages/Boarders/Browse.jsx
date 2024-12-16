@@ -157,12 +157,15 @@ function Browse() {
     const fetchRooms = async () => {
       try {
         const roomList = await fetchListings(); // Use fetchListings to get room data
-        setRooms(roomList); // Update state with fetched room data
+
+        // Filter out rooms that are not available
+        const availableRooms = roomList.filter(room => room.status === "Available"); // Case-sensitive "A"
+
+        setRooms(availableRooms); // Update state with only available rooms
       } catch (error) {
         console.error("Error fetching rooms:", error);
       }
     };
-
     fetchRooms();
   }, []);
 
