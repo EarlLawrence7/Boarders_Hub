@@ -72,9 +72,11 @@ const useUserProfile = (setUserData, navigate) => {
             setUserData({
               userID: user.uid,
               nickname: userDetails.username || "No Nickname",
-              fullName: userDetails.fullName || "No Nickname",
+              fullName: userDetails.fullName || "No Full Name",
               phone: userDetails.phone || "No Phone",
               email: userDetails.email || "No Email",
+              messenger: userDetails.messenger || "No Messenger", // Add messenger
+              instagram: userDetails.instagram || "No Instagram", // Add instagram
               birthday: userDetails.birthDate
                 ? `${userDetails.birthDate.month}/${userDetails.birthDate.day}/${userDetails.birthDate.year}`
                 : "No Birthday",
@@ -92,6 +94,7 @@ const useUserProfile = (setUserData, navigate) => {
     return () => unsubscribe();
   }, [navigate, setUserData]);
 };
+
 
 // Function to upload profile picture and get its URL from Cloudinary
 const uploadProfilePicture = async (file, uid) => {
