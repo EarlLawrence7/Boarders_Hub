@@ -376,6 +376,7 @@ const handleApproveRequest = async (listingId, userId, requestId) => {
     });
 
     console.log("Request approved successfully, all other requests marked as Rejected.");
+    alert("Request approved successfully.");
   } catch (error) {
     console.error("Error approving request:", error);
     throw error;
