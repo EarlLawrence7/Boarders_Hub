@@ -27,7 +27,7 @@ function EditProperties() {
         try {
           const roomList = await fetchListings(); // Fetch all rooms
           const room = roomList.find((r) => r.id === roomId); // Find the room by its id
-          
+
           if (room) {
             setFormData({
               RoomType: room.RoomType,
@@ -216,10 +216,10 @@ function EditProperties() {
           {/* Buttons */}
           <div className="edit-properties-button-container">
             <button className="edit-properties-go-back-button" type="button" onClick={handleGoBack}>
-              Go Back
+              Cancel
             </button>
             <button className="edit-properties-update-button" type="submit">
-              Update Property
+              Save
             </button>
           </div>
         </form>

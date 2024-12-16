@@ -12,7 +12,13 @@ function SavedRooms() {
     profilePicture: "",
   });
   const [loading, setLoading] = useState(true); // To handle loading state
-  
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredRooms = savedRooms.filter((room) =>
+    room.RoomType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.price.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   useUserProfile(setUserData, navigate);
   redirectToLoginIfLoggedOut(navigate);
 
@@ -31,9 +37,9 @@ function SavedRooms() {
         setLoading(false); // Set loading to false once data is fetched
       }
     };
-  
+
     fetchRooms();
-  }, [auth.currentUser]); // Re-fetch when auth.currentUser changes  
+  }, [auth.currentUser]); // Re-fetch when auth.currentUser changes
 
   // Remove a saved room
   const handleRemoveRoomButton = async (roomId) => {
@@ -67,7 +73,13 @@ function SavedRooms() {
         </a>
         <div className="Search-wrapper">
           <AiOutlineSearch className="Search-icon" />
-          <input type="text" placeholder="Search..." className="Search-bar" />
+          <input
+            type="text"
+            placeholder="Search..."
+            className="Search-bar"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
         <div className="Nav-bar">
           <button
@@ -115,18 +127,17 @@ function SavedRooms() {
       </div>
       <main>
         <h1 className="SavedRoom-title">Your Saved Rooms</h1>
-        {savedRooms.length > 0 ? (
+        {filteredRooms.length > 0 ? ( // Use filteredRooms here
           <div className="saved-card-container">
-            {savedRooms.map((room) => (
+            {filteredRooms.map((room) => ( // Use filteredRooms here
               <div key={room.id} className="Room-card">
                 <div
                   className="Room-card-image"
                   style={{
-                    backgroundImage: `url(${
-                      room.images && room.images.length > 0
-                        ? room.images[0]
-                        : "default-room-image.png"
-                    })`,
+                    backgroundImage: `url(${room.images && room.images.length > 0
+                      ? room.images[0]
+                      : "default-room-image.png"
+                      })`,
                   }}
                 ></div>
 
@@ -135,7 +146,10 @@ function SavedRooms() {
                 <p className="Room-price">{room.price || "Price not listed"}</p>
 
                 <div className="Card-footer">
-                  <button className="Delete-button" onClick={() => handleRemoveRoomButton(room.id)}>
+                  <button
+                    className="Delete-button"
+                    onClick={() => handleRemoveRoomButton(room.id)}
+                  >
                     Remove
                   </button>
                 </div>
@@ -143,9 +157,10 @@ function SavedRooms() {
             ))}
           </div>
         ) : (
-          <p className="SavedRoom-empty">Start saving your favorite listings!</p>
+          <p className="SavedRoom-empty">No rooms match your search!</p> // Updated message
         )}
       </main>
+
     </div>
   );
 }

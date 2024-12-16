@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./Properties.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
+import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, handleDeleteListing } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
-function Modal({ room, onClose }) {
-  const [showAllImages, setShowAllImages] = useState(false);
+function Modal({ room, onClose, onDelete }) {
+  const [showAllImages, setShowAllImages] = useState(true);
   const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
@@ -19,14 +19,10 @@ function Modal({ room, onClose }) {
     navigate("/edit", { state: { roomId } }); // Pass only roomId
   };
 
-  const handleSeeMore = () => {
-    setShowAllImages(true);
-  };
-
   return (
     <div className="Modal-overlay" onClick={handleOverlayClick}>
       <div className="Modal-content">
-        <button className="Close-button" onClick={onClose}>X</button>
+        <button className="Close-button" onClick={onClose}>✖</button>
         <h2>{room.RoomType}</h2>
         <p><strong>Location:</strong> {room.location}</p>
         <p><strong>Price:</strong> {room.price}</p>
@@ -46,9 +42,12 @@ function Modal({ room, onClose }) {
         )}
 
         <div className="Modal-buttons-container1">
-        <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
-          Edit listing
-        </button>
+          <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
+            Edit listing
+          </button>
+          <button className="Prop-Delete-button" onClick={() => onDelete(room.id)}>
+            Delete Property
+          </button>
         </div>
       </div>
     </div>
@@ -66,6 +65,11 @@ function Properties() {
   const [userData, setUserData] = useState({
     profilePicture: "",
   });
+  const filteredRooms = rooms.filter((room) =>
+    room.RoomType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.price.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useUserProfile(setUserData, navigate);
   redirectToLoginIfLoggedOut(navigate);
@@ -90,7 +94,7 @@ function Properties() {
 
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
-  const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
+  const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom);
 
   const nextPage = () => {
     if (currentPage * roomsPerPage < rooms.length) {
@@ -115,6 +119,19 @@ function Properties() {
   const handleCloseModal = () => {
     setExpandedRoom(null);
   };
+
+  // Handle Deletion of Listing
+  const handleDelete = async (listingId) => {
+    try {
+      await handleDeleteListing(listingId); // Call the function to delete the listing
+      // Remove the deleted room from the state
+      setRooms((prevRooms) => prevRooms.filter(room => room.id !== listingId));
+      handleCloseModal(); // Close the modal after successful deletion
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+    }
+  };
+  
 
   const handleViewRequests = (room) => {
     navigate("/view-requests", { state: { roomId: room.id } });
@@ -141,7 +158,7 @@ function Properties() {
           />
         </div>
         <div className="Nav-bar">
-        <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
+          <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
             Home
           </button>
           <button className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`} onClick={() => window.location.href = '/browse'}>
@@ -189,7 +206,7 @@ function Properties() {
           Next
         </button>
       </div>
-      {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} />}
+      {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} onDelete={handleDelete} />}
     </div>
   );
 }

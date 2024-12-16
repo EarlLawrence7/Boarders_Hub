@@ -119,10 +119,14 @@
 }
 
 .Modal-buttons-container {
-  display: flex; /* Use flexbox for alignment */
-  justify-content: center; /* Center the items horizontally */
-  align-items: center; /* Center the items vertically (if needed) */
-  width: 100%; /* Make the container take up the full width of the row */
+  display: flex;
+  /* Use flexbox for alignment */
+  justify-content: center;
+  /* Center the items horizontally */
+  align-items: center;
+  /* Center the items vertically (if needed) */
+  width: 100%;
+  /* Make the container take up the full width of the row */
   margin-top: 40px;
 }
 
@@ -134,47 +138,58 @@
 }
 
 .Room-images {
-  width: 600px; /* Set the desired width for the image container */
-  overflow: hidden; /* Optional: hide any overflow if the image overflows */
+  width: 600px;
+  /* Set the desired width for the image container */
+  overflow: hidden;
+  /* Optional: hide any overflow if the image overflows */
 }
 
 .Room-images img {
-  width: 100%; /* Make the image width 100% of the container's width */
+  width: 100%;
+  /* Make the image width 100% of the container's width */
   margin-top: 10px;
   border: solid white 2px;
-  height: auto; /* Automatically adjust the height to maintain the aspect ratio */
+  height: auto;
+  /* Automatically adjust the height to maintain the aspect ratio */
 }
+
 /* Modal content */
 .Modal-content {
   background-color: rgb(56, 56, 56);
   padding: 20px;
   border-radius: 8px;
-  width: 100%; /* Make the width responsive */
-  max-width: 650px; /* Cap the maximum width */
+  width: 100%;
+  /* Make the width responsive */
+  max-width: 650px;
+  /* Cap the maximum width */
   color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
   max-height: 80vh;
-  overflow: auto; /* Enable scrolling */
-  border-radius: 8px; /* Keep rounded corners for the modal */
+  overflow: auto;
+  /* Enable scrolling */
+  border-radius: 8px;
+  /* Keep rounded corners for the modal */
   text-align: left;
 }
 
 /* Custom Scrollbar styles */
 .Modal-content::-webkit-scrollbar {
-  width: 8px; /* Thin scrollbar */
+  width: 8px;
+  /* Thin scrollbar */
 }
 
 .Modal-content::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.5); /* Light color for the thumb */
-  border-radius: 10px; /* Rounded thumb */
+  background-color: rgba(255, 255, 255, 0.5);
+  /* Light color for the thumb */
+  border-radius: 10px;
+  /* Rounded thumb */
 }
 
 .Modal-content::-webkit-scrollbar-track {
-  background-color: transparent; /* Make track transparent */
+  background-color: transparent;
+  /* Make track transparent */
 }
-
-
 
 /* Close button */
 .Close-button {
@@ -340,101 +355,116 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 15px; /* Increased gap for better spacing */
+  gap: 15px;
+  /* Increased gap for better spacing */
   z-index: 1000;
 }
 
 .Pagination-button {
-  padding: 12px 30px; /* Increased padding for a more prominent button */
-  background-color: #4CAF50; /* Vibrant green for better visual appeal */
+  padding: 12px 30px;
+  /* Increased padding for a more prominent button */
+  background-color: #4e544e;
+  /* Vibrant green for better visual appeal */
   color: white;
   border: none;
-  border-radius: 50px; /* Fully rounded corners for modern look */
+  border-radius: 50px;
+  /* Fully rounded corners for modern look */
   cursor: pointer;
   font-size: 16px;
-  font-weight: 500; /* Slightly lighter font weight */
+  font-weight: 500;
+  /* Slightly lighter font weight */
   transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
   /* Smooth transitions for hover effects */
 }
 
 .Pagination-button:hover {
-  background-color: #45a049; /* Darker green on hover */
-  transform: translateY(-2px); /* Subtle lift effect */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-}
-
-.Pagination-button:disabled {
-  background-color: #929292;
-  cursor: not-allowed;
+  background-color: #7a7a7a;
+  /* Darker green on hover */
+  transform: translateY(-2px);
+  /* Subtle lift effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  /* Soft shadow for depth */
 }
 
 .More-button {
   background-color: transparent;
-  color: #4CAF50; /* Green text for a clean look */
-  border: 2px solid #4CAF50; /* Green border */
-  border-radius: 100px; /* Fully rounded corners */
-  padding: 8px 25px; /* Slightly increased padding */
-  font-size: 14px; /* Larger font size for readability */
+  color: #4CAF50;
+  /* Green text for a clean look */
+  border: 2px solid #4CAF50;
+  /* Green border */
+  border-radius: 100px;
+  /* Fully rounded corners */
+  padding: 8px 25px;
+  /* Slightly increased padding */
+  font-size: 14px;
+  /* Larger font size for readability */
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   margin-top: 10px;
   font-weight: 500;
 }
 
-.More-button:hover {
-  background-color: #4CAF50; /* Green background on hover */
-  color: white; /* White text on hover */
-  transform: scale(1.09); /* Slightly enlarge on hover */
-}
-
-.More-button:active {
-  transform: scale(1); /* Reset size on click */
-}
-
-.More-button-icon {
-  font-size: 15px;
-  margin-left: 10px; /* Space between icon and text */
-}
 
 
 .Save-icon {
-  position: relative; /* Needed for positioning the tooltip */
-  cursor: pointer; /* Indicates clickable */
-  display: inline-flex; /* Align icon and tooltip */
-  align-items: center; /* Vertical alignment */
-  font-size: 2.2rem; /* Adjust icon size */
-  color: rgb(255, 255, 255); /* Icon color */
-  transition: color 0.2s; /* Smooth transition for hover effect */
+  position: relative;
+  /* Needed for positioning the tooltip */
+  cursor: pointer;
+  /* Indicates clickable */
+  display: inline-flex;
+  /* Align icon and tooltip */
+  align-items: center;
+  /* Vertical alignment */
+  font-size: 2.2rem;
+  /* Adjust icon size */
+  color: rgb(255, 255, 255);
+  /* Icon color */
+  transition: color 0.2s;
+  /* Smooth transition for hover effect */
   margin-top: 30px;
   padding-bottom: 15px;
 }
 
 .Save-icon:hover {
-  color: rgb(233, 0, 0); /* Change icon color on hover */
+  color: rgb(121, 118, 118);
+  /* Change icon color on hover */
 }
 
 .Tooltip-text {
-  visibility: hidden; /* Hide tooltip by default */
-  background-color: #333; /* Dark background for contrast */
-  color: #fff; /* White text for better visibility */
+  visibility: hidden;
+  /* Hide tooltip by default */
+  background-color: #333;
+  /* Dark background for contrast */
+  color: #fff;
+  /* White text for better visibility */
   text-align: center;
   padding: 5px 8px;
   border-radius: 5px;
-  position: absolute; /* Position relative to the icon */
-  bottom: 150%; /* Tooltip appears above the icon */
-  left: 50%; /* Center horizontally */
+  position: absolute;
+  /* Position relative to the icon */
+  bottom: 150%;
+  /* Tooltip appears above the icon */
+  left: 50%;
+  /* Center horizontally */
   transform: translateX(-50%);
-  white-space: nowrap; /* Prevent line breaks */
+  white-space: nowrap;
+  /* Prevent line breaks */
   font-size: 0.3em;
-  z-index: 1; /* Ensure it’s above other elements */
-  opacity: 0; /* Initially invisible */
-  transition: opacity 0.3s; /* Smooth fade-in transition */
-  pointer-events: none; /* Prevents tooltip from interfering with hover */
+  z-index: 1;
+  /* Ensure it’s above other elements */
+  opacity: 0;
+  /* Initially invisible */
+  transition: opacity 0.3s;
+  /* Smooth fade-in transition */
+  pointer-events: none;
+  /* Prevents tooltip from interfering with hover */
 }
 
 .Save-icon:hover .Tooltip-text {
-  visibility: visible; /* Show tooltip on hover */
-  opacity: 1; /* Fade-in effect */
+  visibility: visible;
+  /* Show tooltip on hover */
+  opacity: 1;
+  /* Fade-in effect */
 }
 
 .Contact-modal-overlay {
@@ -443,7 +473,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(187, 11, 11, 0); /* Semi-transparent background */
+  background: rgba(187, 11, 11, 0);
+  /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -454,7 +485,7 @@
 .Contact-modal {
   position: relative;
   background-color: #fffffff3;
-  color:#000000;
+  color: #000000;
   padding: 20px;
   border-radius: 10px;
   max-width: 400px;
@@ -463,14 +494,16 @@
   flex-direction: column;
   align-items: center;
   border: 5px solid #000000;
-  border-radius: 5%;  /* Rounded corners */
+  border-radius: 5%;
+  /* Rounded corners */
 
 }
 
 /* Close button in the Contact Owner modal */
 .Contact-modal .Close-button {
   position: absolute;
-  top: 1px;  /* Increased space from the top of the modal */
+  top: 1px;
+  /* Increased space from the top of the modal */
   right: 10px;
   background: transparent;
   border: none;
@@ -478,6 +511,7 @@
   cursor: pointer;
 
 }
+
 /* Title styling */
 .Contact-modal h2 {
   font-size: 25px;
@@ -493,48 +527,54 @@
 
 .Contact-modal strong {
   font-weight: bold;
-  color: #0f7fc5; /* Slightly darker labels */
+  color: #0f7fc5;
+  /* Slightly darker labels */
 }
+
 /* Parent container for contact details */
 .Contact-details {
   display: flex;
   flex-direction: column;
-  gap: 10px; 
-  text-align: left; 
+  gap: 10px;
+  text-align: left;
 }
 
 /* Each row container */
 .Contact-row {
-  display: flex; 
-  justify-content: flex-start; 
-  align-items: center; 
-  margin-bottom:8px; 
-  
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 8px;
+
 }
 
 .Contact-row strong {
-  margin-right: 5px; 
+  margin-right: 5px;
 }
 
 .Contact-row span {
   display: inline;
 }
+
 .Profile-picture-contactowner {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;  /* Space between profile picture and contact details */
+  margin-bottom: 20px;
+  /* Space between profile picture and contact details */
 }
 
 .Profile-picture-contactown {
-  width: 200px;  
-  height: 200px;  
-  object-fit: cover; 
-  margin-bottom: 50px; 
-  border-radius: 20%;  /* Rounded corners */
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-  margin: 0 auto; 
-  border: 5px solid #0a8cc0;  /* Border width and color (adjust as needed) */
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 50px;
+  border-radius: 20%;
+  /* Rounded corners */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border: 5px solid #0a8cc0;
+  /* Border width and color (adjust as needed) */
 }

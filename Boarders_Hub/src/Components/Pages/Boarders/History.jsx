@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, addRentRequest } from '../Login/firebaseConfig';
 import "./History.css";
 
 function History() {
@@ -10,6 +11,12 @@ function History() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
   const itemsPerPage = 5;
+  const [userData, setUserData] = useState({
+    profilePicture: "",
+  });
+  useUserProfile(setUserData, navigate);
+  redirectToLoginIfLoggedOut(navigate);
+
 
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
@@ -55,7 +62,7 @@ function History() {
 
   const filteredHistory = rentalHistory.filter((entry) =>
     entry.title && entry.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );  
+  );
 
   const totalPages = Math.ceil(filteredHistory.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -112,7 +119,7 @@ function History() {
           </button>
         </div>
         <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
-          <img src="default-profpic.png" alt="Profile Icon" className="Profile-icon-image" />
+          <img src={userData.profilePicture || "default-profpic.png"} alt="Profile Icon" className="Profile-icon-image" />
           <div className={`dropdown-menu ${dropdownVisible ? "show" : ""}`}>
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>

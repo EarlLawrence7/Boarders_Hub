@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getFirestore, query, where, doc, setDoc, updateDoc, getDoc, addDoc, deleteDoc, getDocs, collection, arrayUnion, arrayRemove } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -297,25 +297,107 @@ const addRentRequest = async (listingId, userId) => {
     // Reference the specific listing document in the Firestore "listings" collection
     const listingRef = doc(db, "listings", listingId);
 
-    // Get the current timestamp
-    const requestDate = new Date();
+    // Fetch the current listing document
+    const listingSnap = await getDoc(listingRef);
 
-    // Define the request entry
+    if (!listingSnap.exists()) {
+      throw new Error("Listing not found");
+    }
+
+    // Get the existing requests array from the listing document
+    const listingData = listingSnap.data();
+    const existingRequests = listingData.requests || [];
+
+    // Check if the user has already made a request
+    const userHasRequested = existingRequests.some(
+      (request) => request.requestBy === userId
+    );
+
+    if (userHasRequested) {
+      console.warn("User has already made a rent request for this listing.");
+      throw new Error("You have already requested to rent this room.");
+    }
+
+    // Create a new rent request entry
     const newRequest = {
       requestBy: userId,
-      requestDate: requestDate.toISOString(), // Save as ISO string for compatibility
+      requestDate: new Date().toISOString(),
       requestStatus: "Pending",
     };
 
     // Use arrayUnion to add the new request to the "requests" array in the listing document
     await updateDoc(listingRef, {
-      requests: arrayUnion(newRequest) // arrayUnion ensures that the request is added without duplicates
+      requests: arrayUnion(newRequest), // Add the new request to the array
     });
 
     console.log("Rent request added successfully!");
   } catch (error) {
     console.error("Error adding rent request:", error);
-    throw new Error("Failed to add rent request");
+    throw error; // Pass the error back for handling in the UI
+  }
+};
+
+// Function to handle approval of a rent request for a listing
+const handleApproveRequest = async (listingId, userId, requestId) => {
+  try {
+    const listingRef = doc(db, "listings", listingId);
+    const listingSnap = await getDoc(listingRef);
+
+    if (!listingSnap.exists()) {
+      throw new Error("Listing not found");
+    }
+
+    const listingData = listingSnap.data();
+    const requests = listingData.requests || [];
+
+    // Log the structure of the requests data
+    console.log("Requests data structure:", requests);
+
+    let requestFound = false;
+    const updatedRequests = requests.map((request) => {
+      // If this is the request we want to approve, set it to "Approved"
+      if (request.requestBy === userId && request.requestDate === requestId) {
+        requestFound = true;
+        return { ...request, requestStatus: "Approved" }; // Approve the request
+      }
+      // Leave the other requests unchanged
+      return request;
+    });
+
+    if (!requestFound) {
+      throw new Error("Request not found in this room listing");
+    }
+
+    // Update the listing's tenantId and status to "Occupied"
+    await updateDoc(listingRef, {
+      requests: updatedRequests,  // Update only the modified request's status
+      tenantId: userId,          // Set tenantId to the userId of the approved request
+      status: "Occupied",        // Set the listing status to "Occupied"
+    });
+
+    console.log("Request approved successfully.");
+    alert("Request approved successfully.");
+  } catch (error) {
+    console.error("Error approving request:", error);
+    alert("Error approving request: " + error.message);
+    throw error;
+  }
+};
+
+// Function to delete a room listing from Firestore
+const handleDeleteListing = async (listingId) => {
+  try {
+    // Reference to the room listing document
+    const roomRef = doc(db, "listings", listingId);
+
+    // Deleting the document from Firestore
+    await deleteDoc(roomRef);
+
+    console.log("Listing deleted successfully");
+    alert("Listing deleted successfully");
+  } catch (error) {
+    console.error("Error deleting listing:", error);
+    throw new Error("Failed to delete listing");
   }
 };
 
@@ -332,5 +414,7 @@ export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collect
   fetchSavedRooms,
   fetchSavedListings,
   handleRemoveRoom,
-  addRentRequest
+  addRentRequest,
+  handleApproveRequest,
+  handleDeleteListing
 };
