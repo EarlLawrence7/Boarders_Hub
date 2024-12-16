@@ -165,7 +165,7 @@ function Profile() {
         
       <div className="btn-container1">
       <button onClick={() => navigate(-1)} className="go-back-btn">Go Back</button>
-      <button onClick={() => navigate(-1)} className="view-properties-btn">View Properties</button>
+      <button onClick={() => navigate("/Properties")} className="view-properties-btn">View Properties</button>
       </div>
       </div>
       </div>
