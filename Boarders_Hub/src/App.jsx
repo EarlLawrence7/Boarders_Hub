@@ -41,6 +41,9 @@ function App() {
         <Route path="/register" element={<Signup />} />
         <Route path="/add-listing" element={<AddListings />} />
         <Route path="/view-properties" element={<Properties />} />
+        <Route path="/view-request" element={<ViewRequest />} />
+        <Route path="/viewrequest" element={<ViewRequest />} />
+        <Route path="/viewrequests" element={<ViewRequest />} />
 
 
       </Routes>

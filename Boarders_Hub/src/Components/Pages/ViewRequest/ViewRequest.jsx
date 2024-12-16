@@ -1,28 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { db, collection, query, where, getDocs, doc, getDoc } from '../Login/firebaseConfig';
 import "./ViewRequest.css";
 
 function ViewRequest() {
   const location = useLocation();
-  const room = location.state?.room; // Room selected by the admin
+  const roomId = location.state?.roomId; // Only passing roomId
+  const [room, setRoom] = useState(null); // Room details fetched from Firestore
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({ profilePicture: "default-profpic.png" });
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate();
 
-  // Fetching requests from Firebase based on the selected room
+  // Fetch room details using roomId
   useEffect(() => {
-    if (room) {
-      const fetchRequests = async () => {
+    const fetchRoomDetails = async () => {
+      if (!roomId) {
+        console.error("No roomId provided!");
+        navigate("/Properties");
+        return;
+      }
+
+      try {
+        const roomRef = doc(db, "listings", roomId); // Assuming "listings" is the collection name
+        const roomSnap = await getDoc(roomRef);
+
+        if (roomSnap.exists()) {
+          setRoom({ id: roomSnap.id, ...roomSnap.data() });
+        } else {
+          console.error("Room not found!");
+          navigate("/Properties");
+        }
+      } catch (error) {
+        console.error("Error fetching room details: ", error);
+      }
+    };
+
+    fetchRoomDetails();
+  }, [roomId, navigate]);
+
+  // Fetch requests based on roomId
+  useEffect(() => {
+    const fetchRequests = async () => {
+      if (roomId) {
         try {
           const requestsRef = collection(db, "requests"); // Assuming 'requests' is the collection name
-          const q = query(requestsRef, where("roomId", "==", room.id)); // Filter by roomId
+          const q = query(requestsRef, where("roomId", "==", roomId));
           const querySnapshot = await getDocs(q);
 
-          const fetchedRequests = querySnapshot.docs.map(doc => ({
+          const fetchedRequests = querySnapshot.docs.map((doc) => ({
             id: doc.id,
-            ...doc.data()
+            ...doc.data(),
           }));
 
           setRequests(fetchedRequests);
@@ -31,36 +60,26 @@ function ViewRequest() {
           console.error("Error fetching requests: ", error);
           setLoading(false);
         }
-      };
+      }
+    };
 
-      fetchRequests();
-    }
-  }, [room]);
-
-  const goToAboutUs = () => {
-    window.location.href = "/about-us";
-  };
-
-  const toggleContactModal = () => {
-    // Toggle the visibility of the contact modal
-  };
-
-  const handleLogout = () => {
-    // Handle logout logic
-    console.log("Logout triggered");
-  };
+    fetchRequests();
+  }, [roomId]);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // Back button handler to navigate to the properties page
+  const handleLogout = () => {
+    console.log("Logout triggered");
+  };
+
   const handleBackClick = () => {
     navigate("/Properties");
   };
 
   if (!room) {
-    return <p>No room selected</p>;
+    return <p>Loading room details...</p>;
   }
 
   return (
@@ -71,9 +90,9 @@ function ViewRequest() {
             <img src="Boardershub.png" alt="Logo" className="Logo-image" />
           </a>
           <div className="Nav-bar">
-          <button className="Nav-button" onClick={handleBackClick}>
-            &#8592; Back to Properties
-          </button>
+            <button className="Nav-button" onClick={handleBackClick}>
+              &#8592; Back to Properties
+            </button>
           </div>
           <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
             <img
@@ -123,7 +142,7 @@ function ViewRequest() {
                     </tr>
                   </thead>
                   <tbody>
-                    {requests.length == 0 ? (
+                    {requests.length === 0 ? (
                       <tr>
                         <td colSpan="4">No requests yet</td>
                       </tr>

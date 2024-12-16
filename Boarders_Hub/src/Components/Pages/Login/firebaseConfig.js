@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getFirestore, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -320,7 +320,7 @@ const addRentRequest = async (listingId, userId) => {
 };
 
 // Export in other files
-export { auth, db, doc, setDoc, arrayUnion, updateDoc,
+export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion,
   handleLogout, 
   redirectToHomeIfLoggedIn, 
   redirectToLoginIfLoggedOut,
