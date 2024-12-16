@@ -45,13 +45,19 @@ function Profile() {
       const userRef = doc(db, "users", auth.currentUser.uid);
 
       // Update Firestore with new userData
-      await setDoc(userRef, {
-        nickname: userData.nickname,
-        phone: userData.phone,
-        email: userData.email,
-        birthday: userData.birthday,
-        fullName: userData.fullName,
-      }, { merge: true }); // Merge to prevent overwriting other fields
+      await setDoc(
+        userRef,
+        {
+          nickname: userData.nickname,
+          phone: userData.phone,
+          email: userData.email,
+          birthday: userData.birthday,
+          fullName: userData.fullName,
+          messenger: userData.messenger,
+          instagram: userData.instagram, // Include new fields
+        },
+        { merge: true } // Merge to prevent overwriting other fields
+      );
 
       console.log("User data saved:", userData);
       setIsEditing(false); // Exit edit mode after saving
@@ -89,159 +95,160 @@ function Profile() {
   return (
     <div className="Profile-container">
       <div className="Profile-container1">
-      <div className="Profile-info">
-        <div className="Profile-details">
-          <div className="profile-picture-container">
-            <img
-              src={userData.profilePicture ? `${userData.profilePicture}?t=${new Date().getTime()}` : "default-profpic.png"}
-              alt="Profile"
-              className="profile-picture"
-            />
-          </div>
-          <div className="text-container">
-            {isEditing ? (
-              <>
-                <strong>Username</strong>
-                <input
-                  type="text"
-                  name="nickname"
-                  value={userData.nickname}
-                  onChange={handleInputChange}
-                  className="edit-input"
-                />
-                <strong>Fullname:</strong>
-                <input
-                  type="text"
-                  name="fullName"
-                  value={userData.fullName}
-                  onChange={handleInputChange}
-                  className="edit-input"
-                />
-                <p>
-                  <strong>Birthday:</strong>{" "}
+        <div className="Profile-info">
+          <div className="Profile-details">
+            <div className="profile-picture-container">
+              <img
+                src={userData.profilePicture ? `${userData.profilePicture}?t=${new Date().getTime()}` : "default-profpic.png"}
+                alt="Profile"
+                className="profile-picture"
+              />
+            </div>
+            <div className="text-container">
+              {isEditing ? (
+                <>
+                  <strong>Username</strong>
                   <input
                     type="text"
-                    name="birthday"
-                    value={userData.birthday}
+                    name="nickname"
+                    value={userData.nickname}
                     onChange={handleInputChange}
                     className="edit-input"
                   />
-                </p>
-                <div className="button-group">
-                  <label htmlFor="file-upload" className="upload-btn">
-                    Upload Picture
-                  </label>
+                  <strong>Fullname:</strong>
                   <input
-                    type="file"
-                    id="file-upload"
-                    accept="image/*"
-                    onChange={handleProfilePictureUpload}
-                    style={{ display: "none" }}
+                    type="text"
+                    name="fullName"
+                    value={userData.fullName}
+                    onChange={handleInputChange}
+                    className="edit-input"
                   />
+                  <p>
+                    <strong>Birthday:</strong>{" "}
+                    <input
+                      type="text"
+                      name="birthday"
+                      value={userData.birthday}
+                      onChange={handleInputChange}
+                      className="edit-input"
+                    />
+                  </p>
+                  <div className="button-group">
+                    <label htmlFor="file-upload" className="upload-btn">
+                      Upload Picture
+                    </label>
+                    <input
+                      type="file"
+                      id="file-upload"
+                      accept="image/*"
+                      onChange={handleProfilePictureUpload}
+                      style={{ display: "none" }}
+                    />
+                    <button
+                      className="edit-profile-btn"
+                      onClick={handleSave}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h1 className="nickname">{userData.nickname}</h1>
+                  <h1 className="name">{userData.fullName}</h1> 
+                  <h1 className="birthday">{userData.birthday}</h1> 
+                 
                   <button
                     className="edit-profile-btn"
-                    onClick={handleSave}
+                    onClick={handleEditToggle}
                   >
-                    Save
+                    Edit Profile
                   </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <h1 className="nickname">{userData.nickname}</h1>
-                <h1 className="name">{userData.fullName}</h1> 
-                <h1 className="birthday">{userData.birthday}</h1> 
-               
-                <button
-                  className="edit-profile-btn"
-                  onClick={handleEditToggle}
-                >
-                  Edit Profile
-                </button>
-              </>
-            )}
+                </>
+              )}
+            </div>
+          </div>
+          
+          <div className="btn-container1">
+            <button onClick={() => navigate(-1)} className="go-back-btn">Go Back</button>
+            <button onClick={() => navigate("/Properties")} className="view-properties-btn">View Properties</button>
           </div>
         </div>
-        
-      <div className="btn-container1">
-      <button onClick={() => navigate(-1)} className="go-back-btn">Go Back</button>
-      <button onClick={() => navigate("/Properties")} className="view-properties-btn">View Properties</button>
-      </div>
-      </div>
       </div>
 
       <div className="Profile-container2">
-      <div className="container2">
-      <div className="contact-info">
-          <h1>Contact Information</h1>
-          <div className="contact-details">
-            {isEditing ? (
-              <>
-                <p>
-                  <strong>Phone:</strong>{" "}
-                  <input
-                    type="text"
-                    name="phone"
-                    value={userData.phone}
-                    onChange={handleInputChange}
-                    className="edit-input"
-                  />
-                </p>
-                <p>
-                  <strong>Email:</strong>{" "}
-                  <input
-                    type="text"
-                    name="email"
-                    value={userData.email}
-                    onChange={handleInputChange}
-                    className="edit-input"
-                  />
-                </p>
-                <p>
-                <img src="messenger.png" alt="Messenger" className="messenger-icon" />
-                  <input
-                    type="text"
-                    name="messenger"
-                    value={userData.messenger}
-                    onChange={handleInputChange}
-                    className="edit-input"
-                  />
-            </p>
-            <p>
-            <img src="instagram.png" alt="Instagram" className="instagram-icon" />
-                  <input
-                    type="text"
-                    name="instagram"
-                    value={userData.instagram}
-                    onChange={handleInputChange}
-                    className="edit-input"
-              />
-            </p>
-              </>
-            ) : (
-              <>
-                <p>
-                  <strong>Phone:</strong> {userData.phone}
-                </p>
-                <p>
-                  <strong>Email:</strong> {userData.email}
-                </p>
-                 <p><img src="messenger.png" alt="Messenger" className="messenger-icon" />
-                  <a href={userData.messenger} target="_blank" rel="noopener noreferrer" className="social-link">
-                    {userData.messenger}
-              </a>
-            </p>
-            <p>
-            <img src="instagram.png" alt="Instagram" className="instagram-icon" />
-                  <a href={userData.instagram} target="_blank" rel="noopener noreferrer" className="social-link">
-                    {userData.instagram}
-              </a>
-            </p>
-              </>
-            )}
+        <div className="container2">
+          <div className="contact-info">
+            <h1>Contact Information</h1>
+            <div className="contact-details">
+              {isEditing ? (
+                <>
+                  <p>
+                    <strong>Phone:</strong>{" "}
+                    <input
+                      type="text"
+                      name="phone"
+                      value={userData.phone}
+                      onChange={handleInputChange}
+                      className="edit-input"
+                    />
+                  </p>
+                  <p>
+                    <strong>Email:</strong>{" "}
+                    <input
+                      type="text"
+                      name="email"
+                      value={userData.email}
+                      onChange={handleInputChange}
+                      className="edit-input"
+                    />
+                  </p>
+                  <p>
+                    <img src="messenger.png" alt="Messenger" className="messenger-icon" />
+                    <input
+                      type="text"
+                      name="messenger"
+                      value={userData.messenger}
+                      onChange={handleInputChange}
+                      className="edit-input"
+                    />
+                  </p>
+                  <p>
+                    <img src="instagram.png" alt="Instagram" className="instagram-icon" />
+                    <input
+                      type="text"
+                      name="instagram"
+                      value={userData.instagram}
+                      onChange={handleInputChange}
+                      className="edit-input"
+                    />
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    <strong>Phone:</strong> {userData.phone}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {userData.email}
+                  </p>
+                  <p>
+                    <img src="messenger.png" alt="Messenger" className="messenger-icon" />
+                    <a href={userData.messenger} target="_blank" rel="noopener noreferrer" className="social-link">
+                      {userData.messenger}
+                    </a>
+                  </p>
+                  <p>
+                    <img src="instagram.png" alt="Instagram" className="instagram-icon" />
+                    <a href={userData.instagram} target="_blank" rel="noopener noreferrer" className="social-link">
+                      {userData.instagram}
+                    </a>
+                  </p>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
