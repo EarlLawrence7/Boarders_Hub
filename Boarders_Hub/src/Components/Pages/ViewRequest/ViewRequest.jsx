@@ -1,66 +1,91 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { db, doc, getDoc, useUserProfile, redirectToLoginIfLoggedOut, handleLogout } from '../Login/firebaseConfig';
 import "./ViewRequest.css";
 
 function ViewRequest() {
   const location = useLocation();
-  const room = location.state?.room; // Room selected by the admin
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const roomId = location.state?.roomId; // Only passing roomId
+  console.log("Room ID:", roomId);  // Debugging line
+  const [room, setRoom] = useState(null); // Room details fetched from Firestore
+  const [requests, setRequests] = useState([]); // Store the requests array
+  const [loading, setLoading] = useState(true); // Loading state for requests
   const [userData, setUserData] = useState({ profilePicture: "default-profpic.png" });
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const navigate = useNavigate(); // For navigation
+  const [usersData, setUsersData] = useState({}); // Store user data (name, nickname)
+  const navigate = useNavigate();
 
-  // Fetching requests from Firebase based on the selected room
+  useUserProfile(setUserData, navigate); // fetch user data of currently logged in user
+  redirectToLoginIfLoggedOut(navigate); // check if a user is logged in
+
+  // Fetch room details using roomId
   useEffect(() => {
-    if (room) {
-      const fetchRequests = async () => {
-        try {
-          const requestsRef = collection(db, "requests"); // Assuming 'requests' is the collection name
-          const q = query(requestsRef, where("roomId", "==", room.id)); // Filter by roomId
-          const querySnapshot = await getDocs(q);
+    const fetchRoomDetails = async () => {
+      if (!roomId) {
+        console.error("No roomId provided!");
+        navigate("/Properties");
+        return;
+      }
 
-          const fetchedRequests = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
+      try {
+        const roomRef = doc(db, "listings", roomId); // Assuming "listings" is the collection name
+        const roomSnap = await getDoc(roomRef);
 
-          setRequests(fetchedRequests);
+        if (roomSnap.exists()) {
+          const roomData = { id: roomSnap.id, ...roomSnap.data() };
+          setRoom(roomData);
+          
+          // Access the "requests" array inside the listing document
+          const roomRequests = roomData.requests || []; // Default to an empty array if requests doesn't exist
+          setRequests(roomRequests); // Set the requests to state
+          
+          // Fetch user data for each request
+          const userIds = roomRequests.map(request => request.requestBy);
+          fetchUsersData(userIds); // Fetch user names
           setLoading(false);
-        } catch (error) {
-          console.error("Error fetching requests: ", error);
-          setLoading(false);
+        } else {
+          console.error("Room not found!");
+          navigate("/Properties");
         }
-      };
+      } catch (error) {
+        console.error("Error fetching room details: ", error);
+        setLoading(false);
+      }
+    };
 
-      fetchRequests();
+    fetchRoomDetails();
+  }, [roomId, navigate]);
+
+  // Fetch user data for the given userIds
+  const fetchUsersData = async (userIds) => {
+    const users = {};
+    for (const userId of userIds) {
+      try {
+        const userRef = doc(db, "users", userId);
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          // Use fullName if available, otherwise fallback to nickname
+          users[userId] = userData.fullName || userData.nickname;
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     }
-  }, [room]);
-
-  const goToAboutUs = () => {
-    window.location.href = "/about-us";
-  };
-
-  const toggleContactModal = () => {
-    // Toggle the visibility of the contact modal
-  };
-
-  const handleLogout = () => {
-    // Handle logout logic
-    console.log("Logout triggered");
+    setUsersData(users); // Store the fetched user data
   };
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // Back button handler to navigate to the properties page
   const handleBackClick = () => {
     navigate("/Properties");
   };
 
   if (!room) {
-    return <p>No room selected</p>;
+    return <p>Loading room details...</p>;
   }
 
   return (
@@ -71,9 +96,9 @@ function ViewRequest() {
             <img src="Boardershub.png" alt="Logo" className="Logo-image" />
           </a>
           <div className="Nav-bar">
-          <button className="Nav-button" onClick={handleBackClick}>
-            &#8592; Back to Properties
-          </button>
+            <button className="Nav-button" onClick={handleBackClick}>
+              &#8592; Back to Properties
+            </button>
           </div>
           <div className="Profile-icon-wrapper" onClick={toggleDropdown}>
             <img
@@ -94,7 +119,7 @@ function ViewRequest() {
               <button onClick={() => navigate("/Properties")} className="dropdown-item">
                 View Properties
               </button>
-              <button onClick={handleLogout} className="dropdown-item">
+              <button onClick={() => handleLogout(navigate)} className="dropdown-item">
                 Logout
               </button>
             </div>
@@ -117,23 +142,19 @@ function ViewRequest() {
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Purpose</th>
-                      <th>Offer (PHP)</th>
                       <th>Request Date</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {requests.length == 0 ? (
-                      <tr>
-                        <td colSpan="4">No requests yet</td>
-                      </tr>
+                    {requests.length === 0 ? (
+                      <tr><td colSpan="3">No requests yet</td></tr>
                     ) : (
-                      requests.map((request) => (
-                        <tr key={request.id}>
-                          <td>{request.customerName}</td>
-                          <td>{request.purpose}</td>
-                          <td>{request.offer}</td>
-                          <td>{new Date(request.date).toLocaleDateString()}</td>
+                      requests.map((request, index) => (
+                        <tr key={index}>
+                          <td>{usersData[request.requestBy]}</td>
+                          <td>{new Date(request.requestDate).toLocaleDateString()}</td>
+                          <td>{request.requestStatus}</td>
                         </tr>
                       ))
                     )}

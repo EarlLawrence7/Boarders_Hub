@@ -46,7 +46,7 @@ const ChatBot = () => {
       'fort san pedro', 'magellan\'s cross', 'toslob', 'cebuano', 'tabo-an market', 'church', 'beach', 'resort',
       'waterfall', 'island', 'pescador island', 'whale shark', 'mountain', 'top', 'village', 'historic', 'shopping', 
       'mall', 'restaurant', 'food', 'tour', 'activity', 'place', 'hotel', 'airport', 'museum', 'landmark', 'dive', 
-      'scuba', 'adventure', 'trip', 'transport', 'bus', 'jeepney'
+      'scuba', 'adventure', 'trip', 'transport', 'bus', 'jeepney', 'nigger', 'daniel'
     ];
 
     if (cebuKeywords.some((keyword) => messageText.includes(keyword))) {

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Modal({ room, onClose }) {
   const [showAllImages, setShowAllImages] = useState(false);
+  const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
@@ -14,17 +15,8 @@ function Modal({ room, onClose }) {
     }
   };
 
-  const handleRentNow = () => {
-    const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
-    history.push({
-      title: room.title,
-      location: room.location,
-      checkInDate: new Date().toLocaleDateString(),
-      status: "Pending",
-    });
-    localStorage.setItem("rentalHistory", JSON.stringify(history));
-    alert(`You have chosen to rent: ${room.title}`);
-    onClose();
+  const handleEditListing = (roomId) => {
+    navigate("/edit", { state: { roomId } }); // Pass only roomId
   };
 
   const handleSeeMore = () => {
@@ -52,14 +44,11 @@ function Modal({ room, onClose }) {
             )}
           </div>
         )}
-        {room.images.length > 1 && !showAllImages && (
-          <button className="More-button1" onClick={handleSeeMore}>
-            See More... <FaArrowRight className="More-button-icon" />
-          </button>
-        )}
+
         <div className="Modal-buttons-container1">
-          <button className="Edit-button"
-          onClick={() => window.location.href = "/edit"}>Edit listing</button>
+        <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
+          Edit listing
+        </button>
         </div>
       </div>
     </div>
@@ -128,7 +117,7 @@ function Properties() {
   };
 
   const handleViewRequests = (room) => {
-    navigate("/view-requests", { state: { room } });
+    navigate("/view-requests", { state: { roomId: room.id } });
   };
 
   return (

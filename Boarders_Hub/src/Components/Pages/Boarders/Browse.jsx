@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
+import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, addRentRequest} from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { BsBookmarkFill } from "react-icons/bs";
 
 function Modal({ room, onClose }) {
-  const [showAllImages, setShowAllImages] = useState(false);
+  const [showAllImages, setShowAllImages] = useState(true);
   const [showContactModal, setShowContactModal] = useState(false);
   const user = auth.currentUser;
   const userId = user.uid;
+  const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
@@ -18,25 +19,32 @@ function Modal({ room, onClose }) {
     }
   };
 
-  const handleRentNow = () => {
-    const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
-    history.push({
-      title: room.title,
-      location: room.location,
-      checkInDate: new Date().toLocaleDateString(),
-      status: "Pending",
-    });
-    localStorage.setItem("rentalHistory", JSON.stringify(history));
-    alert(`You have chosen to rent: ${room.title}`);
-    onClose();
+  const handleRentNow = async () => {
+    try {
+      const user = auth.currentUser;
+      if (!user) {
+        alert("You must be logged in to rent a room.");
+        return;
+      }
+  
+      // Assuming you have a function to handle the rent request
+      await addRentRequest(room.id, user.uid); // Pass the user ID and room ID for the request
+  
+      alert("Your rent request has been submitted!");
+      // Optionally, close the modal after submitting
+      onClose();
+    } catch (error) {
+      console.error("Error handling rent request:", error);
+      alert("There was an error processing your rent request.");
+    }
+  };
+
+  const handleEditListing = (roomId) => {
+    navigate("/edit", { state: { roomId } }); // Pass only roomId
   };
 
   const handleContactOwner = () => {
     setShowContactModal(true);
-  };
-
-  const handleSeeMore = () => {
-    setShowAllImages(true);
   };
 
   return (
@@ -60,11 +68,7 @@ function Modal({ room, onClose }) {
             )}
           </div>
         )}
-        {room.images.length > 1 && !showAllImages && (
-          <button className="More-button" onClick={handleSeeMore}>
-            See More... <FaArrowRight className="More-button-icon" />
-          </button>
-        )}
+        
         <div className="Modal-buttons-container">
           {userId !== room.ownerId ? (
             <>
@@ -74,7 +78,7 @@ function Modal({ room, onClose }) {
           ) : (
             <>
               <p>You are the owner of this room.</p>
-              <button className="Contact-button" onClick={handleRentNow}>Edit listing</button>
+              <button className="Contact-button" onClick={() => handleEditListing(room.id)}>Edit listing</button>
               <button className="Rent-button" onClick={onClose}>Go back</button>
             </>
           )}

@@ -59,7 +59,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0.19;
+  opacity: 90%;
   /* 20% opacity for the background image */
   z-index: -1;
   /* Place it behind the content */
@@ -178,9 +178,12 @@
 }
 
 .Modal-buttons-container1 {
-  position: center;
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center the button horizontally */
+  align-items: center; /* Center the button vertically */
   margin-top: 20px;
-  margin-left: 160px;
+  height: 100%; /* Ensure the div takes full height if needed */
+  margin-right: 0px;
 }
 
 .More-button1 {

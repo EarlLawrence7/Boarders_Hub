@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getFirestore, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -180,18 +180,30 @@ const fetchListings = async () => {
     const querySnapshot = await getDocs(collection(db, "listings"));
     const listings = await Promise.all(querySnapshot.docs.map(async (docSnap) => {
       const roomData = docSnap.data();
-      const ownerRef = doc(db, "users", roomData.ownerId);  // Correct usage of doc()
-      const ownerDoc = await getDoc(ownerRef);  // Fetch owner data
+      const ownerId = roomData.ownerId;
 
-      const ownerData = ownerDoc.exists() ? ownerDoc.data() : {};  // Handle if owner data exists
+      // Check if ownerId exists
+      if (!ownerId) {
+        console.error("Owner ID is missing for listing:", docSnap.id);
+        return null; // Skip this listing if ownerId is missing
+      }
+
+      // Fetch owner data
+      const ownerRef = doc(db, "users", ownerId);
+      const ownerDoc = await getDoc(ownerRef);
+
+      // Safeguard in case owner document doesn't exist
+      const ownerData = ownerDoc.exists() ? ownerDoc.data() : {};
 
       return {
         id: docSnap.id,
         ...roomData,
-        owner: ownerData,  // Include owner data in room
+        owner: ownerData, // Include owner data in room
       };
     }));
-    return listings;
+
+    // Filter out any null listings (those that failed due to missing ownerId)
+    return listings.filter((listing) => listing !== null);
   } catch (error) {
     console.error("Error fetching listings:", error);
     throw new Error("Failed to fetch listings");
@@ -279,8 +291,36 @@ const handleRemoveRoom = async (userId, roomId) => {
   }
 };
 
+// Function to add a rent request to a listing (under an array in the listing document)
+const addRentRequest = async (listingId, userId) => {
+  try {
+    // Reference the specific listing document in the Firestore "listings" collection
+    const listingRef = doc(db, "listings", listingId);
+
+    // Get the current timestamp
+    const requestDate = new Date();
+
+    // Define the request entry
+    const newRequest = {
+      requestBy: userId,
+      requestDate: requestDate.toISOString(), // Save as ISO string for compatibility
+      requestStatus: "Pending",
+    };
+
+    // Use arrayUnion to add the new request to the "requests" array in the listing document
+    await updateDoc(listingRef, {
+      requests: arrayUnion(newRequest) // arrayUnion ensures that the request is added without duplicates
+    });
+
+    console.log("Rent request added successfully!");
+  } catch (error) {
+    console.error("Error adding rent request:", error);
+    throw new Error("Failed to add rent request");
+  }
+};
+
 // Export in other files
-export { auth, db, doc, setDoc, arrayUnion,
+export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion,
   handleLogout, 
   redirectToHomeIfLoggedIn, 
   redirectToLoginIfLoggedOut,
@@ -291,5 +331,6 @@ export { auth, db, doc, setDoc, arrayUnion,
   fetchListings,
   fetchSavedRooms,
   fetchSavedListings,
-  handleRemoveRoom
+  handleRemoveRoom,
+  addRentRequest
 };
