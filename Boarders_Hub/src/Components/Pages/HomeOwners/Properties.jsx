@@ -46,12 +46,12 @@ function Modal({ room, onClose }) {
         )}
 
         <div className="Modal-buttons-container1">
-            <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
-              Edit listing
-            </button>
-            <button className="Prop-Delete-button">
-              Delete Property
-            </button>
+          <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
+            Edit listing
+          </button>
+          <button className="Prop-Delete-button">
+            Delete Property
+          </button>
         </div>
       </div>
     </div>
@@ -69,6 +69,11 @@ function Properties() {
   const [userData, setUserData] = useState({
     profilePicture: "",
   });
+  const filteredRooms = rooms.filter((room) =>
+    room.RoomType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.price.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useUserProfile(setUserData, navigate);
   redirectToLoginIfLoggedOut(navigate);
@@ -93,7 +98,7 @@ function Properties() {
 
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
-  const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
+  const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom);
 
   const nextPage = () => {
     if (currentPage * roomsPerPage < rooms.length) {
@@ -144,7 +149,7 @@ function Properties() {
           />
         </div>
         <div className="Nav-bar">
-        <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
+          <button className={`Nav-button ${window.location.pathname === '/home' ? 'active' : ''}`} onClick={() => window.location.href = '/home'}>
             Home
           </button>
           <button className={`Nav-button ${window.location.pathname === '/browse' ? 'active' : ''}`} onClick={() => window.location.href = '/browse'}>
