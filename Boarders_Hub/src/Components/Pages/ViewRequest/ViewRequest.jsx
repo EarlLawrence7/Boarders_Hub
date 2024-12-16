@@ -31,6 +31,9 @@ function ViewRequest() {
       await handleApproveRequest(listingId, userId, requestId);
   
       closeModal();
+      // Refresh the page
+      window.location.reload();
+      
     } catch (error) {
       console.error("Error approving request:", error);
     }
