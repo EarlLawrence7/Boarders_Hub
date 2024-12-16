@@ -75,7 +75,7 @@ function AddListings({ onAddListing }) {
           images: []
         });
         setRoomImages([]);
-        navigate("/home");
+        navigate("/Properties");
       } catch (error) {
         console.error("Error adding listing: ", error);
         alert("Failed to create listing. Please try again.");
