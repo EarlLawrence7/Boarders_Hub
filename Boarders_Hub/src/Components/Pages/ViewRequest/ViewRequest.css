@@ -163,3 +163,86 @@
 .viewborder{
   margin-top: 10px;
 }
+
+close-button {
+  background-color: #f0f0f0; /* Light gray background */
+  color: #333; /* Dark text for contrast */
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 8px 16px; /* Comfortable padding */
+  font-size: 16px; /* Readable font size */
+  cursor: pointer; /* Pointer cursor to indicate interactivity */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+close-button:hover {
+  background-color: #e0e0e0; /* Slightly darker gray on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+close-button:active {
+  background-color: #d0d0d0; /* Slightly darker when pressed */
+  box-shadow: none; /* No shadow on press */
+}
+
+close-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Custom focus ring */
+}
+
+.clickable-status {
+  background: transparent;  /* Make the background transparent */
+  border: none;             /* No border around the button */
+  color: inherit;           /* Inherit the text color from the parent */
+  font-size: inherit;       /* Inherit the font size */
+  font-weight: inherit;     /* Inherit the font weight */
+  cursor: pointer;          /* Pointer cursor on hover */
+  padding: 5px 10px;         /* Adjust padding */
+  text-decoration: none;     /* Ensure no underline */
+  transition: background 0.3s ease, transform 0.3s ease; /* Smooth transition for background and scale */
+}
+
+.clickable-status:hover {
+  background: rgba(0, 123, 255, 0.1);  /* Subtle background color on hover */
+  transform: scale(1.05);                /* Slightly scale the button on hover */
+}
+
+.yes-button, .no-button {
+  background: transparent;   /* No background color */
+  border: 2px solid;         /* Add a border for visibility */
+  border-radius: 50px;       /* Make the buttons round */
+  color: inherit;            /* Keep the text color as is */
+  font-size: inherit;        /* Inherit the font size */
+  font-weight: inherit;      /* Inherit the font weight */
+  padding: 10px 20px;        /* Add padding for better button size */
+  cursor: pointer;           /* Pointer cursor on hover */
+  text-decoration: none;      /* Ensure no underline */
+  transition: transform 0.3s ease, background 0.3s ease; /* Smooth transition */
+  margin: 5px;
+}
+
+.yes-button {
+  border-color: green;      /* Green border for YES button */
+  color: green;             /* Green text for YES button */
+}
+
+.no-button {
+  border-color: red;        /* Red border for NO button */
+  color: red;               /* Red text for NO button */
+}
+
+.yes-button:hover, .no-button:hover {
+  transform: scale(1.05);    /* Slightly scale the button on hover */
+}
+
+.yes-button:focus, .no-button:focus {
+  outline: none;            /* Remove focus outline */
+}
+
+.yes-button:hover {
+  background: rgba(0, 128, 0, 0.1); /* Subtle green background on hover */
+}
+
+.no-button:hover {
+  background: rgba(255, 0, 0, 0.1); /* Subtle red background on hover */
+}
