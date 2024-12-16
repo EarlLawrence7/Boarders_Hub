@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db, collection, query, where, getDocs, doc, getDoc } from '../Login/firebaseConfig';
+import { db, doc, getDoc, useUserProfile, redirectToLoginIfLoggedOut, handleLogout } from '../Login/firebaseConfig';
 import "./ViewRequest.css";
 
 function ViewRequest() {
   const location = useLocation();
   const roomId = location.state?.roomId; // Only passing roomId
+  console.log("Room ID:", roomId);  // Debugging line
   const [room, setRoom] = useState(null); // Room details fetched from Firestore
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [requests, setRequests] = useState([]); // Store the requests array
+  const [loading, setLoading] = useState(true); // Loading state for requests
   const [userData, setUserData] = useState({ profilePicture: "default-profpic.png" });
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [usersData, setUsersData] = useState({}); // Store user data (name, nickname)
   const navigate = useNavigate();
+
+  useUserProfile(setUserData, navigate); // fetch user data of currently logged in user
+  redirectToLoginIfLoggedOut(navigate); // check if a user is logged in
 
   // Fetch room details using roomId
   useEffect(() => {
@@ -27,51 +32,52 @@ function ViewRequest() {
         const roomSnap = await getDoc(roomRef);
 
         if (roomSnap.exists()) {
-          setRoom({ id: roomSnap.id, ...roomSnap.data() });
+          const roomData = { id: roomSnap.id, ...roomSnap.data() };
+          setRoom(roomData);
+          
+          // Access the "requests" array inside the listing document
+          const roomRequests = roomData.requests || []; // Default to an empty array if requests doesn't exist
+          setRequests(roomRequests); // Set the requests to state
+          
+          // Fetch user data for each request
+          const userIds = roomRequests.map(request => request.requestBy);
+          fetchUsersData(userIds); // Fetch user names
+          setLoading(false);
         } else {
           console.error("Room not found!");
           navigate("/Properties");
         }
       } catch (error) {
         console.error("Error fetching room details: ", error);
+        setLoading(false);
       }
     };
 
     fetchRoomDetails();
   }, [roomId, navigate]);
 
-  // Fetch requests based on roomId
-  useEffect(() => {
-    const fetchRequests = async () => {
-      if (roomId) {
-        try {
-          const requestsRef = collection(db, "requests"); // Assuming 'requests' is the collection name
-          const q = query(requestsRef, where("roomId", "==", roomId));
-          const querySnapshot = await getDocs(q);
-
-          const fetchedRequests = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-
-          setRequests(fetchedRequests);
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching requests: ", error);
-          setLoading(false);
+  // Fetch user data for the given userIds
+  const fetchUsersData = async (userIds) => {
+    const users = {};
+    for (const userId of userIds) {
+      try {
+        const userRef = doc(db, "users", userId);
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          // Use fullName if available, otherwise fallback to nickname
+          users[userId] = userData.fullName || userData.nickname;
         }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
-    };
-
-    fetchRequests();
-  }, [roomId]);
+    }
+    setUsersData(users); // Store the fetched user data
+  };
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
-  };
-
-  const handleLogout = () => {
-    console.log("Logout triggered");
   };
 
   const handleBackClick = () => {
@@ -113,7 +119,7 @@ function ViewRequest() {
               <button onClick={() => navigate("/Properties")} className="dropdown-item">
                 View Properties
               </button>
-              <button onClick={handleLogout} className="dropdown-item">
+              <button onClick={() => handleLogout(navigate)} className="dropdown-item">
                 Logout
               </button>
             </div>
@@ -137,18 +143,18 @@ function ViewRequest() {
                     <tr>
                       <th>Name</th>
                       <th>Request Date</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {requests.length === 0 ? (
-                      <tr>
-                        <td colSpan="4">No requests yet</td>
-                      </tr>
+                      <tr><td colSpan="3">No requests yet</td></tr>
                     ) : (
-                      requests.map((request) => (
-                        <tr key={request.id}>
-                          <td>{request.customerName}</td>
-                          <td>{new Date(request.date).toLocaleDateString()}</td>
+                      requests.map((request, index) => (
+                        <tr key={index}>
+                          <td>{usersData[request.requestBy]}</td>
+                          <td>{new Date(request.requestDate).toLocaleDateString()}</td>
+                          <td>{request.requestStatus}</td>
                         </tr>
                       ))
                     )}
