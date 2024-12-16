@@ -71,7 +71,7 @@ body::before {
   /* Center the buttons horizontally */
   gap: 20px;
   /* Space between the buttons */
-  margin-top: 20px;
+  margin-top: 30px;
   /* Space above the buttons */
 }
 
@@ -91,7 +91,7 @@ body::before {
 }
 
 .edit-properties-update-button {
-  background-color: #e64141;
+  background-color: #0542fb;
   /* Optional: Different color for update button */
 }
 
@@ -140,8 +140,8 @@ body::before {
   position: absolute;
   top: 5px;
   right: 5px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
+  background: transparent;
+  color: black;
   border: none;
   border-radius: 50%;
   width: 15px;
