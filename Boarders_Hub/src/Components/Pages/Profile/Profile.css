@@ -1,19 +1,23 @@
 /* Profile Container */
 .Profile-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   /* Centers the Profile-info container */
   justify-content: flex-start;
   width: 100vw;
   height: 100vh;
-  background-image: url("download (7).jpg");
+  background-image: url("Crevasse Black Full Hd Backgraunds - 4K Dark Desktop Wallpaper UltraHD 3840x2160.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   font-family: Arial, sans-serif;
   overflow-y: auto;
-
+  /* Align sections vertically */
+  gap: 10px;
+  /* Space between sections */
+  justify-content: center;
+  align-items: flex-start;
 }
 
 /* Profile Info Section */
@@ -24,7 +28,28 @@
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.85);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  width: 90%;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  /* Align sections vertically */
+  gap: 20px;
+  /* Space between sections */
+  justify-content: center;
+  align-items: flex-start;
+  /* Align items to the left */
+  margin-top: 150px;
+}
+
+.container2 {
+  margin-top: 20px;
+  color: rgb(0, 0, 0);
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 100%;
   max-width: 600px;
   text-align: center;
   display: flex;
@@ -55,6 +80,22 @@
   border: 3px solid white;
   display: block;
 }
+.messenger-icon{
+  width:30px;
+  height: 30px;
+  border-radius: 60%;
+  object-fit: cover;
+  display: block;
+  vertical-align: middle;
+}
+.instagram-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 60%;
+  object-fit: cover;
+  display: block;
+  vertical-align: middle;
+}
 
 /* Text container for nickname and full name */
 .text-container {
@@ -74,6 +115,11 @@
 
 /* Full Name */
 .name {
+  color: gray;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.birthday{
   color: gray;
   font-size: 16px;
   margin-bottom: 10px;

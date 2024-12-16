@@ -88,6 +88,7 @@ function Profile() {
 
   return (
     <div className="Profile-container">
+      <div className="Profile-container1">
       <div className="Profile-info">
         <div className="Profile-details">
           <div className="profile-picture-container">
@@ -100,6 +101,7 @@ function Profile() {
           <div className="text-container">
             {isEditing ? (
               <>
+                <strong>Username</strong>
                 <input
                   type="text"
                   name="nickname"
@@ -107,6 +109,7 @@ function Profile() {
                   onChange={handleInputChange}
                   className="edit-input"
                 />
+                <strong>Fullname:</strong>
                 <input
                   type="text"
                   name="fullName"
@@ -114,6 +117,16 @@ function Profile() {
                   onChange={handleInputChange}
                   className="edit-input"
                 />
+                <p>
+                  <strong>Birthday:</strong>{" "}
+                  <input
+                    type="text"
+                    name="birthday"
+                    value={userData.birthday}
+                    onChange={handleInputChange}
+                    className="edit-input"
+                  />
+                </p>
                 <div className="button-group">
                   <label htmlFor="file-upload" className="upload-btn">
                     Upload Picture
@@ -136,7 +149,9 @@ function Profile() {
             ) : (
               <>
                 <h1 className="nickname">{userData.nickname}</h1>
-                <h1 className="name">{userData.fullName}</h1>
+                <h1 className="name">{userData.fullName}</h1> 
+                <h1 className="birthday">{userData.birthday}</h1> 
+               
                 <button
                   className="edit-profile-btn"
                   onClick={handleEditToggle}
@@ -147,8 +162,17 @@ function Profile() {
             )}
           </div>
         </div>
+        
+      <div className="btn-container1">
+      <button onClick={() => navigate(-1)} className="go-back-btn">Go Back</button>
+      <button onClick={() => navigate(-1)} className="view-properties-btn">View Properties</button>
+      </div>
+      </div>
+      </div>
 
-        <div className="contact-info">
+      <div className="Profile-container2">
+      <div className="container2">
+      <div className="contact-info">
           <h1>Contact Information</h1>
           <div className="contact-details">
             {isEditing ? (
@@ -174,35 +198,25 @@ function Profile() {
                   />
                 </p>
                 <p>
-              <strong>Messenger:</strong>{" "}
-              <input
-                type="text"
-                name="messenger"
-                value={userData.messenger}
-                onChange={handleInputChange}
-                className="edit-input"
-              />
-            </p>
-            <p>
-              <strong>Instagram:</strong>{" "}
-              <input
-                type="text"
-                name="instagram"
-                value={userData.instagram}
-                onChange={handleInputChange}
-                className="edit-input"
-              />
-            </p>
-                <p>
-                  <strong>Birthday:</strong>{" "}
+                <img src="messenger.png" alt="Messenger" className="messenger-icon" />
                   <input
                     type="text"
-                    name="birthday"
-                    value={userData.birthday}
+                    name="messenger"
+                    value={userData.messenger}
                     onChange={handleInputChange}
                     className="edit-input"
                   />
-                </p>
+            </p>
+            <p>
+            <img src="instagram.png" alt="Instagram" className="instagram-icon" />
+                  <input
+                    type="text"
+                    name="instagram"
+                    value={userData.instagram}
+                    onChange={handleInputChange}
+                    className="edit-input"
+              />
+            </p>
               </>
             ) : (
               <>
@@ -212,28 +226,22 @@ function Profile() {
                 <p>
                   <strong>Email:</strong> {userData.email}
                 </p>
-                <p>
-                  <strong>Birthday:</strong> {userData.birthday}
-                </p>
-                 <p>
-              <strong>Messenger:</strong>{" "}
-              <a href={userData.messenger} target="_blank" rel="noopener noreferrer" className="social-link">
-                {userData.messenger}
+                 <p><img src="messenger.png" alt="Messenger" className="messenger-icon" />
+                  <a href={userData.messenger} target="_blank" rel="noopener noreferrer" className="social-link">
+                    {userData.messenger}
               </a>
             </p>
             <p>
-              <strong>Instagram:</strong>{" "}
-              <a href={userData.instagram} target="_blank" rel="noopener noreferrer" className="social-link">
-                {userData.instagram}
+            <img src="instagram.png" alt="Instagram" className="instagram-icon" />
+                  <a href={userData.instagram} target="_blank" rel="noopener noreferrer" className="social-link">
+                    {userData.instagram}
               </a>
             </p>
               </>
             )}
           </div>
         </div>
-
-        <button onClick={() => navigate(-1)} className="go-back-btn">Go Back</button>
-        <button onClick={() => navigate(-1)} className="view-properties-btn">View Properties</button>
+      </div>
       </div>
     </div>
   );
