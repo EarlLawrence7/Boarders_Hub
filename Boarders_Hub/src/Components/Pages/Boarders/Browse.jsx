@@ -19,6 +19,7 @@ function Modal({ room, onClose }) {
     }
   };
 
+  // Make Rent request
   const handleRentNow = async () => {
     try {
       const user = auth.currentUser;
@@ -27,17 +28,23 @@ function Modal({ room, onClose }) {
         return;
       }
   
-      // Assuming you have a function to handle the rent request
-      await addRentRequest(room.id, user.uid); // Pass the user ID and room ID for the request
+      // Call the updated addRentRequest function
+      await addRentRequest(room.id, user.uid);
   
       alert("Your rent request has been submitted!");
-      // Optionally, close the modal after submitting
+      // Optionally close the modal
       onClose();
     } catch (error) {
       console.error("Error handling rent request:", error);
-      alert("There was an error processing your rent request.");
+  
+      // Show user-friendly error if it's a duplicate request
+      if (error.message === "You have already requested to rent this room.") {
+        alert(error.message);
+      } else {
+        alert("There was an error processing your rent request.");
+      }
     }
-  };
+  };  
 
   const handleEditListing = (roomId) => {
     navigate("/edit", { state: { roomId } }); // Pass only roomId

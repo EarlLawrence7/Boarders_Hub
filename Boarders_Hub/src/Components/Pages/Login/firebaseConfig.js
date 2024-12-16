@@ -299,25 +299,43 @@ const addRentRequest = async (listingId, userId) => {
     // Reference the specific listing document in the Firestore "listings" collection
     const listingRef = doc(db, "listings", listingId);
 
-    // Get the current timestamp
-    const requestDate = new Date();
+    // Fetch the current listing document
+    const listingSnap = await getDoc(listingRef);
 
-    // Define the request entry
+    if (!listingSnap.exists()) {
+      throw new Error("Listing not found");
+    }
+
+    // Get the existing requests array from the listing document
+    const listingData = listingSnap.data();
+    const existingRequests = listingData.requests || [];
+
+    // Check if the user has already made a request
+    const userHasRequested = existingRequests.some(
+      (request) => request.requestBy === userId
+    );
+
+    if (userHasRequested) {
+      console.warn("User has already made a rent request for this listing.");
+      throw new Error("You have already requested to rent this room.");
+    }
+
+    // Create a new rent request entry
     const newRequest = {
       requestBy: userId,
-      requestDate: requestDate.toISOString(), // Save as ISO string for compatibility
+      requestDate: new Date().toISOString(),
       requestStatus: "Pending",
     };
 
     // Use arrayUnion to add the new request to the "requests" array in the listing document
     await updateDoc(listingRef, {
-      requests: arrayUnion(newRequest) // arrayUnion ensures that the request is added without duplicates
+      requests: arrayUnion(newRequest), // Add the new request to the array
     });
 
     console.log("Rent request added successfully!");
   } catch (error) {
     console.error("Error adding rent request:", error);
-    throw new Error("Failed to add rent request");
+    throw error; // Pass the error back for handling in the UI
   }
 };
 
