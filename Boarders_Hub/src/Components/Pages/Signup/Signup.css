@@ -95,7 +95,9 @@ label {
   color: white;
   font-size: 14px;
 }
-
+.error-message{
+  color: red;
+}
 .login-btn {
   color: white;
   text-decoration: none;

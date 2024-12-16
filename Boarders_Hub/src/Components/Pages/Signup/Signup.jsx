@@ -69,7 +69,8 @@ function Signup() {
             errors.password = "Password is required.";
         } else if (formData.password !== formData.confirmPassword) {
             formIsValid = false;
-            errors.confirmPassword = "Passwords must match.";
+            /*errors.confirmPassword = "";*/
+            alert("Passwords must match.");
         }
         if (!formData.email) {
             formIsValid = false;
@@ -83,7 +84,7 @@ function Signup() {
             errors.phone = "Phone number is required.";
         } else if (!/^\d{11}$/.test(formData.phone)) {
             formIsValid = false;
-            errors.phone = "Phone number must be 11 digits.";
+            alert ("Phone number must be 11 digits.");
         }
         if (!formData.birthDate.month) {
             formIsValid = false;
@@ -135,11 +136,8 @@ function Signup() {
 
             } catch (error) {
                 console.error("Error during signup:", error.message);
-                // Handle error if any (like email already in use)
-                setFormErrors(prevErrors => ({
-                    ...prevErrors,
-                    email: "Email already in use" // Display error message
-                }));
+                 // Handle error using alert
+                    alert("Email already in use");
             }
         }
     };
@@ -250,9 +248,15 @@ function Signup() {
                     </div>
                     {Object.values(formErrors.birthDate).some(error => error) && (
                         <div className="error">
-                            {Object.values(formErrors.birthDate).map((error, index) => (
-                                <div key={index}>{error}</div>
-                            ))}
+                        {formErrors.birthDate.month && (
+                            <div style={{ color: 'red' }}>{formErrors.birthDate.month}</div>
+                        )}
+                        {formErrors.birthDate.day && (
+                            <div style={{ color: 'red' }}>{formErrors.birthDate.day}</div>
+                        )}
+                        {formErrors.birthDate.year && (
+                            <div style={{ color: 'red' }}>{formErrors.birthDate.year}</div>
+                        )}
                         </div>
                     )}
                 </div>
