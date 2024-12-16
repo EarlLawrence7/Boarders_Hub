@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, addRentRequest} from '../Login/firebaseConfig';
+import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, addRentRequest } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { BsBookmarkFill } from "react-icons/bs";
 
@@ -12,6 +12,7 @@ function Modal({ room, onClose }) {
   const user = auth.currentUser;
   const userId = user.uid;
   const navigate = useNavigate();
+
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('Modal-overlay')) {
@@ -27,16 +28,16 @@ function Modal({ room, onClose }) {
         alert("You must be logged in to rent a room.");
         return;
       }
-  
+
       // Call the updated addRentRequest function
       await addRentRequest(room.id, user.uid);
-  
+
       alert("Your rent request has been submitted!");
       // Optionally close the modal
       onClose();
     } catch (error) {
       console.error("Error handling rent request:", error);
-  
+
       // Show user-friendly error if it's a duplicate request
       if (error.message === "You have already requested to rent this room.") {
         alert(error.message);
@@ -44,7 +45,7 @@ function Modal({ room, onClose }) {
         alert("There was an error processing your rent request.");
       }
     }
-  };  
+  };
 
   const handleEditListing = (roomId) => {
     navigate("/edit", { state: { roomId } }); // Pass only roomId
@@ -75,7 +76,7 @@ function Modal({ room, onClose }) {
             )}
           </div>
         )}
-        
+
         <div className="Modal-buttons-container">
           {userId !== room.ownerId ? (
             <>
@@ -92,51 +93,52 @@ function Modal({ room, onClose }) {
         </div>
       </div>
       {showContactModal && (
-  <div className="Contact-modal-overlay">
-    <div className="Contact-modal">
-      <button 
-        className="Close-button" 
-        onClick={() => setShowContactModal(false)}
-      >
-        ✖
-      </button>
-      
-      <h2>Contact the Owner below</h2>
+        <div className="Contact-modal-overlay">
+          <div className="Contact-modal">
+            <button
+              className="Close-button"
+              onClick={() => setShowContactModal(false)}
+            >
+              ✖
+            </button>
 
-      <div className="Contact-details">
-        {/* Owner's Picture */}
-        <div className=".Profile-picture-contactowner">
-          <img
-            src={room.owner.profilePicture || "default-profpic.png"} // Use a default image if no profile picture exists
-            alt={`${room.owner.fullName}'s profile`}
-            className="Profile-picture-contactown"
-          />
-        </div>
+            <h2>Contact the Owner below</h2>
 
-        {/* Contact Information */}
-        <div className="Contact-row">
-          <strong>Name:</strong>
-          <span>{room.owner.fullName}</span>
-        </div>
-        <div className="Contact-row">
-          <strong>Email:</strong>
-          <span>{room.owner.email}</span>
-        </div>
-        <div className="Contact-row">
-          <strong>Phone:</strong>
-          <span>{room.owner.phone}</span>
-        </div>
-      </div>
+            <div className="Contact-details">
+              {/* Owner's Picture */}
+              <div className=".Profile-picture-contactowner">
+                <img
+                  src={room.owner.profilePicture || "default-profpic.png"} // Use a default image if no profile picture exists
+                  alt={`${room.owner.fullName}'s profile`}
+                  className="Profile-picture-contactown"
+                />
+              </div>
 
-      <div className="Social-links">
-        {/* Add social links or icons here */}
-      </div>
+              {/* Contact Information */}
+              <div className="Contact-row">
+                <strong>Name:</strong>
+                <span>{room.owner.fullName}</span>
+              </div>
+              <div className="Contact-row">
+                <strong>Email:</strong>
+                <span>{room.owner.email}</span>
+              </div>
+              <div className="Contact-row">
+                <strong>Phone:</strong>
+                <span>{room.owner.phone}</span>
+              </div>
+            </div>
+
+            <div className="Social-links">
+              {/* Add social links or icons here */}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-  </div>
-)}
-</div>
-  )}
-  ;
+  )
+}
+;
 function Browse() {
   const [expandedRoom, setExpandedRoom] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -148,7 +150,12 @@ function Browse() {
   const [userData, setUserData] = useState({
     profilePicture: "",
   });
-
+  // Filter rooms based on search query
+  const filteredRooms = rooms.filter((room) =>
+    room.RoomType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    room.details.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   useUserProfile(setUserData, navigate);
   redirectToLoginIfLoggedOut(navigate);
 
@@ -172,7 +179,7 @@ function Browse() {
   // Pagination logic
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
-  const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
+  const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom);
 
   const nextPage = () => {
     if (currentPage * roomsPerPage < rooms.length) {

@@ -10,6 +10,7 @@ function History() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
   const itemsPerPage = 5;
+  // Filter rooms based on search query
 
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("rentalHistory")) || [];
@@ -55,7 +56,7 @@ function History() {
 
   const filteredHistory = rentalHistory.filter((entry) =>
     entry.title && entry.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );  
+  );
 
   const totalPages = Math.ceil(filteredHistory.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
