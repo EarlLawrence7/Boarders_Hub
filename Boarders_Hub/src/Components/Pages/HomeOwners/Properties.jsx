@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./Properties.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings } from '../Login/firebaseConfig';
+import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, handleDeleteListing } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
-function Modal({ room, onClose }) {
+function Modal({ room, onClose, onDelete }) {
   const [showAllImages, setShowAllImages] = useState(true);
   const navigate = useNavigate();
 
@@ -17,10 +17,6 @@ function Modal({ room, onClose }) {
 
   const handleEditListing = (roomId) => {
     navigate("/edit", { state: { roomId } }); // Pass only roomId
-  };
-
-  const handleSeeMore = () => {
-    setShowAllImages(true);
   };
 
   return (
@@ -49,7 +45,7 @@ function Modal({ room, onClose }) {
           <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
             Edit listing
           </button>
-          <button className="Prop-Delete-button">
+          <button className="Prop-Delete-button" onClick={() => onDelete(room.id)}>
             Delete Property
           </button>
         </div>
@@ -124,6 +120,19 @@ function Properties() {
     setExpandedRoom(null);
   };
 
+  // Handle Deletion of Listing
+  const handleDelete = async (listingId) => {
+    try {
+      await handleDeleteListing(listingId); // Call the function to delete the listing
+      // Remove the deleted room from the state
+      setRooms((prevRooms) => prevRooms.filter(room => room.id !== listingId));
+      handleCloseModal(); // Close the modal after successful deletion
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+    }
+  };
+  
+
   const handleViewRequests = (room) => {
     navigate("/view-requests", { state: { roomId: room.id } });
   };
@@ -197,7 +206,7 @@ function Properties() {
           Next
         </button>
       </div>
-      {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} />}
+      {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} onDelete={handleDelete} />}
     </div>
   );
 }

@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getFirestore, query, where, doc, setDoc, updateDoc, getDoc, addDoc, deleteDoc, getDocs, collection, arrayUnion, arrayRemove } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -384,6 +384,22 @@ const handleApproveRequest = async (listingId, userId, requestId) => {
   }
 };
 
+// Function to delete a room listing from Firestore
+const handleDeleteListing = async (listingId) => {
+  try {
+    // Reference to the room listing document
+    const roomRef = doc(db, "listings", listingId);
+
+    // Deleting the document from Firestore
+    await deleteDoc(roomRef);
+
+    console.log("Listing deleted successfully");
+    alert("Listing deleted successfully");
+  } catch (error) {
+    console.error("Error deleting listing:", error);
+    throw new Error("Failed to delete listing");
+  }
+};
 
 // Export in other files
 export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion,
@@ -399,5 +415,6 @@ export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collect
   fetchSavedListings,
   handleRemoveRoom,
   addRentRequest,
-  handleApproveRequest
+  handleApproveRequest,
+  handleDeleteListing
 };
