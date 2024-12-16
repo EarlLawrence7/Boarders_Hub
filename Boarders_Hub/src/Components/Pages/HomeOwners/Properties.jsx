@@ -5,8 +5,30 @@ import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
 import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, handleDeleteListing } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
+// Delete Confirmation Modal
+function DeleteConfirmationModal({ onClose, onConfirm }) {
+  return (
+    <div className="Modal-overlay">
+      <div className="Modal-content delete-confirmation">
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete this property listing?</p>
+        <p>This action cannot be undone.</p>
+        <div className="Modal-buttons-container1">
+          <button className="Prop-Cancel-button" onClick={onClose}>
+            Cancel
+          </button>
+          <button className="Prop-Delete-button" onClick={onConfirm}>
+            Confirm Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Modal({ room, onClose, onDelete }) {
   const [showAllImages, setShowAllImages] = useState(true);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
@@ -17,6 +39,18 @@ function Modal({ room, onClose, onDelete }) {
 
   const handleEditListing = (roomId) => {
     navigate("/edit", { state: { roomId } }); // Pass only roomId
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    onDelete(room.id);
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirmation(false);
   };
 
   return (
@@ -45,10 +79,17 @@ function Modal({ room, onClose, onDelete }) {
           <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
             Edit listing
           </button>
-          <button className="Prop-Delete-button" onClick={() => onDelete(room.id)}>
+          <button className="Prop-Delete-button" onClick={handleDeleteClick}>
             Delete Property
           </button>
         </div>
+
+        {showDeleteConfirmation && (
+          <DeleteConfirmationModal 
+            onClose={handleDeleteCancel}
+            onConfirm={handleDeleteConfirm}
+          />
+        )}
       </div>
     </div>
   );
