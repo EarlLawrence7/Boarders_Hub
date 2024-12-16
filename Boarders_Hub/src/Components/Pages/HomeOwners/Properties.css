@@ -157,6 +157,27 @@
 }
 
 /* Rent button */
+.Modal-buttons-container1 {
+  display: flex; /* Use Flexbox for alignment */
+  justify-content: center; /* Center the buttons horizontally in the div */
+  align-items: center; /* Center the buttons vertically */
+  gap: 20px; /* Add space between the buttons */
+  margin-top: 20px;
+}
+.Prop-Delete-button{
+  padding: 10px 20px;
+  background-color: #fc0000;
+  color: Black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 45%; /* Set width for consistent button size */
+  text-align: center; /* Ensure text inside the button is centered */
+}
+.Prop-Delete-button:hover{
+  background-color: #f13e3e;
+}
 .Edit-button {
   padding: 10px 20px;
   background-color: #ff9340;
@@ -165,44 +186,22 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  display: block;
-  /* Change to block for centering */
-  width: 45%;
-  margin-right: 60px
-    /* Centers the button horizontally */
-    /* Remove the left margin to avoid shifting */
+  width: 45%; /* Set width for consistent button size */
+  text-align: center; /* Ensure text inside the button is centered */
 }
 
 .Edit-button:hover {
   background-color: #ffb57d;
 }
 
-.Modal-buttons-container1 {
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center the button horizontally */
-  align-items: center; /* Center the button vertically */
-  margin-top: 20px;
-  height: 100%; /* Ensure the div takes full height if needed */
-  margin-right: 0px;
-}
-
 .More-button1 {
-  background-color: transparent;
-  /* Green background */
-  color: white;
-  /* White text */
-  border: 2px solid black;
-  /* Black border */
-  /* Remove border */
-  border-radius: 100px;
-  /* Rounded corners */
-  padding: 5px 20px;
-  /* Padding */
-  font-size: 12px;
-  /* Font size */
-  cursor: pointer;
-  /* Pointer cursor on hover */
-  transition: background-color 0.3s, transform 0.2s;
-  /* Smooth transition */
+  background-color: transparent; /* Green background */
+  color: white; /* White text */
+  border: 2px solid black; /* Black border */ /* Remove border */
+  border-radius: 100px;/* Rounded corners */
+  padding: 5px 20px; /* Padding */
+  font-size: 12px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
   margin-top: 10px;
 }
