@@ -6,7 +6,7 @@ import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchLi
 import { useNavigate } from 'react-router-dom';
 
 function Modal({ room, onClose }) {
-  const [showAllImages, setShowAllImages] = useState(false);
+  const [showAllImages, setShowAllImages] = useState(true);
   const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
@@ -26,7 +26,7 @@ function Modal({ room, onClose }) {
   return (
     <div className="Modal-overlay" onClick={handleOverlayClick}>
       <div className="Modal-content">
-        <button className="Close-button" onClick={onClose}>X</button>
+        <button className="Close-button" onClick={onClose}>✖</button>
         <h2>{room.RoomType}</h2>
         <p><strong>Location:</strong> {room.location}</p>
         <p><strong>Price:</strong> {room.price}</p>
@@ -46,9 +46,12 @@ function Modal({ room, onClose }) {
         )}
 
         <div className="Modal-buttons-container1">
-        <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
-          Edit listing
-        </button>
+            <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
+              Edit listing
+            </button>
+            <button className="Prop-Delete-button">
+              Delete Property
+            </button>
         </div>
       </div>
     </div>

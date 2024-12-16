@@ -155,3 +155,17 @@
 .dropdown-item:hover {
   text-align: center;
 }
+
+/* Apply to all elements */
+*::-webkit-scrollbar {
+  width: 8px; /* Thin scrollbar */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5); /* Light color for the thumb */
+  border-radius: 10px; /* Rounded thumb */
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent; /* Make track transparent */
+}
