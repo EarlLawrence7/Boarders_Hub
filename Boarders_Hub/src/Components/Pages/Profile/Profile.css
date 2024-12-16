@@ -301,7 +301,7 @@
 
 /* Upload Picture Button */
 .upload-btn {
-  background-color: #091e09;
+  background-color: green;
   /* Slightly lighter shade of green */
   color: white;
   border: none;
@@ -316,7 +316,7 @@
 }
 
 .upload-btn:hover {
-  background-color: #45a049;
+  background-color: darkgreen;
   /* Slightly darker shade on hover */
 }
 
