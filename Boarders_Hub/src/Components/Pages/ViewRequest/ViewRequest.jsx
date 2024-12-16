@@ -136,8 +136,6 @@ function ViewRequest() {
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Purpose</th>
-                      <th>Offer (PHP)</th>
                       <th>Request Date</th>
                     </tr>
                   </thead>
@@ -150,8 +148,6 @@ function ViewRequest() {
                       requests.map((request) => (
                         <tr key={request.id}>
                           <td>{request.customerName}</td>
-                          <td>{request.purpose}</td>
-                          <td>{request.offer}</td>
                           <td>{new Date(request.date).toLocaleDateString()}</td>
                         </tr>
                       ))
