@@ -219,3 +219,14 @@
   transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
   margin-top: 10px;
 }
+
+.SavedRoom-empty {
+  margin-top: 50px;
+  font-size: 20px;
+  color: white; /* Inherit the color from the parent element */
+}
+
+.SavedRoom-empty:hover {
+  text-decoration: none; /* Ensures no underline on hover */
+  cursor: pointer; /* Optional: adds pointer cursor on hover */
+}
