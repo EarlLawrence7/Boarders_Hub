@@ -47,10 +47,6 @@ function Modal({ room, onClose }) {
     setShowContactModal(true);
   };
 
-  const handleSeeMore = () => {
-    setShowAllImages(true);
-  };
-
   return (
     <div className="Modal-overlay" onClick={handleOverlayClick}>
       <div className="Modal-content">

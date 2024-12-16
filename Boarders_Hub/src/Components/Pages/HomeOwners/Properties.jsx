@@ -44,11 +44,7 @@ function Modal({ room, onClose }) {
             )}
           </div>
         )}
-        {room.images.length > 1 && !showAllImages && (
-          <button className="More-button1" onClick={handleSeeMore}>
-            See More... <FaArrowRight className="More-button-icon" />
-          </button>
-        )}
+
         <div className="Modal-buttons-container1">
         <button className="Edit-button" onClick={() => handleEditListing(room.id)}>
           Edit listing
