@@ -167,6 +167,7 @@
 .Prop-Delete-button{
   padding: 10px 20px;
   background-color: #fc0000;
+  font-weight: bold;
   color: Black;
   border: none;
   border-radius: 5px;
@@ -177,6 +178,8 @@
 }
 .Prop-Delete-button:hover{
   background-color: #f13e3e;
+  font-weight: bold;
+  color: whitesmoke;
 }
 .Prop-Cancel-button{
   padding: 10px 20px;
