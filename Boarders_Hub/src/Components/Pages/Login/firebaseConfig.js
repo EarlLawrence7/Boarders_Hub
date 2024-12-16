@@ -177,12 +177,16 @@ const addListingToFirestore = async (listingData) => {
 // Fetch all listings from Firestore
 const fetchListings = async () => {
   try {
-    const querySnapshot = await getDocs(collection(db, "listings"));
+    const listingsRef = collection(db, "listings");
+    
+    // Query to filter listings with status "Available"
+    const q = query(listingsRef, where("status", "==", "Available"|| "available"));
+    
+    const querySnapshot = await getDocs(q);
     const listings = await Promise.all(querySnapshot.docs.map(async (docSnap) => {
       const roomData = docSnap.data();
       const ownerId = roomData.ownerId;
 
-      // Check if ownerId exists
       if (!ownerId) {
         console.error("Owner ID is missing for listing:", docSnap.id);
         return null; // Skip this listing if ownerId is missing
@@ -191,18 +195,16 @@ const fetchListings = async () => {
       // Fetch owner data
       const ownerRef = doc(db, "users", ownerId);
       const ownerDoc = await getDoc(ownerRef);
-
-      // Safeguard in case owner document doesn't exist
       const ownerData = ownerDoc.exists() ? ownerDoc.data() : {};
 
       return {
         id: docSnap.id,
         ...roomData,
-        owner: ownerData, // Include owner data in room
+        owner: ownerData,
       };
     }));
 
-    // Filter out any null listings (those that failed due to missing ownerId)
+    // Filter out null listings
     return listings.filter((listing) => listing !== null);
   } catch (error) {
     console.error("Error fetching listings:", error);
