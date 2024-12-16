@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db, doc, getDoc, useUserProfile, redirectToLoginIfLoggedOut, handleLogout } from '../Login/firebaseConfig';
+import { db, doc, getDoc, useUserProfile, redirectToLoginIfLoggedOut, handleLogout } from "../Login/firebaseConfig";
 import "./ViewRequest.css";
 
 function ViewRequest() {
   const location = useLocation();
-  const roomId = location.state?.roomId; // Only passing roomId
-  console.log("Room ID:", roomId);  // Debugging line
-  const [room, setRoom] = useState(null); // Room details fetched from Firestore
-  const [requests, setRequests] = useState([]); // Store the requests array
-  const [loading, setLoading] = useState(true); // Loading state for requests
+  const roomId = location.state?.roomId;
+  const [room, setRoom] = useState(null);
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({ profilePicture: "default-profpic.png" });
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [usersData, setUsersData] = useState({}); // Store user data (name, nickname)
+  const [usersData, setUsersData] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState(null);
   const navigate = useNavigate();
 
-  useUserProfile(setUserData, navigate); // fetch user data of currently logged in user
-  redirectToLoginIfLoggedOut(navigate); // check if a user is logged in
+  useUserProfile(setUserData, navigate);
+  redirectToLoginIfLoggedOut(navigate);
 
-  // Fetch room details using roomId
   useEffect(() => {
     const fetchRoomDetails = async () => {
       if (!roomId) {
@@ -28,20 +28,18 @@ function ViewRequest() {
       }
 
       try {
-        const roomRef = doc(db, "listings", roomId); // Assuming "listings" is the collection name
+        const roomRef = doc(db, "listings", roomId);
         const roomSnap = await getDoc(roomRef);
 
         if (roomSnap.exists()) {
           const roomData = { id: roomSnap.id, ...roomSnap.data() };
           setRoom(roomData);
-          
-          // Access the "requests" array inside the listing document
-          const roomRequests = roomData.requests || []; // Default to an empty array if requests doesn't exist
-          setRequests(roomRequests); // Set the requests to state
-          
-          // Fetch user data for each request
-          const userIds = roomRequests.map(request => request.requestBy);
-          fetchUsersData(userIds); // Fetch user names
+
+          const roomRequests = roomData.requests || [];
+          setRequests(roomRequests);
+
+          const userIds = roomRequests.map((request) => request.requestBy);
+          fetchUsersData(userIds);
           setLoading(false);
         } else {
           console.error("Room not found!");
@@ -56,24 +54,22 @@ function ViewRequest() {
     fetchRoomDetails();
   }, [roomId, navigate]);
 
-  // Fetch user data for the given userIds
   const fetchUsersData = async (userIds) => {
     const users = {};
     for (const userId of userIds) {
       try {
         const userRef = doc(db, "users", userId);
         const userSnap = await getDoc(userRef);
-        
+
         if (userSnap.exists()) {
           const userData = userSnap.data();
-          // Use fullName if available, otherwise fallback to nickname
           users[userId] = userData.fullName || userData.nickname;
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     }
-    setUsersData(users); // Store the fetched user data
+    setUsersData(users);
   };
 
   const toggleDropdown = () => {
@@ -82,6 +78,23 @@ function ViewRequest() {
 
   const handleBackClick = () => {
     navigate("/Properties");
+  };
+
+  const openModal = (request) => {
+    setSelectedRequest(request);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRequest(null);
+  };
+
+  // Function to close modal when overlay is clicked
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains('Contact-modal-overlay')) {
+      closeModal();  // Correct function name here
+    }
   };
 
   if (!room) {
@@ -129,14 +142,11 @@ function ViewRequest() {
         <div className="view-request-container">
           <h1 className="viewborder">View Requests for {room.name}</h1>
 
-          {/* Show loading spinner if data is still being fetched */}
           {loading ? (
             <p>Loading requests...</p>
           ) : (
             <div>
               <h3>Total Requests: {requests.length}</h3>
-
-              {/* Requests Table */}
               <div className="view-request-table">
                 <table>
                   <thead>
@@ -148,13 +158,22 @@ function ViewRequest() {
                   </thead>
                   <tbody>
                     {requests.length === 0 ? (
-                      <tr><td colSpan="3">No requests yet</td></tr>
+                      <tr>
+                        <td colSpan="3">No requests yet</td>
+                      </tr>
                     ) : (
                       requests.map((request, index) => (
                         <tr key={index}>
                           <td>{usersData[request.requestBy]}</td>
                           <td>{new Date(request.requestDate).toLocaleDateString()}</td>
-                          <td>{request.requestStatus}</td>
+                          <td>
+                            <button
+                              className="clickable-status"
+                              onClick={() => openModal(request)}
+                            >
+                              {request.requestStatus}
+                            </button>
+                          </td>
                         </tr>
                       ))
                     )}
@@ -165,6 +184,20 @@ function ViewRequest() {
           )}
         </div>
       </div>
+
+      {isModalOpen && selectedRequest && (
+        <div className="Contact-modal-overlay" onClick={handleOverlayClick}>
+          <div className="Contact-modal">
+            <h4><strong>Approve Rent Request by {usersData[selectedRequest.requestBy]}?</strong></h4>
+            <div>
+              {/* Modal Content */}
+              <button className="yes-button" onClick={closeModal}>YES</button>
+              <button className="no-button" onClick={closeModal}>NO</button>
+            </div>
+            <button className="close-button" onClick={closeModal}>x</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
