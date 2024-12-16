@@ -337,6 +337,54 @@ const addRentRequest = async (listingId, userId) => {
   }
 };
 
+// Function to handle approval of a rent request for a listing
+const handleApproveRequest = async (listingId, userId, requestId) => {
+  try {
+    const listingRef = doc(db, "listings", listingId);
+    const listingSnap = await getDoc(listingRef);
+
+    if (!listingSnap.exists()) {
+      throw new Error("Listing not found");
+    }
+
+    const listingData = listingSnap.data();
+    const requests = listingData.requests || [];
+
+    // Log the structure of the requests data
+    console.log("Requests data structure:", requests);
+
+    let requestFound = false;
+    const updatedRequests = requests.map((request) => {
+      // If this is the request we want to approve, set it to "Approved"
+      if (request.requestBy === userId && request.requestDate === requestId) {
+        requestFound = true;
+        return { ...request, requestStatus: "Approved" }; // Approve the request
+      }
+      // Leave the other requests unchanged
+      return request;
+    });
+
+    if (!requestFound) {
+      throw new Error("Request not found in this room listing");
+    }
+
+    // Update the listing's tenantId and status to "Occupied"
+    await updateDoc(listingRef, {
+      requests: updatedRequests,  // Update only the modified request's status
+      tenantId: userId,          // Set tenantId to the userId of the approved request
+      status: "Occupied",        // Set the listing status to "Occupied"
+    });
+
+    console.log("Request approved successfully.");
+    alert("Request approved successfully.");
+  } catch (error) {
+    console.error("Error approving request:", error);
+    alert("Error approving request: " + error.message);
+    throw error;
+  }
+};
+
+
 // Export in other files
 export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion,
   handleLogout, 
@@ -350,5 +398,6 @@ export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collect
   fetchSavedRooms,
   fetchSavedListings,
   handleRemoveRoom,
-  addRentRequest
+  addRentRequest,
+  handleApproveRequest
 };

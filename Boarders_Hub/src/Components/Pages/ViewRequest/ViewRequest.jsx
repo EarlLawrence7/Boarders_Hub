@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db, doc, getDoc, useUserProfile, redirectToLoginIfLoggedOut, handleLogout } from "../Login/firebaseConfig";
+import { db, doc, getDoc, useUserProfile, redirectToLoginIfLoggedOut, handleLogout, handleApproveRequest } from "../Login/firebaseConfig";
 import "./ViewRequest.css";
 
 function ViewRequest() {
@@ -19,6 +19,23 @@ function ViewRequest() {
   useUserProfile(setUserData, navigate);
   redirectToLoginIfLoggedOut(navigate);
 
+  // Handle Approve Request
+  const handleApprove = async () => {
+    try {
+      const listingId = room.id;
+      const userId = selectedRequest.requestBy;
+      const requestId = selectedRequest.requestDate;  // Assuming requestDate is the identifier
+      
+      console.log("Approving request with:", { listingId, userId, requestId });
+  
+      await handleApproveRequest(listingId, userId, requestId);
+  
+      closeModal();
+    } catch (error) {
+      console.error("Error approving request:", error);
+    }
+  };
+  
   useEffect(() => {
     const fetchRoomDetails = async () => {
       if (!roomId) {
@@ -170,6 +187,7 @@ function ViewRequest() {
                             <button
                               className="clickable-status"
                               onClick={() => openModal(request)}
+                              disabled={request.requestStatus !== "Pending"}  // Disable if not "Pending"
                             >
                               {request.requestStatus}
                             </button>
@@ -191,7 +209,7 @@ function ViewRequest() {
             <h4><strong>Approve Rent Request by {usersData[selectedRequest.requestBy]}?</strong></h4>
             <div>
               {/* Modal Content */}
-              <button className="yes-button" onClick={closeModal}>YES</button>
+              <button className="yes-button" onClick={handleApprove}>YES</button>
               <button className="no-button" onClick={closeModal}>NO</button>
             </div>
             <button className="close-button" onClick={closeModal}>x</button>
