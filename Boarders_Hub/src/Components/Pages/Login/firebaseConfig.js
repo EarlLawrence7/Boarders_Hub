@@ -177,12 +177,16 @@ const addListingToFirestore = async (listingData) => {
 // Fetch all listings from Firestore
 const fetchListings = async () => {
   try {
-    const querySnapshot = await getDocs(collection(db, "listings"));
+    const listingsRef = collection(db, "listings");
+    
+    // Query to filter listings with status "Available"
+    const q = query(listingsRef, where("status", "==", "Available"|| "available"));
+    
+    const querySnapshot = await getDocs(q);
     const listings = await Promise.all(querySnapshot.docs.map(async (docSnap) => {
       const roomData = docSnap.data();
       const ownerId = roomData.ownerId;
 
-      // Check if ownerId exists
       if (!ownerId) {
         console.error("Owner ID is missing for listing:", docSnap.id);
         return null; // Skip this listing if ownerId is missing
@@ -191,18 +195,16 @@ const fetchListings = async () => {
       // Fetch owner data
       const ownerRef = doc(db, "users", ownerId);
       const ownerDoc = await getDoc(ownerRef);
-
-      // Safeguard in case owner document doesn't exist
       const ownerData = ownerDoc.exists() ? ownerDoc.data() : {};
 
       return {
         id: docSnap.id,
         ...roomData,
-        owner: ownerData, // Include owner data in room
+        owner: ownerData,
       };
     }));
 
-    // Filter out any null listings (those that failed due to missing ownerId)
+    // Filter out null listings
     return listings.filter((listing) => listing !== null);
   } catch (error) {
     console.error("Error fetching listings:", error);
@@ -297,25 +299,43 @@ const addRentRequest = async (listingId, userId) => {
     // Reference the specific listing document in the Firestore "listings" collection
     const listingRef = doc(db, "listings", listingId);
 
-    // Get the current timestamp
-    const requestDate = new Date();
+    // Fetch the current listing document
+    const listingSnap = await getDoc(listingRef);
 
-    // Define the request entry
+    if (!listingSnap.exists()) {
+      throw new Error("Listing not found");
+    }
+
+    // Get the existing requests array from the listing document
+    const listingData = listingSnap.data();
+    const existingRequests = listingData.requests || [];
+
+    // Check if the user has already made a request
+    const userHasRequested = existingRequests.some(
+      (request) => request.requestBy === userId
+    );
+
+    if (userHasRequested) {
+      console.warn("User has already made a rent request for this listing.");
+      throw new Error("You have already requested to rent this room.");
+    }
+
+    // Create a new rent request entry
     const newRequest = {
       requestBy: userId,
-      requestDate: requestDate.toISOString(), // Save as ISO string for compatibility
+      requestDate: new Date().toISOString(),
       requestStatus: "Pending",
     };
 
     // Use arrayUnion to add the new request to the "requests" array in the listing document
     await updateDoc(listingRef, {
-      requests: arrayUnion(newRequest) // arrayUnion ensures that the request is added without duplicates
+      requests: arrayUnion(newRequest), // Add the new request to the array
     });
 
     console.log("Rent request added successfully!");
   } catch (error) {
     console.error("Error adding rent request:", error);
-    throw new Error("Failed to add rent request");
+    throw error; // Pass the error back for handling in the UI
   }
 };
 
