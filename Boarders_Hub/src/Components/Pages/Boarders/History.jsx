@@ -27,10 +27,6 @@ function History() {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleLogout = () => {
-    // Implement logout functionality
-  };
-
   const handleDelete = (index) => {
     const itemToDelete = rentalHistory[index];
     if (itemToDelete.status === "Pending") {
@@ -125,7 +121,7 @@ function History() {
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
             <button onClick={() => navigate("/view-tenants")} className="dropdown-item">View Tenants</button>
             <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
-            <button onClick={handleLogout} className="dropdown-item">Logout</button>
+            <button onClick={() => handleLogout(navigate)} className="dropdown-item">Logout</button>
           </div>
         </div>
       </div>
