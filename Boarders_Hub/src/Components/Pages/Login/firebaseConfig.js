@@ -358,10 +358,10 @@ const handleApproveRequest = async (listingId, userId, requestId) => {
       // If this is the request we want to approve, set it to "Approved"
       if (request.requestBy === userId && request.requestDate === requestId) {
         requestFound = true;
-        return { ...request, requestStatus: "Approved" };
+        return { ...request, requestStatus: "Approved" }; // Approve the request
       }
-      // For all other requests, set the status to "Rejected"
-      return { ...request, requestStatus: "Rejected" };
+      // Leave the other requests unchanged
+      return request;
     });
 
     if (!requestFound) {
@@ -370,18 +370,20 @@ const handleApproveRequest = async (listingId, userId, requestId) => {
 
     // Update the listing's tenantId and status to "Occupied"
     await updateDoc(listingRef, {
-      requests: updatedRequests,  // Update the requests array
+      requests: updatedRequests,  // Update only the modified request's status
       tenantId: userId,          // Set tenantId to the userId of the approved request
       status: "Occupied",        // Set the listing status to "Occupied"
     });
 
-    console.log("Request approved successfully, all other requests marked as Rejected.");
+    console.log("Request approved successfully.");
     alert("Request approved successfully.");
   } catch (error) {
     console.error("Error approving request:", error);
+    alert("Error approving request: " + error.message);
     throw error;
   }
 };
+
 
 // Export in other files
 export { auth, db, query, where, doc, setDoc, updateDoc, getDoc, addDoc, collection, getDocs, arrayUnion,

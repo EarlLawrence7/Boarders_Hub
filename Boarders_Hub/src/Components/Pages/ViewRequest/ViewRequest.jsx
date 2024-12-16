@@ -187,6 +187,7 @@ function ViewRequest() {
                             <button
                               className="clickable-status"
                               onClick={() => openModal(request)}
+                              disabled={request.requestStatus !== "Pending"}  // Disable if not "Pending"
                             >
                               {request.requestStatus}
                             </button>
