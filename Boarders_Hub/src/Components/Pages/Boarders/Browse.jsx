@@ -127,6 +127,12 @@ function Modal({ room, onClose }) {
                 <strong>Phone:</strong>
                 <span>{room.owner.phone}</span>
               </div>
+              <div className="Contact-row">
+                <img src="messenger.png" alt="Messenger" className="messenger-icon" />
+              </div>
+              <div className="Contact-row">
+              <img src="instagram.png" alt="Instagram" className="instagram-icon" />
+              </div>
             </div>
 
             <div className="Social-links">
