@@ -3,7 +3,7 @@ import "./Properties.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
 import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, handleDeleteListing } from '../Login/firebaseConfig';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Modal({ room, onClose, onDelete }) {
   const [showAllImages, setShowAllImages] = useState(true);
@@ -181,6 +181,7 @@ function Properties() {
           </div>
         </div>
       </div>
+      {currentRooms.length > 0 ? ( // Use filteredRooms here
       <div className="Room-card-container1">
         {currentRooms.map((room) => (
           <div key={room.id} className="Room-card1">
@@ -198,6 +199,12 @@ function Properties() {
           </div>
         ))}
       </div>
+      ) : (
+        <p className="SavedRoom-empty">
+          <Link to="/add-listing" className="SavedRoom-empty">Start adding</Link>
+          <span> your own properties.</span>
+        </p>
+      )}
       <div className="Pagination-container">
         <button className="Pagination-button" onClick={prevPage} disabled={currentPage === 1}>
           Previous
