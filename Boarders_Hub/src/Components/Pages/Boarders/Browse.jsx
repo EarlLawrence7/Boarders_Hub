@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, addRentRequest } from '../Login/firebaseConfig';
+import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, fetchSavedRooms, addRentRequest } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { BsBookmarkFill } from "react-icons/bs";
 
@@ -210,12 +210,19 @@ function Browse() {
     try {
       const user = auth.currentUser; // Get the current authenticated user
       if (user) {
+        // Fetch the user's saved rooms
+        const savedRooms = await fetchSavedRooms(user.uid);
+
+        // Check if the room is already saved
+        if (savedRooms.some((room) => room.id === roomId)) {
+          alert("This listing has already been saved.");
+          return;
+        }
+
         const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
+        const roomRef = doc(db, "listings", roomId); // Reference to the listing document
 
-        // Create the reference to the listing document
-        const roomRef = doc(db, "listings", roomId); // Path: /listings/{roomId}
-
-        // Check if savedRooms array exists, if not, create it
+        // Add the roomRef to the savedRooms array
         await setDoc(
           userDocRef,
           {

@@ -117,12 +117,6 @@ function Home() {
               Add Listings
             </button>
             <button
-              onClick={() => navigate("/view-tenants")}
-              className="dropdown-item"
-            >
-              View Tenants
-            </button>
-            <button
               onClick={() => navigate("/Properties")}
               className="dropdown-item"
             >
