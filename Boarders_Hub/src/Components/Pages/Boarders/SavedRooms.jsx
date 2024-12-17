@@ -216,9 +216,12 @@ function SavedRooms() {
                 ></div>
                 <h3 className="Room-title">{room.RoomType || "Room Type Unavailable"}</h3>
                 <p className="Room-summary">{room.shortDescription || "Description not available"}</p>
-                <p className="Room-summary">{room.price || "Price not listed"}</p>
+                <p className="Room-summary">Price: {room.price || "Price not listed"}</p>
                 <div className="Card-footer">
-                  <button className="Delete-button" onClick={() => handleRemoveRoomButton(room.id)}>
+                  <button className="Delete-button"  onClick={(e) => {
+                    e.stopPropagation();  // Prevent the click event from propagating to the parent
+                    handleRemoveRoomButton(room.id);}}
+                  >
                     Remove
                   </button>
                 </div>
