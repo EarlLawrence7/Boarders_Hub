@@ -246,3 +246,7 @@ close-button:focus {
 .no-button:hover {
   background: rgba(255, 0, 0, 0.1); /* Subtle red background on hover */
 }
+
+.approved-status {
+  color: rgb(44, 255, 44);
+}
