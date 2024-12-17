@@ -219,12 +219,11 @@ function History() {
         </div>
       )}
 
-      <div className="History-pagination">
-        <button onClick={() => handlePageChange("prev")} disabled={currentPage === 1}>
+      <div className="Pagination-container">
+        <button className="Pagination-button" onClick={() => handlePageChange("prev")} disabled={currentPage === 1}>
           Previous
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => handlePageChange("next")} disabled={currentPage === totalPages}>
+        <button className="Pagination-button" onClick={() => handlePageChange("next")} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>

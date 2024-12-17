@@ -359,19 +359,16 @@
 
 .Pagination-button {
   padding: 12px 30px;
-  /* Increased padding for a more prominent button */
   background-color: #4e544e;
-  /* Vibrant green for better visual appeal */
   color: white;
   border: none;
   border-radius: 50px;
-  /* Fully rounded corners for modern look */
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  /* Slightly lighter font weight */
+  width: 150px; /* Set a fixed width */
+  text-align: center; /* Ensures text is centered */
   transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
-  /* Smooth transitions for hover effects */
 }
 
 .Pagination-button:hover {

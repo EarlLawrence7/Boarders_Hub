@@ -16,6 +16,8 @@
 
 /* Title */
 .History-title {
+  margin-top: 20px; /* Adjusted to provide more space at the top */
+  margin-bottom: 10px; /* Slightly smaller margin at the bottom */
   color: white;
   font-size: 2rem;
   font-weight: bold;
@@ -95,33 +97,7 @@
   margin-top: 20px;
   text-align: center;
 }
-
-/* Pagination Buttons */
-.History-pagination {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.History-pagination button {
-  padding: 8px 12px;
-  background-color: #5e5e5e;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.History-pagination button:hover {
-  background-color: #757575;
-}
-
-.History-pagination button:disabled {
-  background-color: #3a3a3a;
-  cursor: not-allowed;
-}
+ 
 
 .Cancel-button {
   background-color: #ff4d4d;
