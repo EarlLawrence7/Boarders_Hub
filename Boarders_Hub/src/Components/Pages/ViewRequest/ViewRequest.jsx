@@ -194,7 +194,7 @@ function ViewRequest() {
                               onClick={() => openModal(request)}
                               disabled={request.requestStatus !== "Pending"} // Disable if not "Pending"
                             >
-                              {request.requestStatus}
+                              {request.requestStatus === "Approved" ? "Tenant" : request.requestStatus}
                             </button>
                           </td>
                         </tr>

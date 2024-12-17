@@ -250,3 +250,45 @@ close-button:focus {
 .approved-status {
   color: rgb(44, 255, 44);
 }
+
+.Contact-modal-overlay {
+  /* Existing styles */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.Contact-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;  /* This will round the edges */
+  width: 400px;  /* Adjust as needed */
+  max-width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a soft shadow for a more modern look */
+  overflow: hidden;  /* Ensures content doesn't overflow rounded corners */
+  transition: transform 0.3s ease-in-out; /* Optional: for smooth modal appearance */
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #333;
+}
