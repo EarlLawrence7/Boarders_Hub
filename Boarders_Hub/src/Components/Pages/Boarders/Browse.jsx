@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Browse.css"; // Import the CSS file
 import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
 import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
-import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, fetchSavedRooms, addRentRequest } from '../Login/firebaseConfig';
+import { auth, doc, db, setDoc, arrayUnion, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, addRentRequest } from '../Login/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { BsBookmarkFill } from "react-icons/bs";
 
@@ -132,8 +132,8 @@ function Modal({ room, onClose }) {
                 <span>{room.owner.messenger}</span>
               </div>
               <div className="Contact-row">
-                <img src="instagram.png" alt="Instagram" className="instagram-icon" />
-                <span>{room.owner.instagram}</span>
+              <img src="instagram.png" alt="Instagram" className="instagram-icon" />
+              <span>{room.owner.instagram}</span>
               </div>
             </div>
 
@@ -218,19 +218,12 @@ function Browse() {
     try {
       const user = auth.currentUser; // Get the current authenticated user
       if (user) {
-        // Fetch the user's saved rooms
-        const savedRooms = await fetchSavedRooms(user.uid);
-
-        // Check if the room is already saved
-        if (savedRooms.some((room) => room.id === roomId)) {
-          alert("This listing has already been saved.");
-          return;
-        }
-
         const userDocRef = doc(db, "users", user.uid); // Reference to the user's document in Firestore
-        const roomRef = doc(db, "listings", roomId); // Reference to the listing document
 
-        // Add the roomRef to the savedRooms array
+        // Create the reference to the listing document
+        const roomRef = doc(db, "listings", roomId); // Path: /listings/{roomId}
+
+        // Check if savedRooms array exists, if not, create it
         await setDoc(
           userDocRef,
           {
@@ -295,11 +288,10 @@ function Browse() {
       </div>
       <div className="Room-card-container">
         {currentRooms.map((room) => (
-          <div key={room.id} className="Room-card">
+          <div key={room.id} className="Room-card" onClick={() => handleOpenModal(room)}>
             <div className="Room-card-image" style={{ backgroundImage: `url(${room.images[0]})` }}></div>
             <h2 className="Room-title">{room.RoomType}</h2>
-
-            <div className="Card-divider"></div>
+            {/* <p className="Room-summary">{room.shortDescription}</p> */}
             <div className="Card-footer">
               {room.owner.profilePicture ? (
                 <div className="Profile-picture-container">
@@ -334,7 +326,7 @@ function Browse() {
         </button>
       </div>
       {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} />}
-
+      
     </div>
   );
 }
