@@ -188,9 +188,11 @@ function ViewRequest() {
                           <td>{new Date(request.requestDate).toLocaleDateString()}</td>
                           <td>
                             <button
-                              className="clickable-status"
+                              className={`clickable-status ${
+                                request.requestStatus === "Approved" ? "approved-status" : ""
+                              }`}
                               onClick={() => openModal(request)}
-                              disabled={request.requestStatus !== "Pending"}  // Disable if not "Pending"
+                              disabled={request.requestStatus !== "Pending"} // Disable if not "Pending"
                             >
                               {request.requestStatus}
                             </button>
