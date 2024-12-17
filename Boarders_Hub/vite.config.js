@@ -18,6 +18,9 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Customize build output directory
     sourcemap: true, // Optional: Enable source maps for debugging
+    rollupOptions: {
+      external: ['react/jsx-runtime']
+    }
   },
   envPrefix: 'VITE_', // Only expose environment variables with VITE_ prefix
 })
