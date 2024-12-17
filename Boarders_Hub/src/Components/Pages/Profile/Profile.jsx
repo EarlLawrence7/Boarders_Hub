@@ -96,6 +96,14 @@ function Profile() {
     <div className="Profile-container">
       <div className="Profile-container1">
         <div className="Profile-info">
+          <div className="Profile-profilediv">
+            <p className="profile-profiletitle">PROFILE</p>
+            <button
+                    className="edit-profile-btn"
+                    onClick={handleEditToggle}>
+                    <span className="gray-hand-emoji">✍️</span>Edit Profile
+                  </button>
+          </div>
           <div className="Profile-details">
             <div className="profile-picture-container">
               <img
@@ -157,13 +165,6 @@ function Profile() {
                   <h1 className="nickname">{userData.nickname}</h1>
                   <h1 className="name">{userData.fullName}</h1> 
                   <h1 className="birthday">{userData.birthday}</h1> 
-                 
-                  <button
-                    className="edit-profile-btn"
-                    onClick={handleEditToggle}
-                  >
-                    Edit Profile
-                  </button>
                 </>
               )}
             </div>

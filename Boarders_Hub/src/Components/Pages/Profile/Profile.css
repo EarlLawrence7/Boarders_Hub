@@ -276,25 +276,6 @@
   /* Align buttons vertically */
 }
 
-/* Edit Profile Button */
-.edit-profile-btn {
-  background-color: green;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  /* Reduced padding for smaller size */
-  border-radius: 5px;
-  font-size: 12px;
-  /* Reduced font size */
-  cursor: pointer;
-  width: auto;
-  margin-top: 5px;
-}
-
-.edit-profile-btn:hover {
-  background-color: darkgreen;
-}
-
 /* Upload Picture Button */
 .upload-btn {
   background-color: green;
@@ -316,19 +297,7 @@
   /* Slightly darker shade on hover */
 }
 
-.go-back-btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 100px;
-  display: inline-block;
-  transition: background-color 0.3s ease;
-}
-
+.go-back-btn,
 .view-properties-btn {
   padding: 10px 20px;
   background-color: #007bff;
@@ -337,8 +306,57 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  width: 150px; /* Fixed width for both buttons */
+  transition: background-color 0.3s ease;
+}
+
+.go-back-btn {
+  margin-right: 20px; /* Space between the buttons */
+  background-color: red;
+}
+
+.view-properties-btn {
+  margin-left: 20px; /* Optional: add space if needed */
 }
 
 .go-back-btn:hover {
   background-color: #0056b3;
+}
+
+.Profile-info {
+  display: flex; /* Align child elements horizontally */
+  justify-content: flex-start; /* Align items to the start of the container */
+  align-items: center; /* Vertically align items */
+  width: 100%;
+}
+
+.Profile-profilediv {
+  display: flex; /* Use flexbox for the content inside this div */
+  align-items: center; /* Vertically align items */
+  width: 100%; /* Ensure the div takes full width */
+}
+
+.profile-profiletitle {
+  color: #333333; /* Dark gray for a softer contrast than pure black */
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 10px; /* Space between the title and the button */
+  line-height: 1; /* Ensure the title's height is minimal for perfect alignment */
+  text-align: left; /* Align title to the left */
+  flex: 1; /* Allow title to take up available space */
+}
+
+.edit-profile-btn {
+  color: green; /* Text color for the button */
+  padding: 6px 10px; /* Reduced padding for smaller size */
+  font-size: 16px; /* Reduced font size */
+  cursor: pointer;
+  background-color: transparent; /* Remove background color */
+  border: none;
+  margin-top: 0; /* Ensure no margin for button to align perfectly */
+}
+
+.gray-hand-emoji {
+  color: gray; /* Apply gray color to the emoji */
+  filter: grayscale(100%);  /* Apply grayscale effect */
 }
