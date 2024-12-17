@@ -11,19 +11,7 @@
     "start": "vite"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.5.1",
-    "axios": "^1.7.7",
-    "bootstrap": "^5.3.3",
-    "cloudinary": "^2.5.1",
-    "cors": "^2.8.5",
-    "express": "^4.21.1",
-    "firebase": "^11.0.1",
-    "firebase-admin": "^13.0.1",
-    "groq-sdk": "^0.8.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-icons": "^5.3.0",
-    "react-router-dom": "^6.27.0"
+    "groq-sdk": "^0.8.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
