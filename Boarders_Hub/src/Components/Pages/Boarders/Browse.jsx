@@ -319,7 +319,7 @@ function Browse() {
                 See Details
               </button>
               
-              <div className="Save-icon" onClick={() => handleSave(room.id)}>
+              <div className="Save-icon" onClick={(e) => { e.stopPropagation(); handleSave(room.id);}}>
                 <BsBookmarkFill />
                 <span className="Tooltip-text">Save Room</span>
               </div>
