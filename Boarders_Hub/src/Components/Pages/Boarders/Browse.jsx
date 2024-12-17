@@ -295,7 +295,7 @@ function Browse() {
       </div>
       <div className="Room-card-container">
         {currentRooms.map((room) => (
-          <div key={room.id} className="Room-card">
+          <div key={room.id} className="Room-card" onClick={() => handleOpenModal(room)}>
             <div className="Room-card-image" style={{ backgroundImage: `url(${room.images[0]})` }}></div>
             <h2 className="Room-title">{room.RoomType}</h2>
 
