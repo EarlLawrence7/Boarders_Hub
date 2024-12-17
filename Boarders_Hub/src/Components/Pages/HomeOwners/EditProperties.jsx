@@ -120,7 +120,7 @@ function EditProperties() {
         setRoomImages([]); // Clear the roomImages state
 
         // Navigate back to the home or listings page
-        navigate("/home");
+        navigate("/properties");
       } catch (error) {
         console.error("Error updating listing: ", error);
         alert("Failed to update listing. Please try again.");
