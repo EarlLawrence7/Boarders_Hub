@@ -29,8 +29,8 @@ function AboutUs() {
     alert("Contact Us modal triggered!"); // Replace with actual modal logic
   };
 
-  
-  
+
+
   return (
     <div className="Home-container">
       <div className="Top-container">
@@ -96,112 +96,112 @@ function AboutUs() {
       </div>
 
       <div className="AboutUs-content">
-  <div className="AboutUs-inner-container">
-    <h1 className="AboutUs-title">ABOUT US</h1>
-    <p className="AboutUs-description">
-      Welcome to our project! We are a team of seven students from H2,
-      Group 1, collaborating on an innovative platform designed to streamline
-      room rentals and management. This project is part of our CPEPE361 class, 
-      and we are excited to showcase our work and the progress we've made. We look forward
-      to sharing our vision and demonstrating how our platform will simplify the rental process
-      for both landlords and tenants.
-    </p>
+        <div className="AboutUs-inner-container">
+          <h1 className="AboutUs-title">ABOUT US</h1>
+          <p className="AboutUs-description">
+            Welcome to our project! We are a team of seven students from H2,
+            Group 1, collaborating on an innovative platform designed to streamline
+            room rentals and management. This project is part of our CPEPE361 class,
+            and we are excited to showcase our work and the progress we've made. We look forward
+            to sharing our vision and demonstrating how our platform will simplify the rental process
+            for both landlords and tenants.
+          </p>
 
-     {/* Centered Image */}
-     <div className="AboutUs-image-container">
+          {/* Centered Image */}
+          <div className="AboutUs-image-container">
             <img
-              src="/public/Boardershub.png"
+              src="/public/Boarders_hub-removebg.png"
               alt="BoardersHub Logo"
               className="AboutUs-image"
             />
           </div>
-          
-    <div className="Team-info">
-  <h2 className="Team-title">Meet Our Team</h2>
-  <ul className="Team-members-list">
-    <li className="Team-member">
-      <img
-        src="/src/Components/Aboutuspictures/arbien.jpg"
-        alt="Arbien M. Armenion"
-        className="Team-member-img"
-      />
-      <div className="Team-member-name">Arbien M. Armenion</div>
-      <div className="Team-member-role">Co-Frontend Developer</div>
-    </li>
-    <li className="Team-member">
-      <img
-        src="/src/Components/Aboutuspictures/dan.jpg"
-        alt="Dan Vincent Y. Adlawan"
-        className="Team-member-img"
-      />
-      <div className="Team-member-name">Dan Vincent Y. Adlawan</div>
-      <div className="Team-member-role">Co-Frontend Developer</div>
-    </li>
-    <li className="Team-member">
-      <img
-        src="/src/Components/Aboutuspictures/daryl.jpg"
-        alt="Daryl D. Butar"
-        className="Team-member-img"
-      />
-      <div className="Team-member-name">Daryl D. Butar</div>
-      <div className="Team-member-role">Main Backend Developer</div>
-    </li>
-    <li className="Team-member">
-      <img
-        src="/src/Components/Aboutuspictures/jeremiah.jpg"
-        alt="Jeremiah Calbario"
-        className="Team-member-img"
-      />
-      <div className="Team-member-name">Jeremiah Calbario</div>
-      <div className="Team-member-role">Co-Backend Developer</div>
-    </li>
-    <li className="Team-member">
-      <img
-        src="/src/Components/Aboutuspictures/earl.jpg"
-        alt="Earl Lawrence O. Baguio"
-        className="Team-member-img"
-      />
-      <div className="Team-member-name">Earl Lawrence O. Baguio</div>
-      <div className="Team-member-role">Main Frontend Developer</div>
-    </li>
-    <li className="Team-member">
-      <img
-        src="/src/Components/Aboutuspictures/Nicko.jpg"
-        alt="Nicko Louis Adora"
-        className="Team-member-img"
-      />
-      <div className="Team-member-name">Nicko Louis Adora</div>
-      <div className="Team-member-role">Co-Frontend Developer</div>
-    </li>
-    <li className="Team-member">
-      <img
-        src="/src/Components/Aboutuspictures/Daniel image.jpg"
-        alt="Daniel Montesclaros"
-        className="Team-member-img"
-      />
-      <div className="Team-member-name">Daniel M. Montesclaros</div>
-      <div className="Team-member-role">Co-Frontend Developer & Tester</div>
-    </li>
-  </ul>
-</div>
+
+          <div className="Team-info">
+            <h2 className="Team-title">Meet Our Team</h2>
+            <ul className="Team-members-list">
+              <li className="Team-member">
+                <img
+                  src="/src/Components/Aboutuspictures/arbien.jpg"
+                  alt="Arbien M. Armenion"
+                  className="Team-member-img"
+                />
+                <div className="Team-member-name">Arbien M. Armenion</div>
+                <div className="Team-member-role">Co-Frontend Developer</div>
+              </li>
+              <li className="Team-member">
+                <img
+                  src="/src/Components/Aboutuspictures/dan.jpg"
+                  alt="Dan Vincent Y. Adlawan"
+                  className="Team-member-img"
+                />
+                <div className="Team-member-name">Dan Vincent Y. Adlawan</div>
+                <div className="Team-member-role">Co-Frontend Developer</div>
+              </li>
+              <li className="Team-member">
+                <img
+                  src="/src/Components/Aboutuspictures/daryl.jpg"
+                  alt="Daryl D. Butar"
+                  className="Team-member-img"
+                />
+                <div className="Team-member-name">Daryl D. Butar</div>
+                <div className="Team-member-role">Main Backend Developer</div>
+              </li>
+              <li className="Team-member">
+                <img
+                  src="/src/Components/Aboutuspictures/jeremiah.jpg"
+                  alt="Jeremiah Calbario"
+                  className="Team-member-img"
+                />
+                <div className="Team-member-name">Jeremiah Calbario</div>
+                <div className="Team-member-role">Co-Backend Developer</div>
+              </li>
+              <li className="Team-member">
+                <img
+                  src="/src/Components/Aboutuspictures/earl.jpg"
+                  alt="Earl Lawrence O. Baguio"
+                  className="Team-member-img"
+                />
+                <div className="Team-member-name">Earl Lawrence O. Baguio</div>
+                <div className="Team-member-role">Main Frontend Developer</div>
+              </li>
+              <li className="Team-member">
+                <img
+                  src="/src/Components/Aboutuspictures/Nicko.jpg"
+                  alt="Nicko Louis Adora"
+                  className="Team-member-img"
+                />
+                <div className="Team-member-name">Nicko Louis Adora</div>
+                <div className="Team-member-role">Co-Frontend Developer</div>
+              </li>
+              <li className="Team-member">
+                <img
+                  src="/src/Components/Aboutuspictures/Daniel image.jpg"
+                  alt="Daniel Montesclaros"
+                  className="Team-member-img"
+                />
+                <div className="Team-member-name">Daniel M. Montesclaros</div>
+                <div className="Team-member-role">Co-Frontend Developer & Tester</div>
+              </li>
+            </ul>
+          </div>
 
 
-    <div className="Project-info">
-      <h2 className="Project-title">Our Project</h2>
-      <p className="Project-description">
-      This project aims to create a platform for easy room rentals and management, providing an efficient and user-friendly experience for homeowners and tenants. Our goal is to streamline the rental process, making it easier for both parties to manage listings, payments, and communication.
-      </p>
-    </div>
-  </div>
-</div>
-<footer className="footer-container">
+          <div className="Project-info">
+            <h2 className="Project-title">Our Project</h2>
+            <p className="Project-description">
+              This project aims to create a platform for easy room rentals and management, providing an efficient and user-friendly experience for homeowners and tenants. Our goal is to streamline the rental process, making it easier for both parties to manage listings, payments, and communication.
+            </p>
+          </div>
+        </div>
+      </div>
+      <footer className="footer-container">
         <div className="footer-wrapper">
           <div className="footer-copyright">
             <p className="footer-copyright">&copy; 2024 Boarders Hub. All rights reserved.</p>
           </div>
         </div>
       </footer>
-</div> // Close Home-container
+    </div> // Close Home-container
   );
 }
 

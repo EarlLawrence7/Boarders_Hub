@@ -132,8 +132,8 @@ function Modal({ room, onClose }) {
                 <span>{room.owner.messenger}</span>
               </div>
               <div className="Contact-row">
-              <img src="instagram.png" alt="Instagram" className="instagram-icon" />
-              <span>{room.owner.instagram}</span>
+                <img src="instagram.png" alt="Instagram" className="instagram-icon" />
+                <span>{room.owner.instagram}</span>
               </div>
             </div>
 
@@ -298,7 +298,8 @@ function Browse() {
           <div key={room.id} className="Room-card">
             <div className="Room-card-image" style={{ backgroundImage: `url(${room.images[0]})` }}></div>
             <h2 className="Room-title">{room.RoomType}</h2>
-            <p className="Room-summary">{room.shortDescription}</p>
+
+            <div className="Card-divider"></div>
             <div className="Card-footer">
               {room.owner.profilePicture ? (
                 <div className="Profile-picture-container">
@@ -333,7 +334,7 @@ function Browse() {
         </button>
       </div>
       {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} />}
-      
+
     </div>
   );
 }
