@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from "react";
-import "./Properties.css"; // Import the CSS file
-import { FaArrowRight } from 'react-icons/fa'; // Import the arrow icon
-import { AiOutlineSearch } from "react-icons/ai"; // Import the search icon
+import "./Properties.css"; 
+import { FaArrowRight } from 'react-icons/fa'; 
+import { AiOutlineSearch } from "react-icons/ai"; 
 import { auth, handleLogout, redirectToLoginIfLoggedOut, useUserProfile, fetchListings, handleDeleteListing } from '../Login/firebaseConfig';
 import { useNavigate, Link } from 'react-router-dom';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+
+// Fetch user details (fullName or nickname) based on tenantId
+const fetchUserDetails = async (tenantId) => {
+  const db = getFirestore();
+  const userDocRef = doc(db, 'users', tenantId);
+  const userDoc = await getDoc(userDocRef);
+  if (userDoc.exists()) {
+    return userDoc.data();
+  } else {
+    console.log("No such user!");
+    return null;
+  }
+};
 
 // Delete Confirmation Modal
 function DeleteConfirmationModal({ onClose, onConfirm }) {
@@ -38,7 +52,7 @@ function Modal({ room, onClose, onDelete }) {
   };
 
   const handleEditListing = (roomId) => {
-    navigate("/edit", { state: { roomId } }); // Pass only roomId
+    navigate("/edit", { state: { roomId } });
   };
 
   const handleDeleteClick = () => {
@@ -99,13 +113,15 @@ function Properties() {
   const [expandedRoom, setExpandedRoom] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rooms, setRooms] = useState([]);  // State to hold rooms fetched from Firestore
-  const [searchQuery, setSearchQuery] = useState(""); // Search state
-  const roomsPerPage = 8;
-  const navigate = useNavigate();
+  const [rooms, setRooms] = useState([]); 
   const [userData, setUserData] = useState({
     profilePicture: "",
   });
+  const [tenantDetails, setTenantDetails] = useState({}); // State to hold tenant details
+  const roomsPerPage = 8;
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState(""); 
+
   const filteredRooms = rooms.filter((room) =>
     room.RoomType.toLowerCase().includes(searchQuery.toLowerCase()) ||
     room.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -118,10 +134,18 @@ function Properties() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const roomList = await fetchListings(); // Fetch all rooms
-        const userEmail = auth.currentUser.email; // Get the logged-in user's email
-        const userOwnedRooms = roomList.filter(room => room.owner.email === userEmail); // Filter by email
-        setRooms(userOwnedRooms); // Update state with filtered rooms
+        const roomList = await fetchListings();
+        const userEmail = auth.currentUser.email; 
+        const userOwnedRooms = roomList.filter(room => room.owner.email === userEmail); 
+        setRooms(userOwnedRooms);
+
+        // Fetch tenant details for each room
+        const roomsWithTenantDetails = await Promise.all(userOwnedRooms.map(async (room) => {
+          const tenantData = await fetchUserDetails(room.tenantId);
+          return { ...room, tenantName: tenantData ? tenantData.fullName : "Unknown" };
+        }));
+
+        setRooms(roomsWithTenantDetails);
       } catch (error) {
         console.error("Error fetching rooms:", error);
       }
@@ -130,7 +154,7 @@ function Properties() {
   }, []);
 
   const handleGoBack = () => {
-    navigate(-1); // Navigate to the previous page
+    navigate(-1); 
   };
 
   const indexOfLastRoom = currentPage * roomsPerPage;
@@ -161,18 +185,15 @@ function Properties() {
     setExpandedRoom(null);
   };
 
-  // Handle Deletion of Listing
   const handleDelete = async (listingId) => {
     try {
-      await handleDeleteListing(listingId); // Call the function to delete the listing
-      // Remove the deleted room from the state
+      await handleDeleteListing(listingId);
       setRooms((prevRooms) => prevRooms.filter(room => room.id !== listingId));
-      handleCloseModal(); // Close the modal after successful deletion
+      handleCloseModal();
     } catch (error) {
       console.error("Error deleting listing:", error);
     }
   };
-  
 
   const handleViewRequests = (room) => {
     navigate("/view-requests", { state: { roomId: room.id } });
@@ -182,11 +203,7 @@ function Properties() {
     <div className="Properties-container">
       <div className="Top-container">
         <a href="/home">
-          <img
-            src="Boardershub.png"
-            alt="Logo"
-            className="Logo-image"
-          />
+          <img src="Boardershub.png" alt="Logo" className="Logo-image" />
         </a>
         <div className="Search-wrapper">
           <AiOutlineSearch className="Search-icon" />
@@ -222,15 +239,15 @@ function Properties() {
           </div>
         </div>
       </div>
-      {currentRooms.length > 0 ? ( // Use filteredRooms here
+      {currentRooms.length > 0 ? (
       <div className="Room-card-container1">
         {currentRooms.map((room) => (
           <div key={room.id} className="Room-card1">
             <div className="Room-card-image1" style={{ backgroundImage: `url(${room.images[0]})` }}></div>
             <h2 className="Room-title">{room.RoomType}</h2>
             <p className="Room-summary">{room.shortDescription}</p>
-            <p className="Occupied-Room">Occupied by Daniel Gwapo</p>
-            <p className="Available-Room" >Available Room</p> 
+            <p className="Occupied-Room">Occupied by {room.tenantName}</p>
+            <p className="Available-Room">Status: {room.status}</p> 
             <div className="Card-footer1">
               <button className="Pendings-button" onClick={() => handleViewRequests(room)}>
                 View Requests
