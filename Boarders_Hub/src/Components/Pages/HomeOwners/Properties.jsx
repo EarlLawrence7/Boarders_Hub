@@ -246,7 +246,9 @@ function Properties() {
             <div className="Room-card-image1" style={{ backgroundImage: `url(${room.images[0]})` }}></div>
             <h2 className="Room-title">{room.RoomType}</h2>
             <p className="Room-summary">{room.shortDescription}</p>
-            <p className="Occupied-Room">Occupied by {room.tenantName}</p>
+            {room.tenantName !== "Unknown" && (
+              <p className="Occupied-Room">Occupied by {room.tenantName}</p>
+            )}
             <p className="Available-Room">Status: {room.status}</p> 
             <div className="Card-footer1">
               <button className="Pendings-button" onClick={() => handleViewRequests(room)}>
