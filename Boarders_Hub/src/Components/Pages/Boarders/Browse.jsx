@@ -314,9 +314,11 @@ function Browse() {
                   {room.owner.fullName ? room.owner.fullName.split(' ').map(name => name.charAt(0).toUpperCase()).join('') : 'NA'}
                 </div>
               )}
+              {/* 
               <button className="Details-button" onClick={() => handleOpenModal(room)}>
                 See Details
               </button>
+              */}
               <div className="Save-icon" onClick={() => handleSave(room.id)}>
                 <BsBookmarkFill />
                 <span className="Tooltip-text">Save Room</span>
