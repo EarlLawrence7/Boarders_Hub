@@ -194,6 +194,13 @@ function AboutUs() {
     </div>
   </div>
 </div>
+<footer className="footer-container">
+        <div className="footer-wrapper">
+          <div className="footer-copyright">
+            <p className="footer-copyright">&copy; 2024 Boarders Hub. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
 </div> // Close Home-container
   );
 }

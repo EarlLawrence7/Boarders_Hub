@@ -117,12 +117,6 @@ function Home() {
               Add Listings
             </button>
             <button
-              onClick={() => navigate("/view-tenants")}
-              className="dropdown-item"
-            >
-              View Tenants
-            </button>
-            <button
               onClick={() => navigate("/Properties")}
               className="dropdown-item"
             >
@@ -217,7 +211,17 @@ function Home() {
 
       {/* Include the Contact Us modal here */}
       <ContactUs showModal={showContactModal} setShowModal={setShowContactModal} />
+
+      <footer className="footer-container">
+        <div className="footer-wrapper">
+          <div className="footer-copyright">
+            <p className="footer-copyright">&copy; 2024 Boarders Hub. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
+
+    
   );
 }
 

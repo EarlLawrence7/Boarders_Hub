@@ -21,6 +21,7 @@
 }
 
 /* Profile Info Section */
+/* Profile-info */
 .Profile-info {
   margin-top: 20px;
   color: rgb(0, 0, 0);
@@ -33,15 +34,14 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  /* Align sections vertically */
-  gap: 20px;
-  /* Space between sections */
+  gap: 20px;  /* Space between sections */
   justify-content: center;
-  align-items: flex-start;
-  /* Align items to the left */
+  align-items: flex-start;  /* Align items to the left */
+  min-height: 300px;  /* Set a minimum height for both containers */
   margin-top: 150px;
 }
 
+/* Container2 */
 .container2 {
   margin-top: 20px;
   color: rgb(0, 0, 0);
@@ -54,12 +54,10 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  /* Align sections vertically */
-  gap: 20px;
-  /* Space between sections */
+  gap: 20px;  /* Space between sections */
   justify-content: center;
-  align-items: flex-start;
-  /* Align items to the left */
+  align-items: flex-start;  /* Align items to the left */
+  min-height: 300px;  /* Set a minimum height for both containers */
   margin-top: 150px;
 }
 
@@ -86,7 +84,6 @@
   border-radius: 60%;
   object-fit: cover;
   display: block;
-  vertical-align: middle;
 }
 .instagram-icon {
   width: 30px;
@@ -94,7 +91,6 @@
   border-radius: 60%;
   object-fit: cover;
   display: block;
-  vertical-align: middle;
 }
 
 /* Text container for nickname and full name */
