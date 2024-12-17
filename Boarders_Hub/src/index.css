@@ -52,7 +52,6 @@
   }
 }
 
-
 /* Search Bar Wrapper */
 .Search-wrapper {
   display: flex;
@@ -60,9 +59,11 @@
   background-color: #fff;
   border-radius: 50px;
   padding: 0.1rem;
-  width: 500px;
-  /* Adjust width as needed */
+  width: 50%; /* Use percentage for responsiveness */
+  max-width: 500px; /* Max width when the screen is large */
+  min-width: 250px; /* Min width when the screen is small */
   margin-left: 1rem;
+  transition: width 0.3s ease; /* Smooth transition for resizing */
 }
 
 /* Search Icon */
@@ -121,7 +122,6 @@
   font-weight: bold;
 }
 
-
 /* Profile Icon Wrapper */
 .Profile-icon-wrapper {
   display: flex;
@@ -148,7 +148,7 @@
   position: absolute;
   top: 45px;
   /* Adjust the top position to align with the profile icon */
-  left: -150x;
+  left: -150px;
   /* Slightly adjust horizontal positioning */
   background-color: rgb(51, 0, 0);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
