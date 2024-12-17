@@ -102,19 +102,26 @@
   transition: transform 0.2s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 8px; /* Small gap between elements */
   width: 360px;
-  /* Fixed width for each card */
   height: 280px;
-  /* Fixed height for each card */
   color: white;
   overflow: hidden;
-  /* Prevent content overflow */
   box-sizing: border-box;
-  /* Ensure padding and border are included in width/height */
   z-index: 1;
-  /* Keep the content above the background */
 }
+
+/* Room title */
+.Room-title {
+  margin-bottom: 5px;
+}
+
+/* Room description */
+.Room-summary {
+  margin-bottom: 5px;
+}
+
 
 /* Room card background image */
 .Room-card-image {
@@ -156,10 +163,3 @@
 }
 
 
-.Room-title {
-  margin-bottom: 10px;  /* Adjust this value */
-}
-.Room-summary {
-  margin-bottom: 10px;  /* Adjust this value */
-  padding: 0;  /* Remove any extra padding */
-}

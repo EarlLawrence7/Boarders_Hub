@@ -214,7 +214,7 @@ function SavedRooms() {
                     backgroundImage: `url(${room.images && room.images.length > 0 ? room.images[0] : "default-room-image.png"})`,
                   }}
                 ></div>
-                <h2 className="Room-title">{room.RoomType || "Room Type Unavailable"}</h2>
+                <h3 className="Room-title">{room.RoomType || "Room Type Unavailable"}</h3>
                 <p className="Room-summary">{room.shortDescription || "Description not available"}</p>
                 <p className="Room-summary">{room.price || "Price not listed"}</p>
                 <div className="Card-footer">
