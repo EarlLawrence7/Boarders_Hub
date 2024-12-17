@@ -3,16 +3,85 @@ import "./SavedRooms.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { auth, handleRemoveRoom, fetchSavedRooms, handleLogout, redirectToLoginIfLoggedOut, useUserProfile } from "../Login/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { BsBookmarkFill } from "react-icons/bs";
+
+function Modal({ room, onClose }) {
+  const [showAllImages, setShowAllImages] = useState(true);
+  const user = auth.currentUser;
+  const userId = user.uid;
+  const navigate = useNavigate();
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains('Modal-overlay')) {
+      onClose();
+    }
+  };
+
+  // Handle Rent request and other button actions
+  const handleRentNow = () => {
+    alert("You have clicked Rent Now!");
+    onClose();
+  };
+
+  const handleEditListing = (roomId) => {
+    navigate("/edit", { state: { roomId } });
+  };
+
+  const handleContactOwner = () => {
+    alert("Contacting the owner...");
+  };
+
+  return (
+    <div className="Modal-overlay" onClick={handleOverlayClick}>
+      <div className="Modal-content">
+        <button className="Close-button" onClick={onClose}>✖</button>
+        <h2>{room.RoomType}</h2>
+        <p><strong>Location:</strong> {room.location}</p>
+        <p><strong>Price:</strong> {room.price}</p>
+        <p><strong>Details:</strong> {room.details}</p>
+        {/* Safely access room.owner */}
+        <p><strong>Owner:</strong> {room.owner ? room.owner.fullName : 'Owner details not available'}</p>
+        {room.images && room.images.length > 0 && (
+          <div className="Room-images">
+            <img src={room.images[0]} alt="Room Image" />
+            {showAllImages && room.images.length > 1 && (
+              <div className="Room-images-scrollable">
+                {room.images.slice(1).map((image, index) => (
+                  <img key={index} src={image} alt={`Room Image ${index + 1}`} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="Modal-buttons-container">
+          {userId !== room.ownerId ? (
+            <>
+              <button className="Rent-button" onClick={handleRentNow}>Rent now</button>
+              <button className="Contact-button" onClick={handleContactOwner}>Contact Owner</button>
+            </>
+          ) : (
+            <>
+              <p>You are the owner of this room.</p>
+              <button className="Contact-button" onClick={() => handleEditListing(room.id)}>Edit listing</button>
+              <button className="Rent-button" onClick={onClose}>Go back</button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function SavedRooms() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [savedRooms, setSavedRooms] = useState([]); // State to hold saved rooms
+  const [savedRooms, setSavedRooms] = useState([]);
+  const [expandedRoom, setExpandedRoom] = useState(null); // State to manage the expanded room
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({
-    profilePicture: "",
-  });
-  const [loading, setLoading] = useState(true); // To handle loading state
+  const [userData, setUserData] = useState({ profilePicture: "" });
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+
   const filteredRooms = savedRooms.filter((room) =>
     room.RoomType.toLowerCase().includes(searchQuery.toLowerCase()) ||
     room.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -26,28 +95,28 @@ function SavedRooms() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const user = auth.currentUser; // Get the current user
+        const user = auth.currentUser;
         if (user) {
-          const savedRoomsData = await fetchSavedRooms(user.uid); // Fetch saved rooms from Firestore
+          const savedRoomsData = await fetchSavedRooms(user.uid);
           setSavedRooms(savedRoomsData);
         }
       } catch (error) {
         console.error("Error fetching saved rooms:", error);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       }
     };
 
     fetchRooms();
-  }, [auth.currentUser]); // Re-fetch when auth.currentUser changes
+  }, [auth.currentUser]);
 
   // Remove a saved room
   const handleRemoveRoomButton = async (roomId) => {
-    const user = auth.currentUser; // Get the current user
+    const user = auth.currentUser;
     if (user) {
-      await handleRemoveRoom(user.uid, roomId); // Call the function with userId and roomId
+      await handleRemoveRoom(user.uid, roomId);
       const updatedRooms = savedRooms.filter((room) => room.id !== roomId);
-      setSavedRooms(updatedRooms); // Update local state
+      setSavedRooms(updatedRooms);
       alert("Room removed from saved rooms.");
     }
   };
@@ -56,11 +125,19 @@ function SavedRooms() {
     setDropdownVisible((prev) => !prev);
   };
 
+  const handleOpenModal = (room) => {
+    setExpandedRoom(room);
+  };
+
+  const handleCloseModal = () => {
+    setExpandedRoom(null);
+  };
+
   if (loading) {
     return (
       <div className="loading-container">
-        <div className="spinner"></div> {/* Add a spinner or loading animation */}
-        <p>Loading your saved rooms...</p> {/* Loading text */}
+        <div className="spinner"></div>
+        <p>Loading your saved rooms...</p>
       </div>
     );
   }
@@ -127,29 +204,21 @@ function SavedRooms() {
       </div>
       <main>
         <h1 className="SavedRoom-title">Your Saved Rooms</h1>
-        {filteredRooms.length > 0 ? ( // Use filteredRooms here
+        {filteredRooms.length > 0 ? (
           <div className="saved-card-container">
-            {filteredRooms.map((room) => ( // Use filteredRooms here
-              <div key={room.id} className="Room-card">
+            {filteredRooms.map((room) => (
+              <div key={room.id} className="Room-card" onClick={() => handleOpenModal(room)}>
                 <div
                   className="Room-card-image"
                   style={{
-                    backgroundImage: `url(${room.images && room.images.length > 0
-                      ? room.images[0]
-                      : "default-room-image.png"
-                      })`,
+                    backgroundImage: `url(${room.images && room.images.length > 0 ? room.images[0] : "default-room-image.png"})`,
                   }}
                 ></div>
-
                 <h2 className="Room-title">{room.RoomType || "Room Type Unavailable"}</h2>
                 <p className="Room-summary">{room.shortDescription || "Description not available"}</p>
-                <p className="Room-price">{room.price || "Price not listed"}</p>
-
+                <p className="Room-summary">{room.price || "Price not listed"}</p>
                 <div className="Card-footer">
-                  <button
-                    className="Delete-button"
-                    onClick={() => handleRemoveRoomButton(room.id)}
-                  >
+                  <button className="Delete-button" onClick={() => handleRemoveRoomButton(room.id)}>
                     Remove
                   </button>
                 </div>
@@ -157,10 +226,10 @@ function SavedRooms() {
             ))}
           </div>
         ) : (
-          <p className="SavedRoom-empty">No rooms match your search!</p> // Updated message
+          <p className="SavedRoom-empty">No rooms match your search!</p>
         )}
       </main>
-
+      {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} />}
     </div>
   );
 }

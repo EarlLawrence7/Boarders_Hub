@@ -156,3 +156,10 @@
 }
 
 
+.Room-title {
+  margin-bottom: 10px;  /* Adjust this value */
+}
+.Room-summary {
+  margin-bottom: 10px;  /* Adjust this value */
+  padding: 0;  /* Remove any extra padding */
+}
