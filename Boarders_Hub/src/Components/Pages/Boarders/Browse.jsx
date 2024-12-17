@@ -326,6 +326,7 @@ function Browse() {
         </button>
       </div>
       {expandedRoom && <Modal room={expandedRoom} onClose={handleCloseModal} />}
+      
     </div>
   );
 }

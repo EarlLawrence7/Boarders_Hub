@@ -183,3 +183,33 @@
   background-color: transparent;
   /* Make track transparent */
 }
+
+/* Footer Container */
+.footer-container {
+  margin-top: 30px;
+  background-color: rgb(56, 56, 56);
+  color: white;
+  padding: 10px 0;  /* Reduced padding for smaller height */
+  text-align: left;
+  width: 100%;
+  flex-shrink: 0;  /* Prevent footer from shrinking */
+  display: flex;  /* Use flexbox */
+  justify-content: center;  /* Horizontally center content */
+  align-items: center;  /* Vertically center content */
+  height: 50px;  /* Set a fixed height for the footer */
+}
+
+/* Wrapper for Footer Content */
+.footer-wrapper {
+  width: 100%;  /* Ensures the wrapper also takes up the full width */
+  display: flex;  /* Flexbox for centering */
+  justify-content: center;  /* Center the content horizontally */
+  align-items: center;  /* Center the content vertically */
+}
+
+/* Footer Copyright */
+.footer-copyright {
+  font-size: 12px;  /* Reduced font size for a smaller footer */
+  padding: 0;  /* Remove padding */
+  margin-bottom: 0;  /* Remove any margin */
+}
