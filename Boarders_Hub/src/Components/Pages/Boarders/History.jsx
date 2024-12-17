@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { auth, db, collection, getDocs, updateDoc, doc, useUserProfile, redirectToLoginIfLoggedOut } from '../Login/firebaseConfig';
+import { auth, db, collection, getDocs, updateDoc, doc, useUserProfile, handleLogout, redirectToLoginIfLoggedOut } from '../Login/firebaseConfig';
 import { onAuthStateChanged } from "firebase/auth";
 import "./History.css";
 
@@ -189,7 +189,7 @@ function History() {
             <button onClick={() => navigate("/profile")} className="dropdown-item">View Profile</button>
             <button onClick={() => navigate("/add-listing")} className="dropdown-item">Add Listings</button>
             <button onClick={() => navigate("/view-properties")} className="dropdown-item">View Properties</button>
-            <button onClick={() => navigate("/logout")} className="dropdown-item">Logout</button>
+            <button onClick={() => handleLogout(navigate)} className="dropdown-item">Logout</button>
           </div>
         </div>
       </div>
